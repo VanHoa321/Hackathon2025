@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class PasswordReset extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "name",
-        "description",
-        "is_active"
+        "email",
+        "token",
+        "created_at"
     ];
-
-    protected $primaryKey = 'id';
-    protected $table = 'tags';
+    protected $table = 'password_reset_tokens';
     public $timestamps = false;
 }

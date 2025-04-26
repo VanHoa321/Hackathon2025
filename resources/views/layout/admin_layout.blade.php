@@ -53,9 +53,9 @@
                             <i class="fas fa-phone mr-3"></i>{{Auth::user()->phone}}
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="" class="dropdown-item dropdown-footer text-info">Chi tiết</a>
+                        <a href="{{ route("profile") }}" class="dropdown-item dropdown-footer text-info">Chi tiết</a>
                         <div class="dropdown-divider"></div>
-                        <a href="" class="dropdown-item dropdown-footer text-danger">Đăng xuất</a>
+                        <a href="{{ route("logout") }}" class="dropdown-item dropdown-footer text-danger">Đăng xuất</a>
                     </div>
                 </li>
 
@@ -82,7 +82,7 @@
                         <img src="{{(Auth::user()->avatar ? Auth::user()->avatar : "http://127.0.0.1:8000/storage/files/1/Avatar/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="" class="d-block">{{Auth::user()->name}}</a>
+                        <a href="{{ route("profile") }}" class="d-block">{{Auth::user()->name}}</a>
                     </div>
                 </div>
                 <x-menu-component />
@@ -196,9 +196,9 @@
             if (initialUrl) {
                 $('#holder').attr('src', initialUrl);
             } else {
-                $('#holder').attr('src', '/storage/files/1/Item/no-image.jpg');
+                $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
-            $('#lfm').filemanager('file');//đổi qua file nếu muốn upload video
+            $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
                 var route_prefix = '/files-manager';
                 window.open(route_prefix + '?type=file', 'FileManager', 'width=700,height=400');

@@ -33,7 +33,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div>
-                                    <a type="button" class="btn btn-success" href="#">
+                                    <a type="button" class="btn btn-success" href="{{ route('admin-sidebar.create') }}">
                                         <i class="fa-solid fa-plus" title="Thêm mới Menu"></i>
                                     </a>
                                 </div>
@@ -73,7 +73,10 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $menu->id }}" title="Xóa thẻ tag">
+                                                <a href="{{route('admin-sidebar.edit', $menu->id)}}" class="btn btn-info btn-sm" title="Sửa Menu">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $menu->id }}" title="Xóa Menu">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             </td>
@@ -98,7 +101,7 @@
                 var check = $(this);
                 const id = check.val();
                 $.ajax({
-                    url: "/item/item-category/change/" + id,
+                    url: "/admin/admin-sidebar/change/" + id,
                     type: "POST",
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -118,7 +121,7 @@
                 e.preventDefault();
                 const id = $(this).data('id');
                 Swal.fire({
-                    title: "Xác nhận xóa danh mục?",
+                    title: "Xác nhận xóa Menu?",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
@@ -127,17 +130,17 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/item/item-category/destroy/" + id,
+                            url: "/admin/admin-sidebar/destroy/" + id,
                             type: "DELETE",
                             data: {
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
                                 toastr.success(response.message);
-                                $('#itemCategory-' + id).remove();
+                                $('#menu-' + id).remove();
                             },
                             error: function(xhr) {
-                                toastr.error('Có lỗi khi xóa danh mục');
+                                toastr.error('Có lỗi khi xóa Menu');
                             }
                         });
                     }

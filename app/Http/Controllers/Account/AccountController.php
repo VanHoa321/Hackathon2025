@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -26,11 +27,13 @@ class AccountController extends Controller
             }
     
             if (Auth::attempt(["user_name" => $request->user_name, "password" => $request->password, "role_id" => 1])) {
+                $user->update(['last_login' => now()]);
                 $request->session()->put("messenge", ["style" => "success", "msg" => "Đăng nhập quyền quản trị thành công"]);
                 return redirect()->route("tag.index");
             }
             elseif (Auth::attempt(["user_name" => $request->user_name, "password" => $request->password, "role_id" => 2])) {
-                $request->session()->put("messenge", ["style" => "success", "msg" => "Đăng nhập quyền đơn vị sử dụng thành công"]);
+                $user->update(['last_login' => now()]);
+                $request->session()->put("messenge", ["style" => "success", "msg" => "Đăng nhập quyền người dùng thành công"]);
                 return redirect()->route("homeU.index");
             }
         }
@@ -43,7 +46,49 @@ class AccountController extends Controller
         return redirect()->route("login");
     }
 
-    public function test(){
-        return view("backend.home");
+    public function profile(){
+        $user = Auth::user();
+        return view('account.profile', compact('user'));
+    }
+
+    public function editProfile(){
+        $user = Auth::user();
+        return view('account.edit_profile', compact("user"));
+    }
+
+    public function updateProfile(Request $request){
+        $oldUser = Auth::user();
+        $id = $oldUser->id;
+        $update = User::find($id);
+        $data = [
+            'name' => $request->name,
+            'email'=> $request->email,
+            'phone'=> $request->phone,
+            'address'=> $request->address,
+            'avatar'=> $request->avatar,
+            'description'=> $request->description,
+        ];
+        $update->update($data);
+        $request->session()->put("messenge", ["style" => "success", "msg" => "Cập nhật hồ sơ thành công"]);
+        return redirect()->route('profile');
+    }
+
+    public function editPassword(){
+        $user = Auth::user();
+        return view('account.edit_password', compact("user"));
+    }
+
+    public function updatePassword(Request $request){
+        $user = Auth::user();
+        if (!Hash::check($request->old_password, $user->password)) {
+            $request->session()->put("messenge", ["style" => "danger", "msg" => "Mật khẩu cũ không đúng"]);
+            return redirect()->back();
+        }
+        $id = $user->id;
+        $update = User::find($id);
+        $update->password = Hash::make($request->new_password);
+        $update->save();
+        $request->session()->put("messenge", ["style" => "success", "msg" => "Cập nhật mật khẩu thành công"]);
+        return redirect()->route('profile');
     }
 }

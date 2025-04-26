@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class ProductCategory extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         "name",
         "description",
@@ -15,6 +16,6 @@ class Tag extends Model
     ];
 
     protected $primaryKey = 'id';
-    protected $table = 'tags';
+    protected $table = 'product_categories';
     public $timestamps = false;
 }

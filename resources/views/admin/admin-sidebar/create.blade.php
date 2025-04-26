@@ -22,16 +22,12 @@
                 </div>
             @endif
         </section>
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">Điền các trường dữ liệu</h3>                               
-                            </div>
-                            <form method="post" action="{{route("admin-menu.store")}}" id="quickForm">
+                        <div class="card card-primary">
+                            <form method="post" action="{{route("admin-sidebar.store")}}" id="quickForm">
                                 @csrf
                                 <div class="card-body">                                
                                     <div class="row">
@@ -51,25 +47,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Route</label>
-                                                <input type="text" name="route" value="{{ old('route') }}" class="form-control" placeholder="Nhập Route Menu">
-                                            </div>
-                                        </div> 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Menu cha</label>
-                                                <select name="parent" class="form-control select2bs4">
-                                                    <option value="0" {{ old('parent') == 0 ? 'selected' : '' }}>---Chọn Menu cha---</option>
-                                                    @foreach($items as $item)
-                                                        <option value="{{$item->id}}" {{ old('parent') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>                                     
-                                    </div>                                   
+                                    <div class="form-group">
+                                        <label>Menu cha</label>
+                                        <select name="parent" class="form-control select2bs4" style="width: 100%">
+                                            <option value="0" {{ old('parent') == 0 ? 'selected' : '' }}>---Chọn Menu cha---</option>
+                                            @foreach($items as $item)
+                                                <option value="{{$item->id}}" {{ old('parent') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -83,17 +69,28 @@
                                                 <input type="text" name="icon" value="{{ old('icon') }}" class="form-control" placeholder="Nhập Icon Menu">
                                             </div>
                                         </div>
-                                    </div>                                                                                                                  
-                                    <div class="form-group pt-2">
-                                        <label for="is_active">Trạng thái</label>
-                                        <div class="icheck-success d-inline" style="margin-left:10px">
-                                            <input type="checkbox" name="is_active" id="checkboxSuccess1" value="1" {{ old('is_active') ? 'checked' : '' }}>
-                                            <label for="checkboxSuccess1"></label>
-                                        </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Route</label>
+                                                <input type="text" name="route" value="{{ old('route') }}" class="form-control" placeholder="Nhập Route menu">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Phân quyền</label>
+                                                <select name="role_id" class="form-control select2bs4" style="width: 100%">
+                                                    @foreach($roles as $item)
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>                                                                                                               
                                 </div>
                                 <div class="card-footer">
-                                    <a href="{{route('admin-menu.index')}}" class="btn btn-warning"><i class="fa-solid fa-rotate-left" style="color:white" title="Quay lại"></i></a>
+                                    <a href="{{route('admin-sidebar.index')}}" class="btn btn-warning"><i class="fa-solid fa-rotate-left" style="color:white" title="Quay lại"></i></a>
                                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" title="Lưu"></i></button>
                                 </div>
                             </form>
