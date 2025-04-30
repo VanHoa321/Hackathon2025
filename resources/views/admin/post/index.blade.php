@@ -6,8 +6,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="#" class="text-info">Bài viết</a></li>
-                            <li class="breadcrumb-item active text-secondary">Tag bài viết</li>
+                            <li class="breadcrumb-item"><a href="#" class="text-info">Quản lý bài viết</a></li>
+                            <li class="breadcrumb-item active text-info"><a href="{{ route('admin-post.index') }}" class="text-info">Danh sách bài viết</a></li>
                         </ol>
                     </div>
                 </div>
@@ -32,9 +32,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div>   
-                                    <a type="button" class="btn btn-success" href="{{route('tag.create')}}">
-                                        <i class="fa-solid fa-plus" title="Thêm mới thẻ tag"></i>
+                                <div>
+                                    <a type="button" class="btn btn-success" href="{{ route('admin-post.create') }}">
+                                        <i class="fa-solid fa-plus" title="Thêm mới bài viết"></i>
                                     </a>
                                 </div>
                             </div>
@@ -43,7 +43,11 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tiêu đề thẻ tag</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Phân loại</th>
+                                            <th>Tác giả</th>
+                                            <th>Ngày đăng</th>
                                             <th>Trạng thái</th>
                                             <th>Chức năng</th>
                                         </tr>
@@ -53,9 +57,17 @@
                                             $counter = 1;
                                         @endphp
                                         @foreach ($items as $item)
-                                            <tr id="tag-{{ $item->id }}">
+                                            <tr id="post-{{ $item->id }}">
                                                 <td>{{ $counter++ }}</td>
-                                                <td>{{ $item->name }}</td>
+                                                <td><img src="{{ $item->image }}" alt="" style="width: 80px; height: 60px"></td>
+                                                <td>{{ $item->title }}</td>
+                                                <td>
+                                                    @foreach($item->tags as $tag)
+                                                        <span class="badge badge-info">{{ $tag->name }}</span>
+                                                    @endforeach
+                                                </td>
+                                                <td>{{ $item->user->name ?? 'Không xác định' }}</td>
+                                                <td>{{ $item->created_at->format('d/m/Y') }}</td>
                                                 <td>
                                                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                         <input type="checkbox" class="custom-control-input IsActive" id="customSwitch{{ $item->id }}" {{ $item->is_active ? 'checked' : '' }} value="{{ $item->id }}">
@@ -63,10 +75,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route("tag.edit", $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin thẻ tag">
+                                                    <a href="{{ route('admin-post.edit', $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin bài viết">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $item->id }}" title="Xóa thẻ tag">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $item->id }}" title="Xóa bài viết">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -85,13 +97,12 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-
             $('body').on('change', '.IsActive', function(e) {
                 e.preventDefault();
                 var check = $(this);
                 const id = check.val();
                 $.ajax({
-                    url: "/admin/tag/change/" + id,
+                    url: "/admin/post/change/" + id,
                     type: "POST",
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -105,13 +116,13 @@
                         toastr.error('Có lỗi xảy ra khi đổi trạng thái');
                     }
                 });
-            })
+            });
 
             $('body').on('click', '.btn-delete', function(e) {
                 e.preventDefault();
                 const id = $(this).data('id');
                 Swal.fire({
-                    title: "Xác nhận xóa thẻ tag?",
+                    title: "Xác nhận xóa bài viết này?",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
@@ -120,26 +131,26 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/admin/tag/destroy/" + id,
+                            url: "/admin/post/destroy/" + id,
                             type: "DELETE",
                             data: {
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
                                 toastr.success(response.message);
-                                $('#tag-' + id).remove();
+                                $('#post-' + id).remove();
                             },
                             error: function(xhr) {
-                                toastr.error('Có lỗi khi xóa thẻ tag');
+                                toastr.error('Có lỗi khi xóa bài viết');
                             }
                         });
                     }
                 });
-            })
+            });
 
             setTimeout(function() {
                 $("#myAlert").fadeOut(500);
             }, 3500);
-        })
+        });
     </script>
 @endsection

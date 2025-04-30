@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tag;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class TagController extends Controller
+class ProductCategoryController extends Controller
 {
     public function index()
     {
-        $items = Tag::orderBy("id", "desc")->get();
-        return view("admin.tag.index", compact("items"));
+        $items = ProductCategory::orderBy("id", "desc")->get();
+        return view("admin.product-category.index", compact("items"));
     }
 
     private function validates(Request $request, $id = null)
     {
         $rules = [
-            'name' => 'required|string|max:50|unique:tags,name,' . $id . ',id',
+            'name' => 'required|string|max:50|unique:product_categories,name,' . $id . ',id',
         ];
 
         $messages = [
-            'name.required' => 'Tên thẻ tag không được để trống',
-            'name.unique' => 'Tên thẻ tag đã tồn tại',
-            'name.max' => 'Tên thẻ tag không quá 50 ký tự.',   
+            'name.required' => 'Tên phân loại sản phẩm không được để trống',
+            'name.unique' => 'Tên phân loại sản phẩm đã tồn tại',
+            'name.max' => 'Tên phân loại sản phẩm không quá 50 ký tự.',   
         ];
 
         return Validator::make($request->all(), $rules, $messages);
@@ -33,7 +33,7 @@ class TagController extends Controller
 
     public function create()
     {
-        return view("admin.tag.create");
+        return view("admin.product-category.create");
     }
 
     public function store(Request $request){
@@ -45,16 +45,16 @@ class TagController extends Controller
             'name' => $request->name,
             'description'=> $request->description,
         ];
-        $create = new Tag();
+        $create = new ProductCategory();
         $create->create($data);
-        $request->session()->put("messenge", ["style"=>"success","msg"=>"Thêm mới thẻ tag thành công"]);
-        return redirect()->route("tag.index");
+        $request->session()->put("messenge", ["style"=>"success","msg"=>"Thêm mới phân loại sản phẩm thành công"]);
+        return redirect()->route("category.index");
     }
 
     public function edit($id)
     {
-        $edit = Tag::where("id", $id)->first();
-        return view("admin.tag.edit", compact("edit"));
+        $edit = ProductCategory::where("id", $id)->first();
+        return view("admin.product-category.edit", compact("edit"));
     }
 
     public function update(Request $request, $id)
@@ -67,25 +67,25 @@ class TagController extends Controller
             'name' => $request->name,
             'description'=> $request->description,
         ];
-        $edit = Tag::where('id', $id)->first();
+        $edit = ProductCategory::where('id', $id)->first();
         $edit->update($data);
-        $request->session()->put("messenge", ["style"=>"success","msg"=>"Cập nhật thẻ tag thành công"]);
-        return redirect()->route("tag.index");
+        $request->session()->put("messenge", ["style"=>"success","msg"=>"Cập nhật phân loại sản phẩm thành công"]);
+        return redirect()->route("category.index");
     }
 
     public function destroy(string $id)
     {
-        $destroy = Tag::find($id);
+        $destroy = ProductCategory::find($id);
         if ($destroy) {
             $destroy->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa thẻ tag thành công']);
+            return response()->json(['success' => true, 'message' => 'Xóa phân loại thành công']);
         } else {
-            return response()->json(['danger' => false, 'message' => 'Thẻ tag không tồn tại'], 404);
+            return response()->json(['danger' => false, 'message' => 'Phân loại không tồn tại'], 404);
         }
     }
 
     public function changeActive($id){
-        $change = Tag::find($id);    
+        $change = ProductCategory::find($id);    
         if ($change) {
             $change->is_active = !$change->is_active;
             $change->save();
