@@ -8,10 +8,13 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\PostController as FrontendPostController;
+use App\Http\Controllers\frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
-Route::get('/',[AccountController::class, "login"]);
+Route::get('/',[HomeController::class, "index"]);
 
 Route::group(['prefix' => 'files-manager'], function () {
     Lfm::routes();
@@ -106,3 +109,15 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
     });
 });
+
+
+//Frontend
+Route::get('/home', [HomeController::class, 'index'])->name('frontend.home.index');
+Route::get('/about-us', [HomeController::class, 'about'])->name('frontend.home.about-us');
+
+//Frontend Product
+Route::get('/product', [FrontendProductController::class, 'index'])->name('frontend.product.index');
+Route::get('/product/getData', [FrontendProductController::class, 'getData']);
+
+//Frontend Post
+Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');

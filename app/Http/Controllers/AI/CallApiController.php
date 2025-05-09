@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\Http;
 
 class CallApiController extends Controller
 {
+
+    public function askAI(Request $request)
+    {
+        $question = $request->input('question');
+
+        $response = Http::post('http://127.0.0.1:5001/ask', [
+            'question' => $question
+        ]);
+
+        $answer = $response->json()['answer'] ?? 'Không có phản hồi';
+
+        $formattedAnswer = nl2br(htmlentities($answer));
+
+        return response()->json(['question' => $question, 'answer' => $formattedAnswer]);
+    }
+    
     public function generatePostContent(Request $request)
     {
         $payload = [

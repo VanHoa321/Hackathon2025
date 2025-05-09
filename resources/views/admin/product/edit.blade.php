@@ -57,7 +57,7 @@
                                                         <label>Phân loại</label>
                                                         <select name="category_id" class="form-control select2bs4" style="width: 100%">
                                                             @foreach($categories as $cate);
-                                                                <option value="{{$cate->id}}" {{ old('category_id', $edit->id) == $cate->id ? 'selected' : '' }}>{{$cate->name}}</option>
+                                                                <option value="{{$cate->id}}" {{ old('category_id', $edit->category_id) == $cate->id ? 'selected' : '' }}>{{$cate->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

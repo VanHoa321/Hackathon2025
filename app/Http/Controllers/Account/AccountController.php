@@ -43,7 +43,7 @@ class AccountController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect()->route("login");
+        return redirect()->route("frontend.home.index");
     }
 
     public function profile(){

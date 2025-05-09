@@ -46,8 +46,8 @@
                                             <th>Hình ảnh</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Phân loại</th>
-                                            <th>Giá vốn</th>                                  
-                                            <th>Giá bán</th>
+                                            <th>Giá bán</th>                                  
+                                            <th>Giảm giá</th>
                                             <th>Ngày tạo</th>
                                             <th>Trạng thái</th>
                                             <th>Chức năng</th>
