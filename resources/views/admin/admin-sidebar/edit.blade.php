@@ -31,21 +31,12 @@
                                 @csrf
                                 <div class="card-body">                                
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Tên Menu</label>
                                                 <input type="text" name="name" value="{{ old('name', $edit->name) }}" class="form-control" placeholder="Nhập tên Menu">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Cấp Menu</label>
-                                                <select name="level" class="form-control select2bs4" style="width: 100%">
-                                                    <option value="1" {{ old('level', $edit->level) == 1 ? 'selected' : '' }}>1</option>
-                                                    <option value="2" {{ old('level', $edit->level) == 2 ? 'selected' : '' }}>2</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                     <div class="form-group">
                                         <label>Menu cha</label>

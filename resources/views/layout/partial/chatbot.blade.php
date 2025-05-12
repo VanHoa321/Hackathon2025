@@ -1,6 +1,7 @@
 <button class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-3 d-flex align-items-center justify-content-center" id="chatButton" style="width: 60px; height: 60px; z-index: 99999;">
     <i class="bi bi-chat-dots fs-4"></i>
 </button>
+
 <div class="position-fixed end-0 mb-4 me-3 d-none" id="chatBox" style="bottom: 65px; z-index: 99999;">
     <div class="card shadow-lg" style="width: 800px; height: 500px;">
         <div class="card-header bg-primary text-white d-flex justify-content-between">

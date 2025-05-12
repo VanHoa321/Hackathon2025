@@ -85,4 +85,18 @@ class UserController extends Controller
         $user = User::with("role")->where("id", $id)->first();
         return view("admin.user.show", compact('user'));
     }
+
+    public function changeStatus($id)
+    {
+        $user = User::find($id);
+        if($user){
+            $user->status = !$user->status;
+            $user->save();
+            $message = $user->status ? 'Tài khoản đã được kích hoạt' : 'Tài khoản đã bị khóa';
+            return response()->json(['success' => true, 'message'=> $message, 'status' => $user->status]);
+        }
+        else{
+            return response()->json(['success'=> false, 'message'=> 'Không tìm thấy người dùng']);
+        }
+    }
 }

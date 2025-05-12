@@ -24,9 +24,10 @@ class AdminSiderbarController extends Controller
 
     public function store(Request $request)
     {
+        $level = ($request->parent == 0) ? 1 : 2;
         $data = [
             'name' => $request->name,
-            'level'=> $request->level,
+            'level' => $level,
             'parent'=> $request->parent,
             'order'=> $request->order,
             'icon'=> $request->icon,
@@ -41,7 +42,7 @@ class AdminSiderbarController extends Controller
 
     public function edit($id)
     {
-        $items = Menu::where('is_active', true)->where('parent', 0)->orderBy('id', 'desc')->get();
+        $items = Menu::where('is_active', true)->where('parent', 0)->where('id', '!=', $id)->orderBy('id', 'desc')->get();
         $edit = Menu::find($id);
         $roles = Role::all();
         return view("admin.admin-sidebar.edit", compact("items","edit","roles"));
@@ -49,9 +50,10 @@ class AdminSiderbarController extends Controller
 
     public function update(Request $request, $id)
     {
+        $level = ($request->parent == 0) ? 1 : 2;
         $data = [
             'name' => $request->name,
-            'level'=> $request->level,
+            'level' => $level,
             'parent'=> $request->parent,
             'order'=> $request->order,
             'icon'=> $request->icon,

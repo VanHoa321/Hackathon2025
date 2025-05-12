@@ -3,9 +3,12 @@
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\account\ForgotPasswordController;
 use App\Http\Controllers\Admin\AdminSiderbarController;
+use App\Http\Controllers\admin\AuthorController;
+use App\Http\Controllers\Admin\DocumentCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\frontend\HomeController;
@@ -40,6 +43,48 @@ Route::prefix('admin')->middleware("admin")->group(function () {
     Route::get('/change-password', [AccountController::class, 'editPassword']) ->name('editPassword');
     Route::post('/update-password', [AccountController::class, 'updatePassword']) -> name('updatePassword');
 
+    //Admin User
+    Route::prefix('user')->group(function () {
+        Route::get('/index', [UserController::class, 'index'])->name('user.index');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('/show/{id}', [UserController::class, 'show'])->name("user.show");
+        Route::post('/change/{id}', [UserController::class, 'changeActive']);
+    });
+
+    //Document Category
+    Route::prefix('document-category')->group(function () {
+        Route::get('/index', [DocumentCategoryController::class, 'index'])->name('document-category.index');
+        Route::get('/create', [DocumentCategoryController::class, 'create'])->name('document-category.create');
+        Route::post('/store', [DocumentCategoryController::class, 'store'])->name('document-category.store'); 
+        Route::get('/edit/{id}', [DocumentCategoryController::class, 'edit'])->name('document-category.edit');
+        Route::post('/update/{id}', [DocumentCategoryController::class, 'update'])->name('document-category.update');
+        Route::post('/change/{id}', [DocumentCategoryController::class, 'changeActive'])->name('document-category.change');
+        Route::delete('/destroy/{id}', [DocumentCategoryController::class, 'destroy'])->name('document-category.destroy');
+    });
+
+    //Publisher
+    Route::prefix('publisher')->group(function () {
+        Route::get('/index', [PublisherController::class, 'index'])->name('publisher.index');
+        Route::get('/create', [PublisherController::class, 'create'])->name('publisher.create');
+        Route::post('/store', [PublisherController::class, 'store'])->name('publisher.store'); 
+        Route::get('/edit/{id}', [PublisherController::class, 'edit'])->name('publisher.edit');
+        Route::post('/update/{id}', [PublisherController::class, 'update'])->name('publisher.update');
+        Route::post('/change/{id}', [PublisherController::class, 'changeActive'])->name('publisher.change');
+        Route::delete('/destroy/{id}', [PublisherController::class, 'destroy'])->name('publisher.destroy');
+    });
+
+    //Author
+    Route::prefix('author')->group(function () {
+        Route::get('/index', [AuthorController::class, 'index'])->name('author.index');
+        Route::get('/create', [AuthorController::class, 'create'])->name('author.create');
+        Route::post('/store', [AuthorController::class, 'store'])->name('author.store'); 
+        Route::get('/edit/{id}', [AuthorController::class, 'edit'])->name('author.edit');
+        Route::post('/update/{id}', [AuthorController::class, 'update'])->name('author.update');
+        Route::post('/change/{id}', [AuthorController::class, 'changeActive'])->name('author.change');
+        Route::delete('/destroy/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
+    });
+
     //Tag
     Route::prefix('tag')->group(function () {
         Route::get('/index', [TagController::class, 'index'])->name('tag.index');
@@ -54,15 +99,6 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/update/{id}', [AdminSiderbarController::class, 'update'])->name('admin-sidebar.update');
         Route::delete('/destroy/{id}', [AdminSiderbarController::class, 'destroy']);
         Route::post('/change/{id}', [AdminSiderbarController::class, 'changeActive']);
-    });
-
-    //Admin User
-    Route::prefix('user')->group(function () {
-        Route::get('/index', [UserController::class, 'index'])->name('user.index');
-        Route::get('/create', [UserController::class, 'create'])->name('user.create');
-        Route::post('/store', [UserController::class, 'store'])->name('user.store');
-        Route::get('/show/{id}', [UserController::class, 'show'])->name("user.show");
-        Route::post('/change/{id}', [UserController::class, 'changeActive']);
     });
 
     //Tag
