@@ -5,6 +5,7 @@ use App\Http\Controllers\account\ForgotPasswordController;
 use App\Http\Controllers\Admin\AdminSiderbarController;
 use App\Http\Controllers\admin\AuthorController;
 use App\Http\Controllers\Admin\DocumentCategoryController;
+use App\Http\Controllers\admin\DocumentController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -83,6 +84,17 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/update/{id}', [AuthorController::class, 'update'])->name('author.update');
         Route::post('/change/{id}', [AuthorController::class, 'changeActive'])->name('author.change');
         Route::delete('/destroy/{id}', [AuthorController::class, 'destroy'])->name('author.destroy');
+    });
+
+    //Document
+    Route::prefix('document')->group(function () {
+        Route::get('/index', [DocumentController::class, 'index'])->name('document.index');
+        Route::get('/create', [DocumentController::class, 'create'])->name('document.create');
+        Route::post('/store', [DocumentController::class, 'store'])->name('document.store'); 
+        Route::get('/edit/{id}', [DocumentController::class, 'edit'])->name('document.edit');
+        Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update');
+        Route::post('/change/{id}', [DocumentController::class, 'changeActive'])->name('document.change');
+        Route::delete('/destroy/{id}', [DocumentController::class, 'destroy'])->name('document.destroy');
     });
 
     //Tag
