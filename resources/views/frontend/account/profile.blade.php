@@ -2,7 +2,6 @@
 
 @section('content')
 <main class="main">
-    <!-- breadcrumb -->
     <div class="site-breadcrumb">
         <div class="site-breadcrumb-bg" style="background: url(web-assets/img/breadcrumb/01.jpg)"></div>
         <div class="container">
@@ -15,14 +14,11 @@
             </div>
         </div>
     </div>
-    <!-- breadcrumb end -->
-
-    <!-- user profile -->
     <div class="user-area bg py-100">
         <div class="container">
             @if (session('messenge'))
                 <div class="alert alert-{{ session('messenge.style') }}">
-                    {{ session('messenge.msg') }}
+                    {{ session('messenge.msg2') }}
                 </div>
             @endif
             <div class="row">

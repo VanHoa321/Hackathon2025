@@ -38,7 +38,6 @@ class AccountController extends Controller
                 ->withInput();
         }
 
-        // Truy xuất user từ Model User thông qua ID từ Auth
         $user = User::findOrFail(Auth::id());
         $user->update([
             'name' => $request->name,
@@ -52,7 +51,7 @@ class AccountController extends Controller
         return redirect()->route('frontend.profile')
             ->with('messenge', [
                 'style' => 'success',
-                'msg' => 'Profile updated successfully!'
+                'msg2' => 'Cập nhật thông tin tài khoản thành công!'
             ]);
     }
 
@@ -74,12 +73,11 @@ class AccountController extends Controller
                 ->withInput();
         }
 
-        // Truy xuất user từ Model User thông qua ID từ Auth
         $user = User::findOrFail(Auth::id());
 
         if (!Hash::check($request->old_password, $user->password)) {
             return redirect()->back()
-                ->withErrors(['old_password' => 'The old password is incorrect'])
+                ->withErrors(['old_password' => 'Mật khẩu cũ không đúng!'])
                 ->withInput();
         }
 
@@ -90,7 +88,7 @@ class AccountController extends Controller
         return redirect()->route('frontend.profile')
             ->with('messenge', [
                 'style' => 'success',
-                'msg' => 'Password updated successfully!'
+                'msg2' => 'Đổi mật khẩu thành công!'
             ]);
     }
 
