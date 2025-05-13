@@ -16,9 +16,9 @@
     </div>
     <div class="user-area bg py-100">
         <div class="container">
-            @if (session('messenge'))
+            @if (session('messenge2'))
                 <div class="alert alert-{{ session('messenge.style') }}">
-                    {{ session('messenge.msg2') }}
+                    {{ session('messenge.msg') }}
                 </div>
             @endif
             <div class="row">

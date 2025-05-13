@@ -49,9 +49,9 @@ class AccountController extends Controller
         ]);
 
         return redirect()->route('frontend.profile')
-            ->with('messenge', [
+            ->with('messenge2', [
                 'style' => 'success',
-                'msg2' => 'Cập nhật thông tin tài khoản thành công!'
+                'msg' => 'Cập nhật thông tin tài khoản thành công!'
             ]);
     }
 
@@ -86,9 +86,9 @@ class AccountController extends Controller
         ]);
 
         return redirect()->route('frontend.profile')
-            ->with('messenge', [
+            ->with('messenge2', [
                 'style' => 'success',
-                'msg2' => 'Đổi mật khẩu thành công!'
+                'msg' => 'Đổi mật khẩu thành công!'
             ]);
     }
 
