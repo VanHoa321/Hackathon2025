@@ -85,9 +85,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Tác giả</label>
-                                                        <select name="authors[]" class="form-control select2bs4" multiple>
+                                                        <select name="authors[]" class="form-control authors" multiple>
                                                             @foreach($authors as $item)
-                                                                <option value="{{ $item->id }}" data-name="{{ $item->name }}" {{ in_array($item->id, old('authors', [])) ? 'selected' : '' }}>{{ $item->name }} - {{ $item->phone }}</option>
+                                                                <option value="{{ $item->id }}" data-name="{{ $item->name }}" data-avatar="{{ $item->avatar }}" 
+                                                                    {{ in_array($item->id, old('authors', [])) ? 'selected' : '' }}>
+                                                                    {{ $item->name }}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -175,6 +178,25 @@
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
+
+            $('.authors').select2({
+                theme: 'bootstrap4',
+                placeholder: "Chọn tác giả cho tài liệu",
+                templateResult: formatAuthor,
+                templateSelection: formatAuthorSelection,
+            })
+            
+            function formatAuthor(author) {
+                if (!author.id) { return author.text; }
+                var $author = $(
+                    '<span><img src="' + author.element.getAttribute('data-avatar') + '" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px;"> ' + author.text + '</span>'
+                );
+                return $author;
+            }
+
+            function formatAuthorSelection(author) {
+                return author.text;
+            }
 
             setTimeout(function() {
                 $("#myAlert").fadeOut(500);

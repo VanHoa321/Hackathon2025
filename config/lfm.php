@@ -65,6 +65,7 @@ return [
                 'video/x-flv', 
                 'video/x-matroska', 
                 'video/x-ms-wmv',
+                ''
             ],
         ],
         'image' => [
