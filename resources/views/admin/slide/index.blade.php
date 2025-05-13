@@ -1,4 +1,3 @@
-
 @extends('layout/admin_layout')
 @section('content')
     <div class="content-wrapper">
@@ -7,8 +6,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="#" class="text-info">Quản lý danh mục tài liệu</a></li>
-                            <li class="breadcrumb-item text-secondary">Danh sách danh mục</li>
+                            <li class="breadcrumb-item"><a href="{{ route('slide.index') }}" class="text-info">Hệ thống</a></li>
+                            <li class="breadcrumb-item active text-info"><a href="{{ route('slide.index') }}" class="text-info">Quản lý Slide</a></li>
                         </ol>
                     </div>
                 </div>
@@ -33,9 +32,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div>   
-                                    <a type="button" class="btn btn-success" href="{{route('document-category.create')}}">
-                                        <i class="fa-solid fa-plus" title="Thêm mới danh mục tài liệu"></i>
+                                <div>
+                                    <a type="button" class="btn btn-success" href="{{route('slide.create')}}">
+                                        <i class="fa-solid fa-plus" title="Thêm mới slide"></i>
                                     </a>
                                 </div>
                             </div>
@@ -44,7 +43,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tên danh mục tài liệu</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tiêu đề</th>
+                                            <th>Đường dẫn</th>
+                                            <th>Vị trí</th>
                                             <th>Trạng thái</th>
                                             <th>Chức năng</th>
                                         </tr>
@@ -54,9 +56,12 @@
                                             $counter = 1;
                                         @endphp
                                         @foreach ($items as $item)
-                                            <tr id="category-{{ $item->id }}">
+                                            <tr id="slide-{{ $item->id }}">
                                                 <td>{{ $counter++ }}</td>
-                                                <td>{{ $item->name }}</td>
+                                                <td><img src="{{ $item->image }}" alt="" style="width: 90px; height: 60px"></td>
+                                                <td>{{ $item->title ? $item->title : "Chưa cập nhật" }}</td>
+                                                <td>{{ $item->alias ? $item->alias : "Chưa cập nhật"  }}</td>
+                                                <td>{{ $item->order }}</td>
                                                 <td>
                                                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                         <input type="checkbox" class="custom-control-input IsActive" id="customSwitch{{ $item->id }}" {{ $item->is_active ? 'checked' : '' }} value="{{ $item->id }}">
@@ -64,10 +69,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route("document-category.edit", $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin danh mục">
+                                                    <a href="{{route('slide.edit', $item->id)}}" class="btn btn-info btn-sm" title="Xem thông tin slide">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $item->id }}" title="Xóa danh mục">
+                                                    <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $item->id }}" title="Xóa slide">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -92,7 +97,7 @@
                 var check = $(this);
                 const id = check.val();
                 $.ajax({
-                    url: "/admin/document-category/change/" + id,
+                    url: "/system/slide/change/" + id,
                     type: "POST",
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -104,6 +109,7 @@
                     },
                     error: function(xhr) {
                         toastr.error('Có lỗi xảy ra khi đổi trạng thái');
+                        console.log(xhr);
                     }
                 });
             })
@@ -112,7 +118,7 @@
                 e.preventDefault();
                 const id = $(this).data('id');
                 Swal.fire({
-                    title: "Xác nhận xóa danh mục?",
+                    title: "Xác nhận xóa slide?",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
@@ -121,22 +127,17 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "/admin/document-category/destroy/" + id,
+                            url: "/admin/slide/destroy/" + id,
                             type: "DELETE",
                             data: {
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                if (response.success) {
-                                    toastr.success(response.message);
-                                    $('#category-' + id).remove();
-                                } 
-                                else {
-                                    toastr.error(response.message);
-                                }
+                                toastr.success(response.message);
+                                $('#slide-' + id).remove();
                             },
                             error: function(xhr) {
-                                toastr.error('Có lỗi khi xóa danh mục');
+                                toastr.error('Có lỗi khi xóa slide');
                             }
                         });
                     }

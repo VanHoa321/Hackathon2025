@@ -43,6 +43,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Ảnh</th>
                                             <th>Tác giả</th>
                                             <th>Email</th>
                                             <th>Số điện thoại</th>
@@ -58,12 +59,8 @@
                                         @foreach ($items as $item)
                                             <tr id="author-{{ $item->id }}">
                                                 <td>{{ $counter++ }}</td>
-                                                <td>
-                                                    <div style="display: flex; align-items: center;">
-                                                        <img src="{{ $item->avatar }}" alt="Avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
-                                                        <span>{{ $item->name }}</span>
-                                                    </div>
-                                                </td>
+                                                <td><img src="{{ $item->avatar }}" alt="Avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 10px;"></td>
+                                                <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->phone }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->birth_date)->format('d/m/Y') }}</td>

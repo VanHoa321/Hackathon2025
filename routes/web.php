@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PublisherController;
+use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\frontend\HomeController;
@@ -111,6 +112,17 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/update/{id}', [AdminSiderbarController::class, 'update'])->name('admin-sidebar.update');
         Route::delete('/destroy/{id}', [AdminSiderbarController::class, 'destroy']);
         Route::post('/change/{id}', [AdminSiderbarController::class, 'changeActive']);
+    });
+
+    //Slide
+    Route::prefix('slide')->group(function () {
+        Route::get('/index', [SlideController::class, 'index'])->name('slide.index');
+        Route::get('/create', [SlideController::class, 'create'])->name('slide.create');
+        Route::post('/store', [SlideController::class, 'store'])->name('slide.store');
+        Route::get('/edit/{id}', [SlideController::class, 'edit'])->name('slide.edit');
+        Route::post('/update/{id}', [SlideController::class, 'update'])->name('slide.update');
+        Route::delete('/destroy/{id}', [SlideController::class, 'destroy']);
+        Route::post('/change/{id}', [SlideController::class, 'changeActive']);
     });
 
     //Tag

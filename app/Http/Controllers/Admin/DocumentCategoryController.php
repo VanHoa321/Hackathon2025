@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Document;
 use App\Models\DocumentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -74,6 +75,12 @@ class DocumentCategoryController extends Controller
 
     public function destroy(string $id)
     {
+        $check = Document::where('category_id', $id)->exists();
+
+        if ($check) {
+            return response()->json(['success' => false,'message' => 'Không thể xóa vì có tài liệu thuộc phân loại này']);
+        }
+
         $destroy = DocumentCategory::find($id);
         if ($destroy) {
             $destroy->delete();
@@ -88,6 +95,11 @@ class DocumentCategoryController extends Controller
         if ($change) {
             $change->is_active = !$change->is_active;
             $change->save();
+
+            Document::where('category_id', $change->id)->update([
+                'status' => $change->is_active
+            ]);
+
             return response()->json(['success' => true, 'message' => 'Thay đổi trạng thái thành công']);
         }
         else {

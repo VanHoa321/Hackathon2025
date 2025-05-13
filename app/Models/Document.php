@@ -21,7 +21,7 @@ class Document extends Model
         'description',
         'download_count',
         'view_count',
-        'published_at',
+        'publication_year',
         'created_at',
         'updated_at',
         'uploaded_by',
@@ -45,5 +45,10 @@ class Document extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'uploaded_by');
+    }
+
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class, 'document_authors');
     }
 }

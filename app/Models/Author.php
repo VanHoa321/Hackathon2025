@@ -23,4 +23,9 @@ class Author extends Model
 
     protected $primaryKey = 'id';
     protected $table = 'authors';
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class, 'document_authors');
+    }
 }
