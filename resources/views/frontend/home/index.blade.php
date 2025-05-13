@@ -1,925 +1,2409 @@
-@extends('layout/web_layout')
-@section('content')
-    @include('layout.partial.banner')
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="page-content">
-        <!--feature start-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-        <section class="pt-0">
+    <title>SenseLib</title>
 
-            <div class="rocket-shade">
-                <img class="img-fluid" src="web-assets/images/shape-small-1.png" alt="">
-            </div>
+    <link rel="icon" type="image/x-icon" href="/web-assets/img/logo/favicon.png">
+
+    <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/all-fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
+
+</head>
+
+<body class="home-9">
+
+    <header class="header">
+        <div class="header-top">
             <div class="container">
-                <div class="row gx-5">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="featured-item style-1 text-center">
-                            <div class="featured-icon">
-                                <img class="img-fluid" src="web-assets/images/feature/01.png" alt="">
-                            </div>
-                            <div class="featured-title">
-                                <h4>Online Marketing</h4>
-                            </div>
-                            <div class="featured-desc">
-                                <p>Get high rankings with multi-team collaboration that will help you optimize off-page SEO.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-6 mt-md-0">
-                        <div class="featured-item style-1 featured-active text-center">
-                            <div class="featured-icon">
-                                <img class="img-fluid" src="web-assets/images/feature/02.png" alt="">
-                            </div>
-                            <div class="featured-title">
-                                <h4>Data Analysis</h4>
-                            </div>
-                            <div class="featured-desc">
-                                <p>Get high rankings with multi-team collaboration that will help you optimize off-page SEO.</p>
+                <div class="header-top-wrapper">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-5">
+                            <div class="header-top-left">
+                                <ul class="header-top-list">
+                                    <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#d0b9beb6bf90b5a8b1bda0bcb5feb3bfbd"><i class="far fa-envelopes"></i>
+                                            <span class="__cf_email__" data-cfemail="c3aaada5ac83a6bba2aeb3afa6eda0acae">[email&#160;protected]</span></a></li>
+                                    <li><a href="tel:+21236547898"><i class="far fa-headset"></i> +2 123 654
+                                            7898</a></li>
+                                    <li class="help"><a href="#"><i class="far fa-comment-question"></i> Need Help?</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-6 mt-lg-0">
-                        <div class="featured-item style-1 text-center">
-                            <div class="featured-icon">
-                                <img class="img-fluid" src="web-assets/images/feature/03.png" alt="">
-                            </div>
-                            <div class="featured-title">
-                                <h4>SEO Optimization</h4>
-                            </div>
-                            <div class="featured-desc">
-                                <p>Get high rankings with multi-team collaboration that will help you optimize off-page SEO.</p>
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-7">
+                            <div class="header-top-right">
+                                <ul class="header-top-list">
+                                    <li><a href="#"><i class="far fa-alarm-clock"></i> Daily Deal</a></li>
+                                    <li class="account"><a href="#"><i class="far fa-user-vneck"></i> Account</a></li>
+                                    <li class="login"><a href="#"><i class="far fa-arrow-right-to-arc"></i> Login</a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="far fa-usd"></i> USD
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">USD</a>
+                                                <a class="dropdown-item" href="#">EUR</a>
+                                                <a class="dropdown-item" href="#">AUD</a>
+                                                <a class="dropdown-item" href="#">CUD</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="far fa-globe-americas"></i> EN
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">EN</a>
+                                                <a class="dropdown-item" href="#">FR</a>
+                                                <a class="dropdown-item" href="#">DE</a>
+                                                <a class="dropdown-item" href="#">RU</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="social">
+                                        <div class="header-top-social">
+                                            <span>Follow Us: </span>
+                                            <a href="#"><i class="fab fa-facebook"></i></a>
+                                            <a href="#"><i class="fab fa-x-twitter"></i></a>
+                                            <a href="#"><i class="fab fa-instagram"></i></a>
+                                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!--feature end-->
-
-        <!--about start-->
-
-        <section class="pt-0">
+        <!-- header middle -->
+        <div class="header-middle">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="shape-img-bg">
-                            <img class="mask-img" src="web-assets/images/about/01.jpg" alt="">
-                            <div class="img-bg-shape">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288">
-                                    <linearGradient id="imagewave" x1="70.711%" x2="0%" y1="70.711%" y2="0%">
-                                        <stop class="stop-color2" offset="0%" stop-opacity="1" />
-                                        <stop class="stop-color1" offset="100%" stop-opacity="1" />
-                                    </linearGradient>
-                                    <path fill="url(#imagewave)">
-
-                                        <animate repeatCount="indefinite" attributeName="d" dur="5s"
-
-                                            values="M37.5,186c-12.1-10.5-11.8-32.3-7.2-46.7c4.8-15,13.1-17.8,30.1-36.7C91,68.8,83.5,56.7,103.4,45
-                                                c22.2-13.1,51.1-9.5,69.6-1.6c18.1,7.8,15.7,15.3,43.3,33.2c28.8,18.8,37.2,14.3,46.7,27.9c15.6,22.3,6.4,53.3,4.4,60.2
-                                                c-3.3,11.2-7.1,23.9-18.5,32c-16.3,11.5-29.5,0.7-48.6,11c-16.2,8.7-12.6,19.7-28.2,33.2c-22.7,19.7-63.8,25.7-79.9,9.7
-                                                c-15.2-15.1,0.3-41.7-16.6-54.9C63,186,49.7,196.7,37.5,186z;
-
-
-                                                M51,171.3c-6.1-17.7-15.3-17.2-20.7-32c-8-21.9,0.7-54.6,20.7-67.1c19.5-12.3,32.8,5.5,67.7-3.4C145.2,62,145,49.9,173,43.4
-                                                c12-2.8,41.4-9.6,60.2,6.6c19,16.4,16.7,47.5,16,57.7c-1.7,22.8-10.3,25.5-9.4,46.4c1,22.5,11.2,25.8,9.1,42.6
-                                                c-2.2,17.6-16.3,37.5-33.5,40.8c-22,4.1-29.4-22.4-54.9-22.6c-31-0.2-40.8,39-68.3,35.7c-17.3-2-32.2-19.8-37.3-34.8
-                                                C48.9,198.6,57.8,191,51,171.3z;
-
-                                                M37.5,186c-12.1-10.5-11.8-32.3-7.2-46.7c4.8-15,13.1-17.8,30.1-36.7C91,68.8,83.5,56.7,103.4,45
-                                                c22.2-13.1,51.1-9.5,69.6-1.6c18.1,7.8,15.7,15.3,43.3,33.2c28.8,18.8,37.2,14.3,46.7,27.9c15.6,22.3,6.4,53.3,4.4,60.2
-                                                c-3.3,11.2-7.1,23.9-18.5,32c-16.3,11.5-29.5,0.7-48.6,11c-16.2,8.7-12.6,19.7-28.2,33.2c-22.7,19.7-63.8,25.7-79.9,9.7
-                                                c-15.2-15.1,0.3-41.7-16.6-54.9C63,186,49.7,196.7,37.5,186z  " />
-                                    </path>
-                                </svg>
-                            </div>
+                    <div class="col-5 col-lg-3 col-xl-3">
+                        <div class="header-middle-logo">
+                            <a class="navbar-brand" href="index-2.html">
+                                <img src="/web-assets/img/logo/logo.png" alt="logo">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 mt-6 mt-lg-0 ps-lg-10">
-                        <div class="theme-title mb-4">
-                            <h6>About Us</h6>
-                            <h2>Everything starts with a <span>Marketing</span> Agency. </h2>
-                            <p>Seoland agency makes it easy to create content that engages your audience by taking the guesswork out of research, strategy, and writing.</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 mb-3">
-                                <ul class="list-unstyled list-icon style-1">
-                                    <li>
-                                        <i class="flaticon flaticon-check-mark"></i>Amazing communication.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <ul class="list-unstyled list-icon style-1">
-                                    <li>
-                                        <i class="flaticon flaticon-check-mark"></i> Best trending designing.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <ul class="list-unstyled list-icon style-1">
-                                    <li>
-                                        <i class="flaticon flaticon-check-mark"></i> Get quality Lead click.
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled list-icon style-1">
-                                    <li>
-                                        <i class="flaticon flaticon-check-mark"></i> Mitigate Business Policy.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <a class="themeht-btn secondary-btn mt-5" href="#">
-                            <span>Discover More</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--about end-->
-
-        <!--service start-->
-
-        <section class="pb-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="theme-title">
-                            <h6>Services</h6>
-                            <h2>Features Loved Our Digital Marketing Services!</h2>
-                        </div>
-                        <img class="img-fluid" src="web-assets/images/about/02.png" alt="">
-                    </div>
-                    <div class="col-lg-7 ps-lg-8">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="service-item style-1">
-                                    <div class="service-item-inner">
-                                        <div class="service-icon">
-                                            <i class="flaticon flaticon-seo-3"></i>
-                                        </div>
-                                        <div class="service-desc">
-                                            <div class="service-title">
-                                                <h4>SEO Marketing</h4>
-                                            </div>
-                                            <p>Our strategy includes consistently evolving, to ensure we’re SEO for business. Get more traffic with powerful SEO services.</p>
-                                            <a class="arrow-btn" href="services-single.html">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                    <div class="d-none d-lg-block col-lg-6 col-xl-5">
+                        <div class="header-middle-search">
+                            <form action="#">
+                                <div class="search-content">
+                                    <select class="select">
+                                        <option value="">All Category</option>
+                                        <option value="1">Today's Hot Deals</option>
+                                        <option value="2">Fashion & Accessories</option>
+                                        <option value="3">Electronics</option>
+                                        <option value="4">Grocery & Market</option>
+                                        <option value="5">Music</option>
+                                        <option value="6">Home & Furniture</option>
+                                        <option value="7">Toy & Video Games</option>
+                                        <option value="8">Gifts</option>
+                                        <option value="9">Babies & Moms</option>
+                                        <option value="10">Sports & Outdoor</option>
+                                        <option value="11">Health & Beauty</option>
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="Search Here...">
+                                    <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mt-6">
-                                <div class="service-item style-1 service-active">
-                                    <div class="service-item-inner">
-                                        <div class="service-icon">
-                                            <i class="flaticon flaticon-content-marketing"></i>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-7 col-lg-3 col-xl-4">
+                        <div class="header-middle-right">
+                            <ul class="header-middle-list">
+                                <li><a href="#" class="list-item"><i class="far fa-user-circle"></i></a></li>
+                                <li><a href="#" class="list-item"><i class="far fa-arrows-rotate"></i><span>0</span></a>
+                                </li>
+                                <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span></a></li>
+                                <li class="dropdown-cart">
+                                    <a href="#" class="shop-cart list-item"><i class="far fa-shopping-bag"></i>
+                                        <span>5</span></a>
+                                    <div class="dropdown-cart-menu">
+                                        <div class="dropdown-cart-header">
+                                            <span>03 Items</span>
+                                            <a href="#">View Cart</a>
                                         </div>
-                                        <div class="service-desc">
-                                            <div class="service-title">
-                                                <h4>Content Marketing</h4>
-                                            </div>
-                                            <p>Our strategy includes consistently evolving, to ensure we’re SEO for business. Get more traffic with powerful SEO services.</p>
-                                            <a class="arrow-btn" href="services-single.html">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-6 mt-md-0">
-                                <div class="service-item style-1">
-                                    <div class="service-item-inner">
-                                        <div class="service-icon">
-                                            <i class="flaticon flaticon-digital-marketing"></i>
-                                        </div>
-                                        <div class="service-desc">
-                                            <div class="service-title">
-                                                <h4>Digital Marketing</h4>
-                                            </div>
-                                            <p>Our strategy includes consistently evolving, to ensure we’re SEO for business. Get more traffic with powerful SEO services.</p>
-                                            <a class="arrow-btn" href="services-single.html">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-6">
-                                <div class="service-item style-1">
-                                    <div class="service-item-inner">
-                                        <div class="service-icon">
-                                            <i class="flaticon flaticon-email-2"></i>
-                                        </div>
-                                        <div class="service-desc">
-                                            <div class="service-title">
-                                                <h4>Email Marketing</h4>
-                                            </div>
-                                            <p>Our strategy includes consistently evolving, to ensure we’re SEO for business. Get more traffic with powerful SEO services.</p>
-                                            <a class="arrow-btn" href="services-single.html">
-                                                <i class="bi bi-arrow-up-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--service end-->
-
-
-        <!--about start-->
-
-        <section>
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-12 order-lg-1">
-                        <div class="shape-img-bg">
-                            <img class="mask-img" src="web-assets/images/about/03.jpg" alt="">
-                            <div class="img-bg-shape">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 288 288">
-                                    <linearGradient id="imagewave2" x1="70.711%" x2="0%" y1="70.711%" y2="0%">
-                                        <stop class="stop-color2" offset="0%" stop-opacity="1" />
-                                        <stop class="stop-color1" offset="100%" stop-opacity="1" />
-                                    </linearGradient>
-                                    <path fill="url(#imagewave2)">
-
-                                        <animate repeatCount="indefinite" attributeName="d" dur="5s"
-
-                                            values="M37.5,186c-12.1-10.5-11.8-32.3-7.2-46.7c4.8-15,13.1-17.8,30.1-36.7C91,68.8,83.5,56.7,103.4,45
-        c22.2-13.1,51.1-9.5,69.6-1.6c18.1,7.8,15.7,15.3,43.3,33.2c28.8,18.8,37.2,14.3,46.7,27.9c15.6,22.3,6.4,53.3,4.4,60.2
-        c-3.3,11.2-7.1,23.9-18.5,32c-16.3,11.5-29.5,0.7-48.6,11c-16.2,8.7-12.6,19.7-28.2,33.2c-22.7,19.7-63.8,25.7-79.9,9.7
-        c-15.2-15.1,0.3-41.7-16.6-54.9C63,186,49.7,196.7,37.5,186z;
-        
-        
-        M51,171.3c-6.1-17.7-15.3-17.2-20.7-32c-8-21.9,0.7-54.6,20.7-67.1c19.5-12.3,32.8,5.5,67.7-3.4C145.2,62,145,49.9,173,43.4
-        c12-2.8,41.4-9.6,60.2,6.6c19,16.4,16.7,47.5,16,57.7c-1.7,22.8-10.3,25.5-9.4,46.4c1,22.5,11.2,25.8,9.1,42.6
-        c-2.2,17.6-16.3,37.5-33.5,40.8c-22,4.1-29.4-22.4-54.9-22.6c-31-0.2-40.8,39-68.3,35.7c-17.3-2-32.2-19.8-37.3-34.8
-        C48.9,198.6,57.8,191,51,171.3z;
-        
-        M37.5,186c-12.1-10.5-11.8-32.3-7.2-46.7c4.8-15,13.1-17.8,30.1-36.7C91,68.8,83.5,56.7,103.4,45
-        c22.2-13.1,51.1-9.5,69.6-1.6c18.1,7.8,15.7,15.3,43.3,33.2c28.8,18.8,37.2,14.3,46.7,27.9c15.6,22.3,6.4,53.3,4.4,60.2
-        c-3.3,11.2-7.1,23.9-18.5,32c-16.3,11.5-29.5,0.7-48.6,11c-16.2,8.7-12.6,19.7-28.2,33.2c-22.7,19.7-63.8,25.7-79.9,9.7
-        c-15.2-15.1,0.3-41.7-16.6-54.9C63,186,49.7,196.7,37.5,186z  " />
-
-                                    </path>
-
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 mt-6 mt-lg-0 pe-lg-10">
-                        <div class="theme-title mb-4">
-                            <h6>What We Do</h6>
-                            <h2>SEO Analytics & Strategy Skill</h2>
-                            <p>Scale your software operations through a custom engineering team. Meet the demand of your company’s operations with a high-performing nearshore team skilled in the technologies you need.</p>
-                        </div>
-                        <div class="ht-progress-bar">
-                            <div class="progress-parcent">
-                                <span>92</span>%
-                            </div>
-                            <div class="flex-grow-1">
-                                <h4>SEO Optimization</h4>
-                                <div class="progress" data-value="92">
-                                    <div class="progress-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ht-progress-bar">
-                            <div class="progress-parcent">
-                                <span>74</span>%
-                            </div>
-                            <div class="flex-grow-1">
-                                <h4>Data Integration</h4>
-                                <div class="progress" data-value="74">
-                                    <div class="progress-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ht-progress-bar">
-                            <div class="progress-parcent">
-                                <span>86</span>%
-                            </div>
-                            <div class="flex-grow-1">
-                                <h4>Analytics Success</h4>
-                                <div class="progress" data-value="86">
-                                    <div class="progress-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--about end-->
-
-
-        <!--step start-->
-
-        <section class="step-process-area position-relative">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="step-item style-1 text-white">
-                            <div class="step-icon">
-                                <i class="flaticon flaticon-search-analysis"></i>
-                            </div>
-                            <h4>Research</h4>
-                            <p class="mb-0">Migrating your rank Google Analytics to another solution.</p>
-                            <span>1st Step</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mt-6 mt-md-0">
-                        <div class="step-item style-1 text-white step-bg">
-                            <div class="step-icon">
-                                <i class="flaticon flaticon-market-analysis"></i>
-                            </div>
-                            <h4>Customize</h4>
-                            <p class="mb-0">Migrating your rank Google Analytics to another solution.</p>
-                            <span>2nd Step</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mt-6 mt-lg-0">
-                        <div class="step-item style-1 text-white">
-                            <div class="step-icon">
-                                <i class="flaticon flaticon-target"></i>
-                            </div>
-                            <h4>Targeting</h4>
-                            <p class="mb-0">Migrating your rank Google Analytics to another solution.</p>
-                            <span>3rd Step</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mt-6 mt-lg-0">
-                        <div class="step-item style-1 text-white step-bg">
-                            <div class="step-icon">
-                                <i class="flaticon flaticon-results"></i>
-                            </div>
-                            <h4>Result</h4>
-                            <p class="mb-0">Migrating your rank Google Analytics to another solution.</p>
-                            <span>4th Step</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="dark-bg ht-bg-move"></div>
-        </section>
-
-        <!--step end-->
-
-
-        <!--pricing start-->
-
-        <section class="price-section">
-            <div class="container-fluid px-lg-10">
-                <div class="row align-items-center my-6">
-                    <div class="col-lg-4 col-md-12 ps-lg-8 order-lg-1">
-                        <div class="theme-title z-index-1">
-                            <h6>Pricing Plan</h6>
-                            <h2>Unbeatable Pricing Find Your Perfect Plan Now</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12">
-                        <div class="row gx-lg-2 align-items-center">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="price-table">
-                                    <h3 class="price-title">Basic</h3>
-                                    <div class="price-list">
-                                        <ul class="list-unstyled">
+                                        <ul class="dropdown-cart-list">
                                             <li>
-                                                <i class="flaticon flaticon-check"></i>Increase Traffic 130%
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p47.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Xamaha R15 Red</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$200.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
                                             </li>
                                             <li>
-                                                <i class="flaticon flaticon-check"></i>SEO Optimization
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p12.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Apple Blue Watch</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$120.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
                                             </li>
                                             <li>
-                                                <i class="flaticon flaticon-check"></i>Social Media Management
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Content Marketing
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>24/7 Hours Support
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p32.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Orange Sweater</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$330.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
                                             </li>
                                         </ul>
+                                        <div class="dropdown-cart-bottom">
+                                            <div class="dropdown-cart-total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$650.00</span>
+                                            </div>
+                                            <a href="#" class="theme-btn">Checkout</a>
+                                        </div>
                                     </div>
-                                    <div class="price-value">
-                                        <h2>
-                                            <sup>$</sup>24
-                                        </h2>
-                                        <span>/Month</span>
-                                    </div>
-                                    <a class="themeht-btn primary-btn" href="#">
-                                        <span>Choose Plan</span>
-                                        <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mt-6 mt-md-0">
-                                <div class="price-table price-active">
-                                    <div class="price-label">Popular</div>
-                                    <h3 class="price-title">Premium</h3>
-                                    <div class="price-list">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Increase Traffic 130%
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>SEO Optimization
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Social Media Management
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Content Marketing
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>24/7 Hours Support
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="price-value">
-                                        <h2>
-                                            <sup>$</sup>48
-                                        </h2>
-                                        <span>/Month</span>
-                                    </div>
-                                    <a class="themeht-btn dark-btn" href="#">
-                                        <span>Choose Plan</span>
-                                        <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mt-6 mt-lg-0">
-                                <div class="price-table">
-                                    <h3 class="price-title">Advanced</h3>
-                                    <div class="price-list">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Increase Traffic 130%
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>SEO Optimization
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Social Media Management
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>Content Marketing
-                                            </li>
-                                            <li>
-                                                <i class="flaticon flaticon-check"></i>24/7 Hours Support
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="price-value">
-                                        <h2>
-                                            <sup>$</sup>72
-                                        </h2>
-                                        <span>/Month</span>
-                                    </div>
-                                    <a class="themeht-btn primary-btn" href="#">
-                                        <span>Choose Plan</span>
-                                        <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!--pricing end-->
-
-        <!--portfolio start-->
-
-        <section>
-            <div class="container">
-                <div class="row align-items-end">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="theme-title">
-                            <h6>Portfolio</h6>
-                            <h2>Let’s Check Latest Work from here</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 text-lg-end">
-                        <div class="portfolio-filter">
-                            <button data-filter="" class="is-checked">All</button>
-                            <button data-filter=".cat1">Design</button>
-                            <button data-filter=".cat2">Marketing</button>
-                            <button data-filter=".cat3">Branding</button>
-                            <button data-filter=".cat4">Development</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="light-bg position-relative z-index-1">
-            <div class="container">
-                <div class="row mt-n15">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="grid columns-3 row popup-gallery">
-                            <div class="grid-sizer"></div>
-                            <div class="grid-item cat3">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/01.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Branding</span>
-                                        <h4><a href="portfolio-single.html">SEO Tracking Analysis</a></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-item cat3">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/02.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Branding</span>
-                                        <h4>
-                                            <a href="portfolio-single.html">Email Marketing Solution</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-item cat4">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/03.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Development</span>
-                                        <h4>
-                                            <a href="portfolio-single.html">Offline SEO Marketing</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-item cat2">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/04.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Marketing</span>
-                                        <h4>
-                                            <a href="portfolio-single.html">Article Data Analysis</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-item cat2">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/05.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Marketing</span>
-                                        <h4>
-                                            <a href="portfolio-single.html">Online Media Management</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-item cat1">
-                                <div class="portfolio-item">
-                                    <div class="portfolio-img">
-                                        <img class="img-fluid w-100" src="web-assets/images/portfolio/06.jpg" alt="">
-                                        <a class="portfolio-btn" href="portfolio-single.html">
-                                            <i class="bi bi-arrow-down-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <span>Design</span>
-                                        <h4>
-                                            <a href="portfolio-single.html">Design System & Ul Kit</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wave-shape top">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#ffffff" fill-opacity="1" d="M0,224L24,197.3C48,171,96,117,144,106.7C192,96,240,128,288,160C336,192,384,224,432,208C480,192,528,128,576,122.7C624,117,672,171,720,186.7C768,203,816,181,864,154.7C912,128,960,96,1008,69.3C1056,43,1104,21,1152,21.3C1200,21,1248,43,1296,74.7C1344,107,1392,149,1416,170.7L1440,192L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z"></path>
-                </svg>
-            </div>
-        </section>
-
-        <!--portfolio end-->
-
-
-        <!--testimonial start-->
-
-        <section>
-            <div class="container">
-                <div class="row justify-content-center text-center">
-                    <div class="col-lg-8 col-md-12">
-                        <div class="theme-title">
-                            <h6>Testimonial</h6>
-                            <h2>See Feedback Why customers love working with us</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid px-lg-10">
-                <div id="testimonial" class="testimonial-carousel carousel slide z-index-1" data-bs-ride="carousel" data-bs-interval="4000">
-                    <div class="row justify-content-center text-center">
-                        <div class="col-md-7">
-                            <div class="testimonial-box">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/01.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
+        <!-- header main navigation -->
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index-2.html">
+                        <img src="/web-assets/img/logo/logo.png" class="logo-scrolled" alt="logo">
+                    </a>
+                    <div class="category-all">
+                        <button class="category-btn" type="button">
+                            <i class="far fa-grid-2-plus"></i><span>All Categories</span>
+                        </button>
+                        <ul class="main-category hide-category">
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/shopping-bag.svg" alt="">
+                                    <span>New Arrivals</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <ul class="sub-category">
+                                    <li><a href="#"><img src="/web-assets/img/icon/dress.svg"
+                                                alt=""><span>Accessories</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/laptop.svg"
+                                                alt=""><span>Electronics</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/grocery.svg" alt=""><span>Grocery &
+                                                Market</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/music.svg" alt=""><span>Music &
+                                                Audio</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/furniture.svg" alt=""><span>Home &
+                                                Furniture</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/toy.svg" alt=""><span>Toy & Video
+                                                Games</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/gifts.svg" alt=""><span>Gifts</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/mother.svg" alt=""><span>Babies &
+                                                Moms</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/beauty.svg" alt=""><span>Health &
+                                                Beauty</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/sports.svg" alt=""><span>Sports &
+                                                Outdoor</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/garden.svg" alt=""><span>Home &
+                                                Garden</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/automotive.svg"
+                                                alt=""><span>Automotive</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/dress.svg" alt="">
+                                    <span>Fashion & Accessories</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Kid's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/01.jpg" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/02.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Men's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/02.jpg" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/03.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Women's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/03.jpg" alt="#">
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/04.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/05.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/06.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/07.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="testimonial style-2">
-                                            <div class="testimonial-img">
-                                                <img class="img-fluid" src="web-assets/images/testimonial/08.jpg" alt="">
-                                            </div>
-                                            <div class="testimonial-desc">
-                                                <p>Seoland Amazing Landing Page All-in-one, clean code, Crative & Modern design Professional Recommended crofessional and great experience, Nam pulvinar vitae neque et porttitor, Praesent sed nisi eleifend, adipisicing elit.</p>
-                                                <div class="testimonial-caption">
-                                                    <h5>Roxie Payne</h5>
-                                                    <label>CEO of Seoland</label>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="controls">
-                        <ul class="nav justify-content-center ms-0">
-                            <li class="active" aria-current="true" data-bs-target="#testimonial" data-bs-slide-to="0">
-                                <img class="img-fluid" src="web-assets/images/testimonial/01.jpg" alt="">
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="1">
-                                <img class="img-fluid" src="web-assets/images/testimonial/02.jpg" alt="">
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/laptop.svg" alt="">
+                                    <span>Electronics</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/04.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Shoes</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/05.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="2">
-                                <img class="img-fluid" src="web-assets/images/testimonial/03.jpg" alt="">
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/grocery.svg" alt="">
+                                    <span>Grocery & Market</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="3">
-                                <img class="img-fluid" src="web-assets/images/testimonial/04.jpg" alt="">
+                            <li><a href="#"><img src="/web-assets/img/icon/music.svg" alt=""><span>Music & Audio</span></a>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="4">
-                                <img class="img-fluid" src="web-assets/images/testimonial/05.jpg" alt="">
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/furniture.svg" alt="">
+                                    <span>Home & Furniture</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/04.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="5">
-                                <img class="img-fluid" src="web-assets/images/testimonial/06.jpg" alt="">
+                            <li><a href="#"><img src="/web-assets/img/icon/toy.svg" alt=""><span>Toy & Video Games</span></a>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="6">
-                                <img class="img-fluid" src="web-assets/images/testimonial/07.jpg" alt="">
+                            <li><a href="#"><img src="/web-assets/img/icon/gifts.svg" alt=""><span>Gifts</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/mother.svg" alt=""><span>Babies & Moms</span></a>
                             </li>
-                            <li data-bs-target="#testimonial" data-bs-slide-to="7">
-                                <img class="img-fluid" src="web-assets/images/testimonial/08.jpg" alt="">
+                            <li><a href="#"><img src="/web-assets/img/icon/beauty.svg" alt=""><span>Health &
+                                        Beauty</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/sports.svg" alt=""><span>Sports &
+                                        Outdoor</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/garden.svg" alt=""><span>Home & Garden</span></a>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/automotive.svg" alt=""><span>Automotive</span></a>
                             </li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!--testimonial end-->
-
-
-        <!--blog start-->
-
-        <section class="pt-0">
-            <div class="container">
-                <div class="row align-items-end mb-8">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="theme-title mb-0">
-                            <h6>Blog Post</h6>
-                            <h2>Latest News & Articles</h2>
-                            <p>Our campaigns get your business in front of the right people at the right time to increase organic traffic and boost engagement. </p>
+                    <div class="mobile-menu-right">
+                        <div class="search-btn">
+                            <button type="button" class="nav-right-link"><i class="far fa-search"></i></button>
+                            <div class="mobile-search-form">
+                                <form action="#">
+                                    <input type="text" class="form-control" placeholder="Search Here...">
+                                    <button type="submit"><i class="far fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-mobile-icon"><i class="far fa-bars"></i></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Home</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="index-2.html">Home Demo 01</a></li>
+                                    <li><a class="dropdown-item" href="index-3.html">Home Demo 02</a></li>
+                                    <li><a class="dropdown-item" href="index-4.html">Home Demo 03</a></li>
+                                    <li><a class="dropdown-item" href="index-5.html">Home Demo 04</a></li>
+                                    <li><a class="dropdown-item" href="index-6.html">Home Demo 05</a></li>
+                                    <li><a class="dropdown-item" href="index-7.html">Home Demo 06</a></li>
+                                    <li><a class="dropdown-item" href="index-8.html">Home Demo 07</a></li>
+                                    <li><a class="dropdown-item" href="index-9.html">Home Demo 08</a></li>
+                                    <li><a class="dropdown-item" href="index-10.html">Home Demo 09</a></li>
+                                    <li><a class="dropdown-item" href="index-11.html">Home Demo 10</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Pages</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                                    <li><a class="dropdown-item" href="become-seller.html">Become Seller</a></li>
+                                    <li><a class="dropdown-item" href="brand.html">Brands</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Category</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="category.html">Category One</a></li>
+                                            <li><a class="dropdown-item" href="category-2.html">Category Two</a></li>
+                                            <li><a class="dropdown-item" href="category-3.html">Category Three</a></li>
+                                            <li><a class="dropdown-item" href="category-4.html">Category Four</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Authentication</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                                            <li><a class="dropdown-item" href="register.html">Register</a></li>
+                                            <li><a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Extra Pages</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="404.html">404 Error</a></li>
+                                            <li><a class="dropdown-item" href="coming-soon.html">Coming Soon</a></li>
+                                            <li><a class="dropdown-item" href="return.html">Return Policy</a></li>
+                                            <li><a class="dropdown-item" href="terms.html">Terms Of Service</a></li>
+                                            <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
+                                            <li><a class="dropdown-item" href="mail-success.html">Mail Success</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                                    <li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
+                                    <li><a class="dropdown-item" href="help.html">Help</a></li>
+                                    <li><a class="dropdown-item" href="invoice.html">Invoices</a></li>
+                                    <li><a class="dropdown-item" href="faq.html">Faq</a></li>
+                                    <li><a class="dropdown-item" href="testimonial.html">Testimonials</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">User</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="user-dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="user-profile.html">My Profile</a></li>
+                                    <li><a class="dropdown-item" href="order-list.html">Order List</a></li>
+                                    <li><a class="dropdown-item" href="order-detail.html">Order Details</a></li>
+                                    <li><a class="dropdown-item" href="wishlist.html">My Wishlist</a></li>
+                                    <li><a class="dropdown-item" href="add-address.html">Add Address</a></li>
+                                    <li><a class="dropdown-item" href="address-list.html">Address List</a></li>
+                                    <li><a class="dropdown-item" href="support-ticket.html">Support Tickets</a></li>
+                                    <li><a class="dropdown-item" href="ticket-detail.html">Ticket Details</a></li>
+                                    <li><a class="dropdown-item" href="track-order.html">Track My Order</a></li>
+                                    <li><a class="dropdown-item" href="payment-method.html">Payment Methods</a></li>
+                                    <li><a class="dropdown-item" href="add-payment.html">Add Payment</a></li>
+                                    <li><a class="dropdown-item" href="user-message.html">Messages</a></li>
+                                    <li><a class="dropdown-item" href="user-setting.html">Settings</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Vendor</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="vendor-dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="vendors.html">All Vendors</a></li>
+                                    <li><a class="dropdown-item" href="vendor-profile.html">Vendor Profile</a></li>
+                                    <li><a class="dropdown-item" href="vendor-store.html">Vendor Store</a></li>
+                                    <li><a class="dropdown-item" href="vendor-product.html">Products</a></li>
+                                    <li><a class="dropdown-item" href="vendor-add-product.html">Add Product</a></li>
+                                    <li><a class="dropdown-item" href="vendor-order.html">All Orders</a></li>
+                                    <li><a class="dropdown-item" href="vendor-order-detail.html">Order Details</a></li>
+                                    <li><a class="dropdown-item" href="vendor-payout.html">Payout</a></li>
+                                    <li><a class="dropdown-item" href="vendor-transaction.html">Transaction</a></li>
+                                    <li><a class="dropdown-item" href="vendor-notification.html">Notification</a></li>
+                                    <li><a class="dropdown-item" href="vendor-message.html">Messages</a></li>
+                                    <li><a class="dropdown-item" href="vendor-setting.html">Settings</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item mega-menu dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Menu <span
+                                        class="new">New</span></a>
+                                <div class="dropdown-menu fade-down">
+                                    <div class="mega-content">
+                                        <div class="container-fluid px-lg-0">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="mega-menu-img">
+                                                        <a href="#"><img src="/web-assets/img/banner/mega-menu-banner.jpg"
+                                                                alt=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop Grid</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-grid.html">Shop Grid One</a></li>
+                                            <li><a class="dropdown-item" href="shop-grid-2.html">Shop Grid Two</a></li>
+                                            <li><a class="dropdown-item" href="shop-grid-3.html">Shop Grid Three</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop List</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-list.html">Shop List One</a></li>
+                                            <li><a class="dropdown-item" href="shop-list-2.html">Shop List Two</a></li>
+                                            <li><a class="dropdown-item" href="shop-list-3.html">Shop List Three</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="shop-search.html">Shop Search</a></li>
+                                    <li><a class="dropdown-item" href="shop-cart.html">Shop Cart</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop Checkout</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-checkout.html">Checkout One</a></li>
+                                            <li><a class="dropdown-item" href="shop-checkout-2.html">Checkout Two</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="shop-checkout-complete.html">Checkout
+                                                    Complete</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="shop-single.html">Shop Single One</a></li>
+                                    <li><a class="dropdown-item" href="shop-single-2.html">Shop Single Two</a></li>
+                                    <li><a class="dropdown-item" href="shop-compare.html">Shop Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blog</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
+                                    <li><a class="dropdown-item" href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
+                                    <li><a class="dropdown-item" href="blog-single-sidebar.html">Blog Single Sidebar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        </ul>
+                        <div class="nav-right">
+                            <div class="nav-right-btn">
+                                <a href="become-seller.html" class="theme-btn">Become Seller</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 text-end">
-                        <a class="themeht-btn primary-btn" href="blog-right-sidebar.html">
-                            <span>See All Blogs</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+                </div>
+            </nav>
+        </div>
+
+    </header>
+    <!-- header area end -->
+
+
+    <main class="main">
+
+        <!-- hero slider -->
+        <div class="hero-section3 hs3-2">
+            <div class="container">
+                <div class="hero-slider owl-carousel owl-theme">
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(web-assets/img/slider/slider-9.jpg)"></div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(web-assets/img/slider/slider-10.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(web-assets/img/slider/slider-11.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(web-assets/img/slider/slider-12.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- hero slider end -->
+
+
+        <!-- category area -->
+        <div class="category-area4 pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Our Category</span>
+                            <h2 class="site-title">Our Popular <span>Category</span></h2>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="post-card">
-                            <div class="post-meta">
-                                <ul class="list-inline">
-                                    <li>
-                                        <i class="bi bi-person"></i> By ThemeHt
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <i class="bi bi-tag"></i> Marketing
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images/blog/01.jpg" alt="">
-                                <a class="post-btn" href="blog-single.html">
-                                    <i class="bi bi-arrow-down-right"></i>
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Simple ways to Optimize Website For SEO</a>
-                                    </h4>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInLeft" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc6.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Living Room</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>SEO strategies people are getting themselves enrolled in coding and on their own....</p>
-                                <div class="post-date"> 04 Mar, 2024 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 mt-6 mt-lg-0">
-                        <div class="post-card">
-                            <div class="post-meta">
-                                <ul class="list-inline">
-                                    <li>
-                                        <i class="bi bi-person"></i> By ThemeHt
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <i class="bi bi-tag"></i> Marketing
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images/blog/02.jpg" alt="">
-                                <a class="post-btn" href="blog-single.html">
-                                    <i class="bi bi-arrow-down-right"></i>
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">How Chatbots Can Help You Drive More Sales</a>
-                                    </h4>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInUp" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc7.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Tables & Chairs</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>SEO strategies people are getting themselves enrolled in coding and on their own....</p>
-                                <div class="post-date"> 04 Mar, 2024 </div>
-                            </div>
+                            </a>
+                        </div>
+                        <div class="category-item wow fadeInDown" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc8.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Dining Furniture</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 mt-6 mt-lg-0">
-                        <div class="post-card">
-                            <div class="post-meta">
-                                <ul class="list-inline">
-                                    <li>
-                                        <i class="bi bi-person"></i> By ThemeHt
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <i class="bi bi-tag"></i> Marketing
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images/blog/03.jpg" alt="">
-                                <a class="post-btn" href="blog-single.html">
-                                    <i class="bi bi-arrow-down-right"></i>
-                                </a>
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Leveraging Feedback on Insights best SEO</a>
-                                    </h4>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInRight" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc9.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Office Furniture</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>SEO strategies people are getting themselves enrolled in coding and on their own....</p>
-                                <div class="post-date"> 04 Mar, 2024 </div>
+                            </a>
+                        </div>
+                        <div class="category-item wow fadeInUp" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc10.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Kids Furniture</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- category area end-->
+
+
+        <!-- feature area -->
+        <div class="feature-area2 pt-80">
+            <div class="container">
+                <div class="feature-wrap wow fadeInUp" data-wow-delay=".25s">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-truck"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Free Delivery</h4>
+                                    <p>Orders Over $120</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-sync"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Get Refund</h4>
+                                    <p>Within 30 Days Returns</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-wallet"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Safe Payment</h4>
+                                    <p>100% Secure Payment</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-headset"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>24/7 Support</h4>
+                                    <p>Feel Free To Call Us</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        <!-- feature area end -->
 
-        <!--blog end-->
 
-    </div>
-@endsection
+        <!-- product area -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Featured</span>
+                            <h2 class="site-title">Our Featured <span>Items</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type new">New</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type hot">Hot</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type oos">Out Of Stock</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type discount">10% Off</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <del>$120.00</del>
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- product area end -->
+
+
+        <!-- popular item -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Popular</span>
+                            <h2 class="site-title">Popular <span>Items</span></h2>
+                            <div class="item-tab mt-4">
+                                <ul class="nav nav-pills justify-content-center" id="item-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="item-tab1" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab1" type="button" role="tab"
+                                            aria-controls="pill-item-tab1" aria-selected="true">All Items</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab2" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab2" type="button" role="tab"
+                                            aria-controls="pill-item-tab2" aria-selected="false">Living Room</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab3" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab3" type="button" role="tab"
+                                            aria-controls="pill-item-tab3" aria-selected="false">Tables &
+                                            Chairs</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab4" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab4" type="button" role="tab"
+                                            aria-controls="pill-item-tab4" aria-selected="false">Office
+                                            Furniture</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content wow fadeInUp" data-wow-delay=".25s" id="item-tabContent">
+                    <div class="tab-pane fade show active" id="pill-item-tab1" role="tabpanel"
+                        aria-labelledby="item-tab1" tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab2" role="tabpanel" aria-labelledby="item-tab2"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f7.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f8.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab3" role="tabpanel" aria-labelledby="item-tab3"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f9.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f10.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab4" role="tabpanel" aria-labelledby="item-tab4"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- popular item end -->
+
+
+        <!-- deal area -->
+        <div class="deal-area2 pt-80">
+            <div class="container">
+                <div class="deal-wrap wow fadeInUp" data-wow-delay=".25s">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-6">
+                            <div class="deal-img">
+                                <img src="/web-assets/img/deal/03.jpg" alt="#">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 align-self-center">
+                            <div class="deal-content">
+                                <span class="deal-sub-title">Todays Deal 20% Off</span>
+                                <h3 class="deal-title">Summer Beach Bag With Elegant Women's Accessories.</h3>
+                                <p class="deal-text">There are many variations of passages available but the majority
+                                    have suffered alteration in some form words look even slightly believable.</p>
+                                <h3 class="deal-price"><span>$1020</span><del>$1200</del></h3>
+                                <div class="col-lg-12 col-xl-8 mx-auto">
+                                    <div class="deal-countdown">
+                                        <div class="countdown" data-countdown="2030/12/30"></div>
+                                    </div>
+                                </div>
+                                <div class="deal-btn">
+                                    <a href="#" class="theme-btn">Buy Now<i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- deal area end  -->
+
+
+        <!-- product area -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">New Arrivals</span>
+                            <h2 class="site-title">Our New Arrivals <span>Items</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type new">New</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type hot">Hot</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type oos">Out Of Stock</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type discount">10% Off</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <del>$120.00</del>
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- product area end -->
+
+
+        <!-- big banner -->
+        <div class="big-banner pt-100">
+            <div class="container">
+                <div class="banner-wrap wow fadeInUp" data-wow-delay=".25s"
+                    style="background-image: url(web-assets/img/banner/big-banner.jpg);">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="banner-content">
+                                <div class="banner-info">
+                                    <h6>Mega Collections</h6>
+                                    <h2>Huge Sale Up To <span>40%</span> Off</h2>
+                                    <p>at our outlet stores</p>
+                                </div>
+                                <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- big banner end -->
+
+
+        <!-- blog area -->
+        <div class="blog-area py-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Our Blog</span>
+                            <h2 class="site-title">Latest News & <span>Blog</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/01.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInDown" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/02.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/03.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- blog area end -->
+
+    </main>
+
+
+    <!-- footer area -->
+    <footer class="footer-area2">
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row footer-widget-wrapper pt-100 pb-50">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="footer-widget-box about-us">
+                            <a href="#" class="footer-logo">
+                                <img src="/web-assets/img/logo/logo.png" alt="">
+                            </a>
+                            <p class="mb-3">
+                                We are many variations of the passages available but the majoro have suffered alteration
+                                in some form by injected.
+                            </p>
+                            <ul class="footer-contact">
+                                <li><a href="tel:+21236547898"><i class="far fa-phone"></i>+2 123 654 7898</a></li>
+                                <li><i class="far fa-map-marker-alt"></i>25/B Milford Road, New York</li>
+                                <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#365f58505976534e575b465a531855595b"><i
+                                            class="far fa-envelope"></i><span class="__cf_email__" data-cfemail="3b52555d547b5e435a564b575e15585456">[email&#160;protected]</span></a></li>
+                                <li><i class="far fa-clock"></i>Mon-Fri (9.00AM - 8.00PM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Quick Links</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Become A Seller</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">Update News</a></li>
+                                <li><a href="#">Testimonials</a></li>
+                                <li><a href="#">Terms Of Service</a></li>
+                                <li><a href="#">Privacy policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Browse Category</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">Accessories</a></li>
+                                <li><a href="#">Home & Garden</a></li>
+                                <li><a href="#">Electronics</a></li>
+                                <li><a href="#">Health & Beauty</a></li>
+                                <li><a href="#">Groceries</a></li>
+                                <li><a href="#">Baby Toys</a></li>
+                                <li><a href="#">Music & Video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Support Center</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">FAQ's</a></li>
+                                <li><a href="#">How To Buy</a></li>
+                                <li><a href="#">Support Center</a></li>
+                                <li><a href="#">Track Your Order</a></li>
+                                <li><a href="#">Returns Policy</a></li>
+                                <li><a href="#">Our Affiliates</a></li>
+                                <li><a href="#">Sitemap</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Newsletter</h4>
+                            <p>Subscribe Our Newsletter To Get Latest Update And News.</p>
+                            <div class="footer-newsletter">
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input type="email" class="form-control" placeholder="Email Address">
+                                        <button class="theme-btn" type="submit">
+                                            <i class="far fa-paper-plane"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="footer-download mt-30">
+                                <h5>Get Our Mobile App</h5>
+                                <div class="footer-download-btn">
+                                    <a href="#">
+                                        <i class="fab fa-google-play"></i>
+                                        <div class="download-btn-info">
+                                            <span>Get It On</span>
+                                            <h6>Google Play</h6>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-app-store"></i>
+                                        <div class="download-btn-info">
+                                            <span>Get It On</span>
+                                            <h6>App Store</h6>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copyright-wrap">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-payment">
+                                <span>We Accept:</span>
+                                <img src="/web-assets/img/payment/visa.svg" alt="">
+                                <img src="/web-assets/img/payment/mastercard.svg" alt="">
+                                <img src="/web-assets/img/payment/amex.svg" alt="">
+                                <img src="/web-assets/img/payment/discover.svg" alt="">
+                                <img src="/web-assets/img/payment/paypal.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <p class="copyright-text">
+                                &copy; Copyright <span id="date"></span> <a href="#"> Goemart </a> All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-social">
+                                <span>Follow Us:</span>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer area end -->
+
+
+    <!-- scroll-top -->
+    <a href="#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+    <!-- scroll-top end -->
+
+    <script src="{{ asset('web-assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/modernizr.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.appear.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/counter-up.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/countdown.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/main.js') }}"></script>
+
+</body>
+
+</html>

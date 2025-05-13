@@ -146,6 +146,11 @@
         $('#lfm').filemanager('file', {
             prefix: '/files-manager'
         });
+
+        $('#lfm2').filemanager('file', {
+            prefix: '/files-manager'
+        });
+
         $(document).ready(function() {
             var lfm = function(options, cb) {
                 var route_prefix = (options && options.prefix) ? options.prefix : '/files-manager';
@@ -192,12 +197,14 @@
                     lfm: LFMButton
                 }
             })
+
             var initialUrl = $('#thumbnail').val();
             if (initialUrl) {
                 $('#holder').attr('src', initialUrl);
             } else {
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
+            
             $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
                 var route_prefix = '/files-manager';

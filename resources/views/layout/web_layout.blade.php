@@ -1,169 +1,2409 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-    <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="keywords" content="bootstrap 5, premium, multipurpose, sass, agency, seo, marketing, business, digital, rtl" />
-    <meta name="description" content="HTML5 Template" />
-    <meta name="author" content="www.themeht.com" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SenseLib</title>
 
-    <title>Hackathon 2025</title>
-    <link href="{{ asset("web-assets/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/bootstrap-icons.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/animate.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/magnific-popup.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/swiper-bundle.min.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/odometer.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/spacing.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/seoland-icon.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/base.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/shortcodes.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/style.css") }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("web-assets/css/responsive.css") }}" rel="stylesheet" type="text/css" />
-    <link href="#" data-style="styles" rel="stylesheet">
-    <link href="{{ asset("web-assets/css/color-customize/color-customizer.css") }}" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="{{asset("assets/plugins/toastr/toastr.css")}}" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link rel="icon" type="image/x-icon" href="/web-assets/img/logo/favicon.png">
+
+    <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/all-fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
+
 </head>
 
-<body>
+<body class="home-9">
 
-    <div class="page-wrapper">
-        <div id="particles-js"></div>
-        @include('layout.partial.chatbot')
-        @include('layout.partial.menu')
-
-        @yield('content')
-
-        @include('layout.partial.footer')
-
-    </div>
-
-    <div class="scroll-top position-fixed" style="bottom: 100px; right: 16px; z-index: 99998;">
-        <svg class="scroll-circle svg-content" width="60" height="60" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-        </svg>
-    </div>
-
-    <script src="{{ asset("web-assets/js/jquery.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/bootstrap.bundle.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/jquery-appear.js") }}"></script>
-    <script src="{{ asset("web-assets/js/jquery.magnific-popup.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/isotope.pkgd.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/odometer.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/jquery.countdown.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/gsap.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/scrolltrigger.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/gsap-animation.js") }}"></script>
-    <script src="{{ asset("web-assets/js/particles.js") }}"></script>
-    <script src="{{ asset("web-assets/js/swiper-bundle.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/seoland-swiper-init.js") }}"></script>
-    <script src="{{ asset("web-assets/js/sticksy.min.js") }}"></script>
-    <script src="{{ asset("web-assets/js/color-customize/color-customizer.js") }}"></script>
-    <script src="{{ asset("web-assets/js/theme-script.js") }}"></script>
-    <script src="{{asset("assets/plugins/toastr/toastr.min.js")}}"></script>
-    @yield('scripts')
-
-    <script>
-        $(document).ready(function () {
-
-            setTimeout(function() {
-                $("#myAlert").fadeOut(500);
-            },3500);
-
-            $("#sendMessageChatbot").click(function () {
-                sendChatbotMessage();
-            });
-
-            $("#chatBotInput").keypress(function (e) {
-                if (e.which === 13) {
-                    e.preventDefault();
-                    sendChatbotMessage();
-                }
-            });
-
-            function sendChatbotMessage(){
-                let userMessage = $("#chatBotInput").val();
-                if (userMessage === ""){
-                    toastr.error("Vui lòng nhập câu hỏi");
-                    return;
-                }
-                $("#chatbotIntro").remove(); 
-                let userBubble = 
-                `<div class="d-flex justify-content-end mb-1">                   
-                    <div class="bg-light p-2 rounded w-75 text-end">${userMessage}</div>
-                    <div class="ms-2">
-                        <img src="/storage/files/1/Avatar/12225935.png" alt="Avatar" class="img-fluid rounded-circle" style="width: 40px; height: 40px;">
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-wrapper">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-5">
+                            <div class="header-top-left">
+                                <ul class="header-top-list">
+                                    <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#d0b9beb6bf90b5a8b1bda0bcb5feb3bfbd"><i class="far fa-envelopes"></i>
+                                            <span class="__cf_email__" data-cfemail="c3aaada5ac83a6bba2aeb3afa6eda0acae">[email&#160;protected]</span></a></li>
+                                    <li><a href="tel:+21236547898"><i class="far fa-headset"></i> +2 123 654
+                                            7898</a></li>
+                                    <li class="help"><a href="#"><i class="far fa-comment-question"></i> Need Help?</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 col-xl-7">
+                            <div class="header-top-right">
+                                <ul class="header-top-list">
+                                    <li><a href="#"><i class="far fa-alarm-clock"></i> Daily Deal</a></li>
+                                    <li class="account"><a href="#"><i class="far fa-user-vneck"></i> Account</a></li>
+                                    <li class="login"><a href="#"><i class="far fa-arrow-right-to-arc"></i> Login</a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="far fa-usd"></i> USD
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">USD</a>
+                                                <a class="dropdown-item" href="#">EUR</a>
+                                                <a class="dropdown-item" href="#">AUD</a>
+                                                <a class="dropdown-item" href="#">CUD</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="far fa-globe-americas"></i> EN
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">EN</a>
+                                                <a class="dropdown-item" href="#">FR</a>
+                                                <a class="dropdown-item" href="#">DE</a>
+                                                <a class="dropdown-item" href="#">RU</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="social">
+                                        <div class="header-top-social">
+                                            <span>Follow Us: </span>
+                                            <a href="#"><i class="fab fa-facebook"></i></a>
+                                            <a href="#"><i class="fab fa-x-twitter"></i></a>
+                                            <a href="#"><i class="fab fa-instagram"></i></a>
+                                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>`;
-                $("#chatbotContent").append(userBubble);
-                $("#chatBody").animate({ scrollTop: $('#chatBody')[0].scrollHeight }, 500);
-                $("#chatBotInput").val("");
+                </div>
+            </div>
+        </div>
 
-                $.ajax({
-                    url: "/api/ask-ai",
-                    type: "POST",
-                    data: { 
-                        question: userMessage 
-                    },
-                    beforeSend: function() {
-                        let loadingBubble = `
-                        <div id="loadingMessage" class="d-flex align-items-start mb-1">
-                            <div class="me-2">
-                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Avatar" class="img-fluid rounded-circle" style="width: 40px; height: 40px;">
+        <!-- header middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-5 col-lg-3 col-xl-3">
+                        <div class="header-middle-logo">
+                            <a class="navbar-brand" href="index-2.html">
+                                <img src="/web-assets/img/logo/logo.png" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-none d-lg-block col-lg-6 col-xl-5">
+                        <div class="header-middle-search">
+                            <form action="#">
+                                <div class="search-content">
+                                    <select class="select">
+                                        <option value="">All Category</option>
+                                        <option value="1">Today's Hot Deals</option>
+                                        <option value="2">Fashion & Accessories</option>
+                                        <option value="3">Electronics</option>
+                                        <option value="4">Grocery & Market</option>
+                                        <option value="5">Music</option>
+                                        <option value="6">Home & Furniture</option>
+                                        <option value="7">Toy & Video Games</option>
+                                        <option value="8">Gifts</option>
+                                        <option value="9">Babies & Moms</option>
+                                        <option value="10">Sports & Outdoor</option>
+                                        <option value="11">Health & Beauty</option>
+                                    </select>
+                                    <input type="text" class="form-control" placeholder="Search Here...">
+                                    <button type="submit" class="search-btn"><i class="far fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-7 col-lg-3 col-xl-4">
+                        <div class="header-middle-right">
+                            <ul class="header-middle-list">
+                                <li><a href="#" class="list-item"><i class="far fa-user-circle"></i></a></li>
+                                <li><a href="#" class="list-item"><i class="far fa-arrows-rotate"></i><span>0</span></a>
+                                </li>
+                                <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span></a></li>
+                                <li class="dropdown-cart">
+                                    <a href="#" class="shop-cart list-item"><i class="far fa-shopping-bag"></i>
+                                        <span>5</span></a>
+                                    <div class="dropdown-cart-menu">
+                                        <div class="dropdown-cart-header">
+                                            <span>03 Items</span>
+                                            <a href="#">View Cart</a>
+                                        </div>
+                                        <ul class="dropdown-cart-list">
+                                            <li>
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p47.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Xamaha R15 Red</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$200.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p12.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Apple Blue Watch</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$120.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="dropdown-cart-item">
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="/web-assets/img/product/p32.png" alt="#"></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">Orange Sweater</a></h4>
+                                                        <p class="cart-qty">1x - <span
+                                                                class="cart-amount">$330.00</span></p>
+                                                    </div>
+                                                    <a href="#" class="cart-remove" title="Remove this item"><i
+                                                            class="far fa-times-circle"></i></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="dropdown-cart-bottom">
+                                            <div class="dropdown-cart-total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$650.00</span>
+                                            </div>
+                                            <a href="#" class="theme-btn">Checkout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- header main navigation -->
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index-2.html">
+                        <img src="/web-assets/img/logo/logo.png" class="logo-scrolled" alt="logo">
+                    </a>
+                    <div class="category-all">
+                        <button class="category-btn" type="button">
+                            <i class="far fa-grid-2-plus"></i><span>All Categories</span>
+                        </button>
+                        <ul class="main-category hide-category">
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/shopping-bag.svg" alt="">
+                                    <span>New Arrivals</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <ul class="sub-category">
+                                    <li><a href="#"><img src="/web-assets/img/icon/dress.svg"
+                                                alt=""><span>Accessories</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/laptop.svg"
+                                                alt=""><span>Electronics</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/grocery.svg" alt=""><span>Grocery &
+                                                Market</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/music.svg" alt=""><span>Music &
+                                                Audio</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/furniture.svg" alt=""><span>Home &
+                                                Furniture</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/toy.svg" alt=""><span>Toy & Video
+                                                Games</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/gifts.svg" alt=""><span>Gifts</span></a>
+                                    </li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/mother.svg" alt=""><span>Babies &
+                                                Moms</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/beauty.svg" alt=""><span>Health &
+                                                Beauty</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/sports.svg" alt=""><span>Sports &
+                                                Outdoor</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/garden.svg" alt=""><span>Home &
+                                                Garden</span></a></li>
+                                    <li><a href="#"><img src="/web-assets/img/icon/automotive.svg"
+                                                alt=""><span>Automotive</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/dress.svg" alt="">
+                                    <span>Fashion & Accessories</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Kid's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/01.jpg" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Men's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/02.jpg" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="category-single">
+                                                <a href="#" class="category-title">Shop Women's</a>
+                                                <div class="category-img mb-3">
+                                                    <img src="/web-assets/img/category/03.jpg" alt="#">
+                                                </div>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/laptop.svg" alt="">
+                                    <span>Electronics</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/04.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Shoes</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/05.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/grocery.svg" alt="">
+                                    <span>Grocery & Market</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Women Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/music.svg" alt=""><span>Music & Audio</span></a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="/web-assets/img/icon/furniture.svg" alt="">
+                                    <span>Home & Furniture</span><i class="far fa-angle-right"></i>
+                                </a>
+                                <div class="sub-category-mega">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Man Cloths</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Kids Toys</a>
+                                                    <a href="#">Kids Color Shape</a>
+                                                    <a href="#">Kids Travel Car</a>
+                                                    <a href="#">Kids Tent</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Accessories</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Watch</a>
+                                                    <a href="#">Hoodies</a>
+                                                    <a href="#">T-shirt</a>
+                                                    <a href="#">Formal Pant</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-single">
+                                                <h6 class="category-title-text">Bags</h6>
+                                                <div class="category-link">
+                                                    <a href="#">Ladies Shirt</a>
+                                                    <a href="#">Ladies Sun Glass</a>
+                                                    <a href="#">Ladies Frog</a>
+                                                    <a href="#">Ladies Watch</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="category-img">
+                                                <a href="#"><img src="/web-assets/img/category/04.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/toy.svg" alt=""><span>Toy & Video Games</span></a>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/gifts.svg" alt=""><span>Gifts</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/mother.svg" alt=""><span>Babies & Moms</span></a>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/beauty.svg" alt=""><span>Health &
+                                        Beauty</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/sports.svg" alt=""><span>Sports &
+                                        Outdoor</span></a></li>
+                            <li><a href="#"><img src="/web-assets/img/icon/garden.svg" alt=""><span>Home & Garden</span></a>
+                            </li>
+                            <li><a href="#"><img src="/web-assets/img/icon/automotive.svg" alt=""><span>Automotive</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mobile-menu-right">
+                        <div class="search-btn">
+                            <button type="button" class="nav-right-link"><i class="far fa-search"></i></button>
+                            <div class="mobile-search-form">
+                                <form action="#">
+                                    <input type="text" class="form-control" placeholder="Search Here...">
+                                    <button type="submit"><i class="far fa-search"></i></button>
+                                </form>
                             </div>
-                            <div class="bg-light p-2 rounded w-25 text-center"><i class="fa-solid fa-ellipsis"></i></div>
-                        </div>`;
-                        $("#chatbotContent").append(loadingBubble);
-                        $("#chatBody").animate({ scrollTop: $('#chatBody')[0].scrollHeight }, 500);
-                    },
-                    success: function (response) {
-                        $("#loadingMessage").remove(); 
-                        let botMessage = response.answer;
-                        botMessage = botMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                        botMessage = botMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
-                        let botBubble = 
-                        `<div class="d-flex align-items-start mb-1">
-                            <div class="me-2">
-                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Avatar" class="img-fluid rounded-circle" style="width: 40px; height: 40px;">
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-mobile-icon"><i class="far fa-bars"></i></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Home</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="index-2.html">Home Demo 01</a></li>
+                                    <li><a class="dropdown-item" href="index-3.html">Home Demo 02</a></li>
+                                    <li><a class="dropdown-item" href="index-4.html">Home Demo 03</a></li>
+                                    <li><a class="dropdown-item" href="index-5.html">Home Demo 04</a></li>
+                                    <li><a class="dropdown-item" href="index-6.html">Home Demo 05</a></li>
+                                    <li><a class="dropdown-item" href="index-7.html">Home Demo 06</a></li>
+                                    <li><a class="dropdown-item" href="index-8.html">Home Demo 07</a></li>
+                                    <li><a class="dropdown-item" href="index-9.html">Home Demo 08</a></li>
+                                    <li><a class="dropdown-item" href="index-10.html">Home Demo 09</a></li>
+                                    <li><a class="dropdown-item" href="index-11.html">Home Demo 10</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Pages</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                                    <li><a class="dropdown-item" href="become-seller.html">Become Seller</a></li>
+                                    <li><a class="dropdown-item" href="brand.html">Brands</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Category</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="category.html">Category One</a></li>
+                                            <li><a class="dropdown-item" href="category-2.html">Category Two</a></li>
+                                            <li><a class="dropdown-item" href="category-3.html">Category Three</a></li>
+                                            <li><a class="dropdown-item" href="category-4.html">Category Four</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Authentication</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                                            <li><a class="dropdown-item" href="register.html">Register</a></li>
+                                            <li><a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Extra Pages</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="404.html">404 Error</a></li>
+                                            <li><a class="dropdown-item" href="coming-soon.html">Coming Soon</a></li>
+                                            <li><a class="dropdown-item" href="return.html">Return Policy</a></li>
+                                            <li><a class="dropdown-item" href="terms.html">Terms Of Service</a></li>
+                                            <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
+                                            <li><a class="dropdown-item" href="mail-success.html">Mail Success</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                                    <li><a class="dropdown-item" href="contact.html">Contact Us</a></li>
+                                    <li><a class="dropdown-item" href="help.html">Help</a></li>
+                                    <li><a class="dropdown-item" href="invoice.html">Invoices</a></li>
+                                    <li><a class="dropdown-item" href="faq.html">Faq</a></li>
+                                    <li><a class="dropdown-item" href="testimonial.html">Testimonials</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">User</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="user-dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="user-profile.html">My Profile</a></li>
+                                    <li><a class="dropdown-item" href="order-list.html">Order List</a></li>
+                                    <li><a class="dropdown-item" href="order-detail.html">Order Details</a></li>
+                                    <li><a class="dropdown-item" href="wishlist.html">My Wishlist</a></li>
+                                    <li><a class="dropdown-item" href="add-address.html">Add Address</a></li>
+                                    <li><a class="dropdown-item" href="address-list.html">Address List</a></li>
+                                    <li><a class="dropdown-item" href="support-ticket.html">Support Tickets</a></li>
+                                    <li><a class="dropdown-item" href="ticket-detail.html">Ticket Details</a></li>
+                                    <li><a class="dropdown-item" href="track-order.html">Track My Order</a></li>
+                                    <li><a class="dropdown-item" href="payment-method.html">Payment Methods</a></li>
+                                    <li><a class="dropdown-item" href="add-payment.html">Add Payment</a></li>
+                                    <li><a class="dropdown-item" href="user-message.html">Messages</a></li>
+                                    <li><a class="dropdown-item" href="user-setting.html">Settings</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Vendor</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="vendor-dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="vendors.html">All Vendors</a></li>
+                                    <li><a class="dropdown-item" href="vendor-profile.html">Vendor Profile</a></li>
+                                    <li><a class="dropdown-item" href="vendor-store.html">Vendor Store</a></li>
+                                    <li><a class="dropdown-item" href="vendor-product.html">Products</a></li>
+                                    <li><a class="dropdown-item" href="vendor-add-product.html">Add Product</a></li>
+                                    <li><a class="dropdown-item" href="vendor-order.html">All Orders</a></li>
+                                    <li><a class="dropdown-item" href="vendor-order-detail.html">Order Details</a></li>
+                                    <li><a class="dropdown-item" href="vendor-payout.html">Payout</a></li>
+                                    <li><a class="dropdown-item" href="vendor-transaction.html">Transaction</a></li>
+                                    <li><a class="dropdown-item" href="vendor-notification.html">Notification</a></li>
+                                    <li><a class="dropdown-item" href="vendor-message.html">Messages</a></li>
+                                    <li><a class="dropdown-item" href="vendor-setting.html">Settings</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item mega-menu dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Menu <span
+                                        class="new">New</span></a>
+                                <div class="dropdown-menu fade-down">
+                                    <div class="mega-content">
+                                        <div class="container-fluid px-lg-0">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-2">
+                                                    <h5 class="mega-menu-title">Fashion</h5>
+                                                    <ul class="mega-menu-item">
+                                                        <li><a class="dropdown-item" href="#">Ladies Shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens T-shirt</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Sun Glass</a></li>
+                                                        <li><a class="dropdown-item" href="#">Crossbody Bags</a></li>
+                                                        <li><a class="dropdown-item" href="#">Ladies Watch</a></li>
+                                                        <li><a class="dropdown-item" href="#">Mens Shirt</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="mega-menu-img">
+                                                        <a href="#"><img src="/web-assets/img/banner/mega-menu-banner.jpg"
+                                                                alt=""></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Shop</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop Grid</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-grid.html">Shop Grid One</a></li>
+                                            <li><a class="dropdown-item" href="shop-grid-2.html">Shop Grid Two</a></li>
+                                            <li><a class="dropdown-item" href="shop-grid-3.html">Shop Grid Three</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop List</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-list.html">Shop List One</a></li>
+                                            <li><a class="dropdown-item" href="shop-list-2.html">Shop List Two</a></li>
+                                            <li><a class="dropdown-item" href="shop-list-3.html">Shop List Three</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="shop-search.html">Shop Search</a></li>
+                                    <li><a class="dropdown-item" href="shop-cart.html">Shop Cart</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Shop Checkout</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="shop-checkout.html">Checkout One</a></li>
+                                            <li><a class="dropdown-item" href="shop-checkout-2.html">Checkout Two</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="shop-checkout-complete.html">Checkout
+                                                    Complete</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="shop-single.html">Shop Single One</a></li>
+                                    <li><a class="dropdown-item" href="shop-single-2.html">Shop Single Two</a></li>
+                                    <li><a class="dropdown-item" href="shop-compare.html">Shop Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Blog</a>
+                                <ul class="dropdown-menu fade-down">
+                                    <li><a class="dropdown-item" href="blog-grid.html">Blog Grid</a></li>
+                                    <li><a class="dropdown-item" href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="blog-single.html">Blog Single</a></li>
+                                    <li><a class="dropdown-item" href="blog-single-sidebar.html">Blog Single Sidebar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        </ul>
+                        <div class="nav-right">
+                            <div class="nav-right-btn">
+                                <a href="become-seller.html" class="theme-btn">Become Seller</a>
                             </div>
-                            <div class="bg-light p-2 rounded w-75">${botMessage}</div>
-                        </div>`;
-                        $("#chatbotContent").append(botBubble);
-                    },
-                    error: function () {
-                        $("#loadingMessage").remove(); 
-                        toastr.error("Có lỗi xảy ra, vui lòng thử lại");
-                    }
-                });
-            }
-        });
-    </script>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
 
-    <script>
-        const chatButton = document.getElementById("chatButton");
-        const chatBox = document.getElementById("chatBox");
+    </header>
+    <!-- header area end -->
 
-        chatButton.addEventListener("click", function () {
-            chatBox.classList.toggle("d-none");
-            chatButton.innerHTML = chatBox.classList.contains("d-none") ? "<i class='bi bi-chat-dots fs-4'></i>" : "<i class='bi bi-x-lg fs-4'></i>";
-        });
 
-        document.getElementById("closeChat").addEventListener("click", function () {
-            chatBox.classList.add("d-none");
-            chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
-        });
+    <main class="main">
 
-        document.addEventListener("click", function (event) {
-            if (!chatBox.contains(event.target) && !chatButton.contains(event.target)) {
-                chatBox.classList.add("d-none");
-                chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
-            }
-        }, true);
-    </script>
+        <!-- hero slider -->
+        <div class="hero-section3 hs3-2">
+            <div class="container">
+                <div class="hero-slider owl-carousel owl-theme">
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(assets/img/slider/slider-9.jpg)"></div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(assets/img/slider/slider-10.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(assets/img/slider/slider-11.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-single">
+                        <div class="hero-single-bg" style="background-image: url(assets/img/slider/slider-12.jpg)">
+                        </div>
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 col-lg-6">
+                                    <div class="hero-content">
+                                        <h6 class="hero-sub-title" data-animation="fadeInUp" data-delay=".25s">Up To 50%
+                                            Off</h6>
+                                        <h1 class="hero-title" data-animation="fadeInRight" data-delay=".50s">
+                                            For Your First <br> Goemart Shopping
+                                        </h1>
+                                        <p data-animation="fadeInLeft" data-delay=".75s">
+                                            There are many variations of passages orem psum available but the majority
+                                            have
+                                            suffered are going to use a passage alteration in some form by injected
+                                            humour.
+                                        </p>
+                                        <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
+                                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- hero slider end -->
+
+
+        <!-- category area -->
+        <div class="category-area4 pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Our Category</span>
+                            <h2 class="site-title">Our Popular <span>Category</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInLeft" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc6.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Living Room</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInUp" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc7.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Tables & Chairs</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-item wow fadeInDown" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc8.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Dining Furniture</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="category-item wow fadeInRight" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc9.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Office Furniture</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="category-item wow fadeInUp" data-wow-delay=".25s">
+                            <a href="#">
+                                <div class="category-img-box">
+                                    <div class="category-img">
+                                        <img src="/web-assets/img/category/bc10.jpg" alt="">
+                                        <div class="category-img-info">
+                                            <h4>Kids Furniture</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- category area end-->
+
+
+        <!-- feature area -->
+        <div class="feature-area2 pt-80">
+            <div class="container">
+                <div class="feature-wrap wow fadeInUp" data-wow-delay=".25s">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-truck"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Free Delivery</h4>
+                                    <p>Orders Over $120</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-sync"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Get Refund</h4>
+                                    <p>Within 30 Days Returns</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-wallet"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Safe Payment</h4>
+                                    <p>100% Secure Payment</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fal fa-headset"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>24/7 Support</h4>
+                                    <p>Feel Free To Call Us</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- feature area end -->
+
+
+        <!-- product area -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Featured</span>
+                            <h2 class="site-title">Our Featured <span>Items</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type new">New</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type hot">Hot</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type oos">Out Of Stock</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type discount">10% Off</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <del>$120.00</del>
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- product area end -->
+
+
+        <!-- popular item -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Popular</span>
+                            <h2 class="site-title">Popular <span>Items</span></h2>
+                            <div class="item-tab mt-4">
+                                <ul class="nav nav-pills justify-content-center" id="item-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="item-tab1" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab1" type="button" role="tab"
+                                            aria-controls="pill-item-tab1" aria-selected="true">All Items</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab2" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab2" type="button" role="tab"
+                                            aria-controls="pill-item-tab2" aria-selected="false">Living Room</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab3" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab3" type="button" role="tab"
+                                            aria-controls="pill-item-tab3" aria-selected="false">Tables &
+                                            Chairs</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="item-tab4" data-bs-toggle="pill"
+                                            data-bs-target="#pill-item-tab4" type="button" role="tab"
+                                            aria-controls="pill-item-tab4" aria-selected="false">Office
+                                            Furniture</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content wow fadeInUp" data-wow-delay=".25s" id="item-tabContent">
+                    <div class="tab-pane fade show active" id="pill-item-tab1" role="tabpanel"
+                        aria-labelledby="item-tab1" tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab2" role="tabpanel" aria-labelledby="item-tab2"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f7.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f8.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab3" role="tabpanel" aria-labelledby="item-tab3"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f9.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f10.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pill-item-tab4" role="tabpanel" aria-labelledby="item-tab4"
+                        tabindex="0">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type new">New</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type hot">Hot</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type oos">Out Of Stock</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <span class="type discount">10% Off</span>
+                                        <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
+                                        <div class="product-action-wrap">
+                                            <div class="product-action">
+                                                <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                                        class="far fa-eye"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                                        class="far fa-heart"></i></a>
+                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                                        class="far fa-arrows-repeat"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
+                                        </h3>
+                                        <div class="product-rate">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                        <div class="product-bottom">
+                                            <div class="product-price">
+                                                <del>$120.00</del>
+                                                <span>$100.00</span>
+                                            </div>
+                                            <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                                data-tooltip="tooltip" title="Add To Cart">
+                                                <i class="far fa-shopping-bag"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- popular item end -->
+
+
+        <!-- deal area -->
+        <div class="deal-area2 pt-80">
+            <div class="container">
+                <div class="deal-wrap wow fadeInUp" data-wow-delay=".25s">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-6">
+                            <div class="deal-img">
+                                <img src="/web-assets/img/deal/03.jpg" alt="#">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 align-self-center">
+                            <div class="deal-content">
+                                <span class="deal-sub-title">Todays Deal 20% Off</span>
+                                <h3 class="deal-title">Summer Beach Bag With Elegant Women's Accessories.</h3>
+                                <p class="deal-text">There are many variations of passages available but the majority
+                                    have suffered alteration in some form words look even slightly believable.</p>
+                                <h3 class="deal-price"><span>$1020</span><del>$1200</del></h3>
+                                <div class="col-lg-12 col-xl-8 mx-auto">
+                                    <div class="deal-countdown">
+                                        <div class="countdown" data-countdown="2030/12/30"></div>
+                                    </div>
+                                </div>
+                                <div class="deal-btn">
+                                    <a href="#" class="theme-btn">Buy Now<i class="fas fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- deal area end  -->
+
+
+        <!-- product area -->
+        <div class="product-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">New Arrivals</span>
+                            <h2 class="site-title">Our New Arrivals <span>Items</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type new">New</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type hot">Hot</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type oos">Out Of Stock</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <span class="type discount">10% Off</span>
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <del>$120.00</del>
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-img">
+                            <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action">
+                                    <a href="#" data-tooltip="tooltip" title="View Details"><i
+                                            class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
+                                            class="far fa-heart"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
+                                            class="far fa-arrows-repeat"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
+                            <div class="product-rate">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span>$100.00</span>
+                                </div>
+                                <button type="button" class="product-cart-btn" data-bs-placement="left"
+                                    data-tooltip="tooltip" title="Add To Cart">
+                                    <i class="far fa-shopping-bag"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- product area end -->
+
+
+        <!-- big banner -->
+        <div class="big-banner pt-100">
+            <div class="container">
+                <div class="banner-wrap wow fadeInUp" data-wow-delay=".25s"
+                    style="background-image: url(assets/img/banner/big-banner.jpg);">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <div class="banner-content">
+                                <div class="banner-info">
+                                    <h6>Mega Collections</h6>
+                                    <h2>Huge Sale Up To <span>40%</span> Off</h2>
+                                    <p>at our outlet stores</p>
+                                </div>
+                                <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- big banner end -->
+
+
+        <!-- blog area -->
+        <div class="blog-area py-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 mx-auto">
+                        <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                            <span class="site-title-tagline">Our Blog</span>
+                            <h2 class="site-title">Latest News & <span>Blog</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/01.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInDown" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/02.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
+                            <div class="blog-item-img">
+                                <img src="/web-assets/img/blog/03.jpg" alt="Thumb">
+                            </div>
+                            <div class="blog-item-info">
+                                <div class="blog-item-meta">
+                                    <ul>
+                                        <li><a href="#"><i class="far fa-user-circle"></i> By Alicia Davis</a></li>
+                                        <li><a href="#"><i class="far fa-calendar-alt"></i> January 29, 2025</a></li>
+                                    </ul>
+                                </div>
+                                <h4 class="blog-title">
+                                    <a href="#">There are many variations of passage available majority suffered.</a>
+                                </h4>
+                                <p>There are many variations available the majority have suffered alteration randomised
+                                    words.</p>
+                                <a class="theme-btn" href="#">Read More<i class="fas fa-arrow-right-long"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- blog area end -->
+
+    </main>
+
+
+    <!-- footer area -->
+    <footer class="footer-area2">
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row footer-widget-wrapper pt-100 pb-50">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="footer-widget-box about-us">
+                            <a href="#" class="footer-logo">
+                                <img src="/web-assets/img/logo/logo.png" alt="">
+                            </a>
+                            <p class="mb-3">
+                                We are many variations of the passages available but the majoro have suffered alteration
+                                in some form by injected.
+                            </p>
+                            <ul class="footer-contact">
+                                <li><a href="tel:+21236547898"><i class="far fa-phone"></i>+2 123 654 7898</a></li>
+                                <li><i class="far fa-map-marker-alt"></i>25/B Milford Road, New York</li>
+                                <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#365f58505976534e575b465a531855595b"><i
+                                            class="far fa-envelope"></i><span class="__cf_email__" data-cfemail="3b52555d547b5e435a564b575e15585456">[email&#160;protected]</span></a></li>
+                                <li><i class="far fa-clock"></i>Mon-Fri (9.00AM - 8.00PM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Quick Links</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Become A Seller</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">Update News</a></li>
+                                <li><a href="#">Testimonials</a></li>
+                                <li><a href="#">Terms Of Service</a></li>
+                                <li><a href="#">Privacy policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Browse Category</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">Accessories</a></li>
+                                <li><a href="#">Home & Garden</a></li>
+                                <li><a href="#">Electronics</a></li>
+                                <li><a href="#">Health & Beauty</a></li>
+                                <li><a href="#">Groceries</a></li>
+                                <li><a href="#">Baby Toys</a></li>
+                                <li><a href="#">Music & Video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Support Center</h4>
+                            <ul class="footer-list">
+                                <li><a href="#">FAQ's</a></li>
+                                <li><a href="#">How To Buy</a></li>
+                                <li><a href="#">Support Center</a></li>
+                                <li><a href="#">Track Your Order</a></li>
+                                <li><a href="#">Returns Policy</a></li>
+                                <li><a href="#">Our Affiliates</a></li>
+                                <li><a href="#">Sitemap</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="footer-widget-box list">
+                            <h4 class="footer-widget-title">Newsletter</h4>
+                            <p>Subscribe Our Newsletter To Get Latest Update And News.</p>
+                            <div class="footer-newsletter">
+                                <div class="subscribe-form">
+                                    <form action="#">
+                                        <input type="email" class="form-control" placeholder="Email Address">
+                                        <button class="theme-btn" type="submit">
+                                            <i class="far fa-paper-plane"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="footer-download mt-30">
+                                <h5>Get Our Mobile App</h5>
+                                <div class="footer-download-btn">
+                                    <a href="#">
+                                        <i class="fab fa-google-play"></i>
+                                        <div class="download-btn-info">
+                                            <span>Get It On</span>
+                                            <h6>Google Play</h6>
+                                        </div>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fab fa-app-store"></i>
+                                        <div class="download-btn-info">
+                                            <span>Get It On</span>
+                                            <h6>App Store</h6>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copyright-wrap">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-payment">
+                                <span>We Accept:</span>
+                                <img src="/web-assets/img/payment/visa.svg" alt="">
+                                <img src="/web-assets/img/payment/mastercard.svg" alt="">
+                                <img src="/web-assets/img/payment/amex.svg" alt="">
+                                <img src="/web-assets/img/payment/discover.svg" alt="">
+                                <img src="/web-assets/img/payment/paypal.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <p class="copyright-text">
+                                &copy; Copyright <span id="date"></span> <a href="#"> Goemart </a> All Rights Reserved.
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-social">
+                                <span>Follow Us:</span>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer area end -->
+
+
+    <!-- scroll-top -->
+    <a href="#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+    <!-- scroll-top end -->
+
+    <script src="{{ asset('web-assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/modernizr.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.appear.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/counter-up.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/countdown.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/wow.min.js') }}"></script>
+    <script src="{{ asset('web-assets/js/main.js') }}"></script>
+
 </body>
 
 </html>
