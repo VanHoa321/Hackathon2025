@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Http\Controllers\FrontEnd;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class AccountController extends Controller
+{
+    public function profile()
+    {
+        return view('frontend.account.profile');
+    }
+
+    public function editProfile()
+    {
+        return view('frontend.account.profile');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'avatar' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Truy xuất user từ Model User thông qua ID từ Auth
+        $user = User::findOrFail(Auth::id());
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'description' => $request->description,
+            'avatar' => $request->avatar,
+        ]);
+
+        return redirect()->route('frontend.profile')
+            ->with('messenge', [
+                'style' => 'success',
+                'msg' => 'Profile updated successfully!'
+            ]);
+    }
+
+    public function editPassword()
+    {
+        return view('frontend.account.edit-password');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Truy xuất user từ Model User thông qua ID từ Auth
+        $user = User::findOrFail(Auth::id());
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return redirect()->back()
+                ->withErrors(['old_password' => 'The old password is incorrect'])
+                ->withInput();
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->route('frontend.profile')
+            ->with('messenge', [
+                'style' => 'success',
+                'msg' => 'Password updated successfully!'
+            ]);
+    }
+
+    public function settings()
+    {
+        return view('frontend.account.settings');
+    }
+}

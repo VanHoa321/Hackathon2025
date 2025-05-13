@@ -53,18 +53,60 @@ return [
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,
-            'valid_mime'   => [
+            'valid_mime' => [
+                // Hình ảnh
                 'image/jpeg',
                 'image/pjpeg',
                 'image/png',
                 'image/gif',
-                'application/pdf',
+                'image/bmp',
+                'image/webp',
+                'image/svg+xml',
+                'image/tiff',
+
+                // Văn bản
                 'text/plain',
-                'video/mp4', 
-                'video/x-msvideo', 
-                'video/x-flv', 
-                'video/x-matroska', 
+                'text/html',
+                'text/csv',
+                'text/xml',
+                'application/xml',
+
+                // Tài liệu
+                'application/pdf',
+                'application/msword',                         // .doc
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',                   // .xls
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',              // .ppt
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+                'application/rtf',                            // Rich Text Format
+                'application/zip',
+                'application/x-7z-compressed',
+                'application/x-rar-compressed',
+                'application/x-tar',
+
+                // Video
+                'video/mp4',
+                'video/x-msvideo',        // .avi
+                'video/x-flv',            // .flv
+                'video/x-matroska',       // .mkv
                 'video/x-ms-wmv',
+                'video/quicktime',        // .mov
+                'video/webm',
+
+                // Âm thanh
+                'audio/mpeg',             // .mp3
+                'audio/wav',
+                'audio/x-wav',
+                'audio/ogg',
+                'audio/mp4',
+                'audio/x-ms-wma',
+
+                // Photoshop, Illustrator
+                'image/vnd.adobe.photoshop',   // .psd
+                'application/postscript',      // .ai, .eps
+
+                // MIME rỗng nếu cần dùng fallback
                 ''
             ],
         ],

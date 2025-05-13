@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-left">
-                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}" class="text-info">Quản trị viên</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}" class="text-info">Người dùng</a></li>
                             <li class="breadcrumb-item active">Danh sách quản trị viên</li>
                         </ol>
                     </div>
@@ -34,7 +34,7 @@
                             <div class="card-header">
                                 <div>
                                     <a type="button" class="btn btn-success" href="{{route('user.create')}}">
-                                        <i class="fa-solid fa-plus" title="Thêm mới nhân viên"></i>
+                                        <i class="fa-solid fa-plus" title="Thêm mới quản trị viên"></i>
                                     </a>
                                 </div>
                             </div>

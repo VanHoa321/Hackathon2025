@@ -15,6 +15,7 @@ class Document extends Model
         'publisher_id',
         'cover_image',
         'file_path',
+        'file_path_pdf',
         'file_format',
         'is_free',
         'price',
@@ -25,7 +26,6 @@ class Document extends Model
         'created_at',
         'updated_at',
         'uploaded_by',
-        'is_featured',
         'status',
     ];
 

@@ -37,7 +37,7 @@
                                     <div class="row">
                                         <div class="col-md-3 d-flex justify-content-center align-items-center">
                                             <div class="form-group text-center mt-2">
-                                                <img id="holder" src="" style="width:200px; height:250px; object-fit:cover;" class="mx-auto d-block mb-4" />
+                                                <img id="holder" src="" style="width:200px; height:280px; object-fit:cover;" class="mx-auto d-block mb-4" />
                                                 <span class="input-group-btn mr-2">
                                                     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-info">
                                                         <i class="fa-solid fa-image"></i> Chọn ảnh bìa
@@ -66,16 +66,15 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-    <label>Tải lên tài liệu</label>
-    <div class="d-flex align-items-center gap-2">
-        <a id="lfm2" data-input="thumbnail2" data-preview="holder" class="btn btn-info me-2" style="width: 250px">
-            <i class="fa-solid fa-file-arrow-up"></i> Chọn file tài liệu
-        </a>
-        <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">
-        <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da;"></span>
-    </div>
-</div>
-
+                                                <label>Tải lên tài liệu</label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <a id="lfm2" data-input="thumbnail2" data-preview="holder" class="btn btn-info mr-2" style="width: 250px">
+                                                        <i class="fa-solid fa-file-arrow-up"></i> Chọn file tài liệu
+                                                    </a>
+                                                    <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">
+                                                    <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da;"></span>
+                                                </div>
+                                            </div>
                                             <div class="row">                                              
                                                 <div class="col-md-6">
                                                     <div class="form-group">

@@ -151,6 +151,22 @@
             prefix: '/files-manager'
         });
 
+        $('#thumbnail2').on('change', function () {
+            updateFileNameDisplay();
+        });
+
+        function updateFileNameDisplay() {
+            var fullPath = $('#thumbnail2').val();
+            if (fullPath) {
+                var fileName = fullPath.split('/').pop();
+                $('#file_name_display').text(fileName);
+            } else {
+                $('#file_name_display').text('');
+            }
+        }
+
+        updateFileNameDisplay();
+
         $(document).ready(function() {
             var lfm = function(options, cb) {
                 var route_prefix = (options && options.prefix) ? options.prefix : '/files-manager';
@@ -204,7 +220,7 @@
             } else {
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
-            
+
             $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
                 var route_prefix = '/files-manager';

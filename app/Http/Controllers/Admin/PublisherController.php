@@ -11,7 +11,7 @@ class PublisherController extends Controller
 {
     public function index()
     {
-        $items = Publisher::orderBy("id", "desc")->get();
+        $items = Publisher::where("id", ">", 1)->orderBy("id", "desc")->get();
         return view('admin.publisher.index', compact('items'));
     }
 

@@ -73,6 +73,7 @@ class DocumentController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'publisher_id' => $request->publisher_id,
+            'cover_image' => $request->cover_image,
             'file_path' => $request->file_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,

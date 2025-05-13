@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\account\ForgotPasswordController;
 use App\Http\Controllers\Admin\AdminSiderbarController;
 use App\Http\Controllers\admin\AuthorController;
+use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentCategoryController;
 use App\Http\Controllers\admin\DocumentController;
 use App\Http\Controllers\Admin\PostController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\FrontEnd\AccountController as FrontEndAccountController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\PostController as FrontendPostController;
 use App\Http\Controllers\frontend\ProductController as FrontendProductController;
@@ -28,6 +30,8 @@ Route::group(['prefix' => 'files-manager'], function () {
 //Account
 Route::get('/login', [AccountController::class, 'login'])->name('login');
 Route::post('/login', [AccountController::class, 'postLogin'])->name('postLogin');
+Route::get('/register', [AccountController::class, 'register'])->name('register');
+Route::post('/register', [AccountController::class, 'postRegister'])->name('postRegister');
 Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
 
 //Reset Password
@@ -51,7 +55,17 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
         Route::get('/show/{id}', [UserController::class, 'show'])->name("user.show");
-        Route::post('/change/{id}', [UserController::class, 'changeActive']);
+    });
+
+    //Admin Customer
+    Route::prefix('customer')->group(function () {
+        Route::get('/index', [CustomerController::class, 'index'])->name('customer.index');
+        Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+        Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+        Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+        Route::post('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
+        Route::post('/change/{id}', [CustomerController::class, 'changeStatus']);
+        Route::delete('/destroy/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
     });
 
     //Document Category
@@ -181,3 +195,12 @@ Route::get('/product/getData', [FrontendProductController::class, 'getData']);
 
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');
+
+Route::prefix('account')->middleware("auth")->group(function () {
+    Route::get('/profile', [FrontEndAccountController::class, 'profile'])->name('frontend.profile');
+    Route::get('/edit-profile', [FrontEndAccountController::class, 'editProfile'])->name('frontend.edit-profile');
+    Route::post('/update-profile', [FrontEndAccountController::class, 'updateProfile'])->name('frontend.update-profile');
+    Route::get('/change-password', [FrontEndAccountController::class, 'editPassword'])->name('frontend.edit-password');
+    Route::post('/update-password', [FrontEndAccountController::class, 'updatePassword'])->name('frontend.update-password');
+    Route::get('/settings', [FrontEndAccountController::class, 'settings'])->name('frontend.settings');
+});

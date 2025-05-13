@@ -1,125 +1,135 @@
-<footer class="footer">
-    <div class="primary-footer">
+<!-- footer area -->
+<footer class="footer-area2">
+    <div class="footer-widget">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-7 pe-lg-8">
-                    <a class="navbar-brand logo footer-logo" href="index.html">
-                        <h3 class="mb-0" style="color: rgb(65, 99, 236)">WHK<span style="color: #FF6004">18</span></h3>
-                    </a>
-                    <p class="mt-4 mb-5">WHK18 nhóm sinh viên thuộc 62K-KTPM với chỉ tiêu không được người 2 suất cơm thì không về!</p>
-                    <div class="subscribe-form">
-                        <form id="mc-form" class="mc-form">
-                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Địa chỉ Email của bạn" required="">
-                            <input class="subscribe-btn" type="submit" name="subscribe" value="Đăng ký ngay">
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-5 mt-6 mt-md-0">
-                    <h5>Thông tin liên hệ</h5>
-                    <ul class="media-icon list-unstyled">
-                        <li>
-                            <i class="flaticon-gps-1"></i>
-                            <h6>Địa chỉ</h6>
-                            <p class="mb-0">123 Lê Duẩn - Tp. Vinh - Nghệ An </p>
-                        </li>
-                        <li>
-                            <i class="flaticon-email"></i>
-                            <h6>Email</h6>
-                            <a href="#">vanhoa12092003@gmail.com</a>
-                        </li>
-                        <li>
-                            <i class="flaticon-mobile"></i>
-                            <h6>Số điện thoại</h6>
-                            <a href="#">0349191354</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 col-md-8 mt-6 mt-lg-0">
-                    <div class="row">
-                        <div class="col-md-6 footer-menu">
-                            <h5>Về chúng tôi</h5>
-                            <ul class="list-unstyled w-100">
-                                <li>
-                                    <a href="{{ route("frontend.home.about-us") }}">Về chúng tôi</a>
-                                </li>
-                                <li>
-                                    <a href="#">Các dịch vụ</a>
-                                </li>
-                                <li>
-                                    <a href="#">Sản phẩm</a>
-                                </li>
-                                <li>
-                                    <a href="#">Thành viên</a>
-                                </li>
-                                <li>
-                                    <a href="#">Phản hồi</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6 mt-5 mt-md-0 footer-menu">
-                            <h5>Nổi bật</h5>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#">Bài viết</a>
-                                </li>
-                                <li>
-                                    <a href="#">Đăng nhập</a>
-                                </li>
-                                <li>
-                                    <a href="#">Câu hỏi thường gặp</a>
-                                </li>
-                                <li>
-                                    <a href="#">Chính sách ưu đãi</a>
-                                </li>
-                                <li>
-                                    <a href="#">Sự kiện nổi bật</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="secondary-footer">
-        <div class="container">
-            <div class="copyright">
-                <div class="row align-items-center">
-                    <div class="col-md-6">Copyright 2024 Theme by <u>
-                            <a href="#">WHK18</a>
-                        </u> | All Rights Reserved </div>
-                    <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                        <ul class="list-inline ps-0 ms-0 footer-social">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="flaticon-facebook-app-symbol"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="flaticon-dribble"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="flaticon-instagram"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="flaticon-twitter-2"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="flaticon-linkedin-1"></i>
-                                </a>
-                            </li>
+            <div class="row footer-widget-wrapper pt-100 pb-50">
+                <div class="col-md-6 col-lg-3">
+                    <div class="footer-widget-box about-us">
+                        <a href="#" class="footer-logo">
+                            <img src="/web-assets/img/logo/logo.png" alt="">
+                        </a>
+                        <p class="mb-3">
+                            Chúng tôi có nhiều biến thể của các đoạn văn bản có sẵn nhưng phần lớn đã bị thay đổi dưới một số hình thức.
+                        </p>
+                        <ul class="footer-contact">
+                            <li><a href="tel:+21236547898"><i class="far fa-phone"></i>+2 123 654 7898</a></li>
+                            <li><i class="far fa-map-marker-alt"></i>25/B Đường Milford, New York</li>
+                            <li><a href="https://live.themewild.com/cdn-cgi/l/email-protection#365f58505976534e575b465a531855595b"><i
+                                        class="far fa-envelope"></i><span class="__cf_email__" data-cfemail="3b52555d547b5e435a564b575e15585456">[email protected]</span></a></li>
+                            <li><i class="far fa-clock"></i>Thứ Hai - Thứ Sáu (9:00 sáng - 8:00 tối)</li>
                         </ul>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="footer-widget-box list">
+                        <h4 class="footer-widget-title">Liên kết nhanh</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Về chúng tôi</a></li>
+                            <li><a href="#">Trở thành người bán</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                            <li><a href="#">Tin tức cập nhật</a></li>
+                            <li><a href="#">Lời chứng thực</a></li>
+                            <li><a href="#">Điều khoản dịch vụ</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="footer-widget-box list">
+                        <h4 class="footer-widget-title">Danh mục sản phẩm</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Phụ kiện</a></li>
+                            <li><a href="#">Nhà & Vườn</a></li>
+                            <li><a href="#">Điện tử</a></li>
+                            <li><a href="#">Sức khỏe & Sắc đẹp</a></li>
+                            <li><a href="#">Tạp hóa</a></li>
+                            <li><a href="#">Đồ chơi trẻ em</a></li>
+                            <li><a href="#">Âm nhạc & Video</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="footer-widget-box list">
+                        <h4 class="footer-widget-title">Trung tâm hỗ trợ</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Câu hỏi thường gặp</a></li>
+                            <li><a href="#">Cách mua hàng</a></li>
+                            <li><a href="#">Trung tâm hỗ trợ</a></li>
+                            <li><a href="#">Theo dõi đơn hàng</a></li>
+                            <li><a href="#">Chính sách hoàn trả</a></li>
+                            <li><a href="#">Đối tác liên kết</a></li>
+                            <li><a href="#">Sơ đồ trang web</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="footer-widget-box list">
+                        <h4 class="footer-widget-title">Bản tin</h4>
+                        <p>Đăng ký bản tin của chúng tôi để nhận cập nhật và tin tức mới nhất.</p>
+                        <div class="footer-newsletter">
+                            <div class="subscribe-form">
+                                <form action="#">
+                                    <input type="email" class="form-control" placeholder="Địa chỉ email">
+                                    <button class="theme-btn" type="submit">
+                                        <i class="far fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="footer-download mt-30">
+                            <h5>Tải ứng dụng di động của chúng tôi</h5>
+                            <div class="footer-download-btn">
+                                <a href="#">
+                                    <i class="fab fa-google-play"></i>
+                                    <div class="download-btn-info">
+                                        <span>Tải trên</span>
+                                        <h6>Google Play</h6>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-app-store"></i>
+                                    <div class="download-btn-info">
+                                        <span>Tải trên</span>
+                                        <h6>App Store</h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="dark-bg ht-bg-move"></div>
-</footer>
+        <div class="copyright">
+            <div class="container">
+                <div class="copyright-wrap">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-payment">
+                                <span>Chúng tôi chấp nhận:</span>
+                                <img src="/web-assets/img/payment/visa.svg" alt="">
+                                <img src="/web-assets/img/payment/mastercard.svg" alt="">
+                                <img src="/web-assets/img/payment/amex.svg" alt="">
+                                <img src="/web-assets/img/payment/discover.svg" alt="">
+                                <img src="/web-assets/img/payment/paypal.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <p class="copyright-text">
+                                © Bản quyền <span id="date"></span> <a href="#"> Goemart </a> Mọi quyền được bảo lưu.
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-4 align-self-center">
+                            <div class="footer-social">
+                                <span>Theo dõi chúng tôi:</span>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- footer area end -->

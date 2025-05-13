@@ -29,11 +29,10 @@
         @endif    
         <div class="card card-outline card-primary">            
             <div class="card-header text-center">
-                <a href="/dang-nhap" class="h1">Đăng nhập</a>
+                <a href="#" class="h1">Đăng nhập</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Đăng nhập vào hệ thống</p>
-                <p class="login-box-msg text-danger"></p>
                 <form id="quickForm" action="{{route("postLogin")}}" method="post">
                     @csrf
                     <div class="input-group mb-3 form-group">
@@ -53,14 +52,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="icheck-info mb-3">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember" style="font-weight: normal;">Ghi nhớ đăng nhập</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>
                         </div>
@@ -71,6 +62,7 @@
                         <i class="fa-solid fa-question"></i> Quên mật khẩu
                     </a>
                 </div>
+                <a href="{{ route("register") }}">Bạn chưa có tài khoản? Đăng ký</a>
             </div>
         </div>
     </div>
