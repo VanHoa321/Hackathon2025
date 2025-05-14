@@ -164,6 +164,12 @@ class AccountController extends Controller
         ]);
     }
 
+    public function myDocument()
+    {
+        $items = Document::where("uploaded_by", Auth::user()->id)->where("created_at", "desc")->get();
+        return view("frontend.account.my-customer", compact("items"));
+    }
+
     public function uploads()
     {
         $publishers = Publisher::where("is_active", 1)->get();
