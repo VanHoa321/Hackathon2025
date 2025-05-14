@@ -42,14 +42,14 @@
     @include('layout.partial.header')
 
     @if(Session::has('messenge') && is_array(Session::get('messenge')))
-        @php
-            $messenge = Session::get('messenge');
-        @endphp
-        @if(isset($messenge['style']) && isset($messenge['msg']))
-            @php
-                Session::forget('messenge');
-            @endphp
-        @endif
+    @php
+    $messenge = Session::get('messenge');
+    @endphp
+    @if(isset($messenge['style']) && isset($messenge['msg']))
+    @php
+    Session::forget('messenge');
+    @endphp
+    @endif
     @endif
 
     @yield('content')
@@ -172,6 +172,7 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         toastr.options = {
