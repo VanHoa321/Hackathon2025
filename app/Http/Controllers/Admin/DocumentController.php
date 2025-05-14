@@ -94,11 +94,12 @@ class DocumentController extends Controller
 
     public function edit($id)
     {
-        $edit = Document::findOrFail($id);
+        $edit = Document::with('authors')->findOrFail($id);
         $publishers = Publisher::where("is_active", 1)->get();
+        $selectedAuthors = $edit->authors->pluck('id')->toArray();
         $categories = DocumentCategory::where("is_active", 1)->orderBy("id", "asc")->get();
-        $authors = Author::where("is_active", 1)->orderBy("id", "asc")->get();
-        return view('admin.document.edit', compact('edit','publishers', 'categories', 'authors'));
+        $authors = Author::all();
+        return view('admin.document.edit', compact('edit','publishers', 'categories', 'authors', 'selectedAuthors'));
     }
 
     public function update(Request $request, $id)

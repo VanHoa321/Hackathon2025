@@ -7,7 +7,7 @@
                     <div class="col-sm-6">         
                         <ol class="breadcrumb float-sm-left">
                             <li class="breadcrumb-item"><a href="{{ route('document.index') }}" class="text-info">Quản lý tài liệu</a></li>
-                            <li class="breadcrumb-item active">Cập nhật tài liệu</li>
+                            <li class="breadcrumb-item active">Cập nhật thông tin tài liệu</li>
                         </ol>               
                     </div>
                 </div>
@@ -35,18 +35,18 @@
                                 @csrf
                                 <div class="card-body">                           
                                     <div class="row">
-                                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
                                             <div class="form-group text-center mt-2">
-                                                <img id="holder" src="" style="width:200px; height:250px; object-fit:cover;" class="mx-auto d-block mb-4" />
+                                                <img id="holder" src="" style="width:200px; height:280px; object-fit:cover;" class="mx-auto d-block mb-4" />
                                                 <span class="input-group-btn mr-2">
                                                     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-info">
-                                                        <i class="fa-solid fa-image"></i> Chọn file
+                                                        <i class="fa-solid fa-image"></i> Chọn ảnh bìa
                                                     </a>
                                                 </span>
-                                                <input id="thumbnail" class="form-control" type="hidden" name="file_path" value="{{ old('file_path', $edit->file_path) }}">                                                                             
+                                                <input id="thumbnail" class="form-control" type="hidden" name="cover_image" value="{{ old('cover_image', $edit->cover_image) }}">                                                                             
                                             </div>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-9">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -64,14 +64,24 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>      
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tải lên tài liệu</label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <a id="lfm2" data-input="thumbnail2" data-preview="holder" class="btn btn-info mr-2" style="width: 250px">
+                                                        <i class="fa-solid fa-file-arrow-up"></i> Chọn file tài liệu
+                                                    </a>
+                                                    <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path', $edit->file_path) }}">
+                                                    <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da;"></span>
+                                                </div>
+                                            </div>
                                             <div class="row">                                              
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Nhà xuất bản</label>
                                                         <select name="publisher_id" class="form-control select2bs4" style="width: 100%">
                                                             @foreach($publishers as $item)
-                                                                <option value="{{$item->id}}" {{ old('publisher_id', $edit->publisher_id) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                                                <option value="{{$item->id}}" {{ old('publisher_id', $edit->publisger_id) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -79,7 +89,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Năm xuất bản</label>
-                                                        <input type="number" name="publication_year" class="form-control" placeholder="VD: 2023" value="{{old('publication_year', $edit->publication_year)}}" {{ $edit->publisher_id > 1 ? '' : 'readonly' }}>
+                                                        <input type="number" name="publication_year" class="form-control" placeholder="VD: 2023" value="{{old('publication_year', $edit->publication_year)}}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
@@ -87,8 +97,9 @@
                                                         <label>Tác giả</label>
                                                         <select name="authors[]" class="form-control authors" multiple>
                                                             @foreach($authors as $item)
-                                                                <option class="mt-4" value="{{ $item->id }}" data-name="{{ $item->name }}" data-avatar="{{ $item->avatar }}" {{ in_array($item->id, old('authors', $edit->authors->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                                                    <img src="{{ $item->avatar }}" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px;"> {{ $item->name }}
+                                                                <option value="{{ $item->id }}" data-name="{{ $item->name }}" data-avatar="{{ $item->avatar }}"
+                                                                    {{ in_array($item->id, old('authors', $selectedAuthors ?? [])) ? 'selected' : '' }}>
+                                                                    {{ $item->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -108,8 +119,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Phí tải về</label>
-                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100000" value="{{old('price', $edit->price)}}" {{ $edit->is_free == 0 ? 'readonly' : '' }}>
-                                                        <div class="form-text text-muted">Nhập số tiền (VNĐ) nếu tài liệu không miễn phí.</div>
+                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100000" value="{{old('price', $edit->price)}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,7 +185,6 @@
             });
 
             $('.select2').select2()
-            
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })

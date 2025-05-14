@@ -18,4 +18,9 @@ class DocumentCategory extends Model
     protected $primaryKey = 'id';
     protected $table = 'document_categories';
     public $timestamps = false;
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'category_id');
+    }
 }

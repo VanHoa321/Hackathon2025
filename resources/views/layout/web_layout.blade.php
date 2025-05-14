@@ -10,8 +10,6 @@
 
     <title>SenseLib</title>
 
-    <link rel="icon" type="image/x-icon" href="/web-assets/img/logo/favicon.png">
-
     <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/all-fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/animate.min.css') }}">
@@ -20,11 +18,23 @@
     <link rel="stylesheet" href="{{ asset('web-assets/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
+    @yield('styles')
 
 </head>
 
 <body class="home-9">
     @include('layout.partial.header')
+
+     @if(Session::has('messenge') && is_array(Session::get('messenge')))
+        @php
+            $messenge = Session::get('messenge');
+        @endphp
+        @if(isset($messenge['style']) && isset($messenge['msg']))
+            @php
+                Session::forget('messenge');
+            @endphp
+        @endif
+    @endif    
 
     @yield('content')
 
@@ -48,6 +58,7 @@
     <script src="{{ asset('web-assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    @yield('scripts')
     <script>
         $('#lfm').filemanager('file', {
             prefix: '/files-manager'
@@ -103,9 +114,12 @@
                     $('#thumbnail').trigger('change');
                 };               
             });
+
+            setTimeout(function() {
+                $("#myAlert").fadeOut(500);
+            }, 3500);
         });
     </script>
-
 </body>
 
 </html>

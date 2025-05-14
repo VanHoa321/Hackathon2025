@@ -15,9 +15,9 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontEnd\AccountController as FrontEndAccountController;
+use App\Http\Controllers\FrontEnd\DocumentController as FrontEndDocumentController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\PostController as FrontendPostController;
-use App\Http\Controllers\frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
@@ -160,38 +160,19 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/change/{id}', [PostController::class, 'changeStatus'])->name('admin-post.change');
         Route::delete('/destroy/{id}', [PostController::class, 'destroy'])->name('admin-post.destroy');
     });
-
-    //Product Category
-    Route::prefix('category')->group(function () {
-        Route::get('/index', [ProductCategoryController::class, 'index'])->name('category.index');
-        Route::get('/create', [ProductCategoryController::class, 'create'])->name('category.create');
-        Route::post('/store', [ProductCategoryController::class, 'store'])->name('category.store'); 
-        Route::get('/edit/{id}', [ProductCategoryController::class, 'edit'])->name('category.edit');
-        Route::post('/update/{id}', [ProductCategoryController::class, 'update'])->name('category.update');
-        Route::post('/change/{id}', [ProductCategoryController::class, 'changeActive'])->name('category.change');
-        Route::delete('/destroy/{id}', [ProductCategoryController::class, 'destroy'])->name('category.destroy');
-    });
-
-    //Product
-    Route::prefix('product')->group(function () {
-        Route::get('/index', [ProductController::class, 'index'])->name('product.index');
-        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
-        Route::post('/store', [ProductController::class, 'store'])->name('product.store'); 
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-        Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
-        Route::post('/change/{id}', [ProductController::class, 'changeActive'])->name('product.change');
-        Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-    });
 });
 
 
 //Frontend
 Route::get('/home', [HomeController::class, 'index'])->name('frontend.home.index');
 Route::get('/about-us', [HomeController::class, 'about'])->name('frontend.home.about-us');
+Route::get('/contact-us', [HomeController::class, 'contact'])->name(name: 'frontend.home.contact-us');
+Route::post('/contact-us/send', [HomeController::class, 'sendContact'])->middleware('auth')->name('frontend.contact-us.send');
 
-//Frontend Product
-Route::get('/product', [FrontendProductController::class, 'index'])->name('frontend.product.index');
-Route::get('/product/getData', [FrontendProductController::class, 'getData']);
+//Frontend Document
+Route::get('/document', [FrontEndDocumentController::class, 'index'])->name('frontend.document.index');
+Route::get('/document/getData', [FrontEndDocumentController::class, 'getData']);
+Route::get('/document-details/{id}', [FrontEndDocumentController::class, 'details'])->name('frontend.document.details');
 
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');

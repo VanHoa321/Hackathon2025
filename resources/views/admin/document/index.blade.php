@@ -60,7 +60,7 @@
                                         @foreach ($items as $item)
                                             <tr id="document-{{ $item->id }}">
                                                 <td>{{ $counter++ }}</td>
-                                                <td><img src="{{ $item->cover_image }}" alt="" style="width: 60px; height: 60px"></td>
+                                                <td><img src="{{ $item->cover_image }}" alt="" style="width: 60px; height: 80px"></td>
                                                 <td>{{ $item->title }}</td>
                                                 <td>
                                                     @if ($item->is_free == 0)

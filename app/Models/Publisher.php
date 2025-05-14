@@ -21,4 +21,9 @@ class Publisher extends Model
 
     protected $primaryKey = 'id';
     protected $table = 'publishers';
+
+        public function documents()
+        {
+            return $this->hasMany(Document::class, 'publisher_id');
+        }
 }
