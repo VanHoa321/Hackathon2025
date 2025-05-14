@@ -52,19 +52,19 @@
                                             </div>
                                         </div>
                                         <div class="user-form">
-                                            <form action="{{ route('frontend.post-upload') }}" method="POST" enctype="multipart/form-data">
+                                            <form id="quickForm" action="{{ route('frontend.post-upload') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">    
                                                     <div class="col-md-3">
                                                         <div class="d-flex justify-content-center align-items-center">
                                                             <div class="form-group text-center mt-2">
-                                                                <img id="holder2" src="" style="width:150px; height:200px; object-fit:cover;" class="mx-auto d-block mb-4" />
+                                                                <img id="holder3" src="" style="width:150px; height:200px; object-fit:cover;" class="mx-auto d-block mb-4" />
                                                                 <span class="input-group-btn mr-2">
-                                                                    <a id="lfm2" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                                                    <a id="lfm3" data-input="thumbnail3" data-preview="holder3" class="btn btn-primary">
                                                                         <i class="far fa-image"></i> Chọn ảnh bìa
                                                                     </a>
                                                                 </span>
-                                                                <input id="thumbnail2" class="form-control" type="hidden" name="cover_image" value="{{ old('cover_image') }}">                                                                             
+                                                                <input id="thumbnail3" class="form-control" type="hidden" name="cover_image" value="{{ old('cover_image') }}">                                                                             
                                                             </div>
                                                         </div>
                                                     </div>      
@@ -79,38 +79,69 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Phân loại</label>
-                                                                    <select name="category_id" class="form-control select2bs4" style="width: 100%">
+                                                                    <select name="category_id" class="select">
                                                                         @foreach($categories as $item)
                                                                             <option value="{{$item->id}}" {{ old('category_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Số Điện Thoại</label>
-                                                                    <input type="text" name="phone" class="form-control" value="{{ old('phone', auth()->user()->phone) }}" placeholder="Số Điện Thoại">
-                                                                    @error('phone')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                            <div class="col-md-12 mb-2">
+                                                                <label>Tải lên tài liệu</label>
+                                                                <div class="d-flex align-items-center gap-2">
+                                                                    <a id="lfm2" data-input="thumbnail2" class="btn btn-success p-2 mr-2" style="width: 250px">
+                                                                        <i class="fa-solid fa-file-arrow-up"></i> Chọn file tài liệu
+                                                                    </a>
+                                                                    <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">
+                                                                    <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da; padding: 10px; display: inline-block; min-height: 44px;"></span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Địa Chỉ</label>
-                                                                    <input type="text" name="address" class="form-control" value="{{ old('address', auth()->user()->address) }}" placeholder="Địa Chỉ">
-                                                                    @error('address')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                                    <label>Nhà xuất bản</label>
+                                                                    <select name="publisher_id" class="select" style="width: 100%">
+                                                                        @foreach($publishers as $item)
+                                                                            <option value="{{$item->id}}" {{ old('publisher_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Năm xuất bản</label>
+                                                                    <input type="number" name="publication_year" class="form-control" placeholder="VD: 2023" value="{{old('publication_year')}}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 mb-2">
+                                                                <label>Tác giả</label>
+                                                                <select name="authors[]" class="form-control authors" multiple style="width:100%">
+                                                                    @foreach($authors as $item)
+                                                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}" data-avatar="{{ $item->avatar }}" 
+                                                                            {{ in_array($item->id, old('authors', [])) ? 'selected' : '' }}>
+                                                                            {{ $item->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div> 
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Hình thức</label>
+                                                                    <select name="is_free" class="select" style="width: 100%">
+                                                                    <option value="1" {{ old('is_free') == 1 ? 'selected' : '' }}>Miễn phí</option>
+                                                                    <option value="0" {{ old('is_free') == 0 ? 'selected' : '' }}>Mất phí</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label>Phí tải về</label>
+                                                                    <input type="number" name="price" class="form-control" placeholder="VD: 100000" value="{{old('price')}}">
+                                                                </div>
+                                                            </div>     
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    <label>Mô Tả</label>
-                                                                    <textarea name="description" class="form-control" placeholder="Mô Tả">{{ old('description', auth()->user()->description) }}</textarea>
-                                                                    @error('description')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
+                                                                    <label>Mô tả thêm</label>
+                                                                    <textarea class="form-control mb-3" name="description" placeholder="Nhập mô tả tài liệu" style="height: 100px">{{ old('description') }}</textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -134,4 +165,116 @@
             </div>
         </div>
     </main>
+@endsection
+@section('scripts')
+    <script src="{{asset("assets/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
+    <script src="{{asset("assets/plugins/jquery-validation/additional-methods.min.js")}}"></script>
+    <script src="{{asset("assets/plugins/select2/js/select2.full.min.js")}}"></script>
+    <script src="{{asset("assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js")}}"></script>
+
+    <script>
+        $(function () {
+            $('#quickForm').validate({
+                rules: {
+                    title: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 50
+                    },
+                    'authors[]': {
+                        required: true
+                    },     
+                },
+                messages: {
+                    title: {
+                        required: "Tiêu đề tài liệu không được để trống!",
+                        minlength: "Tiêu đề tài liệu phải có ít nhất {0} ký tự!",
+                        maxlength: "Tiêu đề tài liệu tối đa {0} ký tự!"
+                    },
+                    'authors[]': {
+                        required: "Vui lòng chọn ít nhất một tác giả!"
+                    },    
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+
+            $('.select2').select2()
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('.authors').select2({
+                theme: 'bootstrap4',
+                placeholder: "Chọn tác giả cho tài liệu",
+                templateResult: formatAuthor,
+                templateSelection: formatAuthorSelection,
+            })
+            
+            function formatAuthor(author) {
+                if (!author.id) { return author.text; }
+                var $author = $(
+                    '<span><img src="' + author.element.getAttribute('data-avatar') + '" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px;"> ' + author.text + '</span>'
+                );
+                return $author;
+            }
+
+            function formatAuthorSelection(author) {
+                return author.text;
+            }
+
+            setTimeout(function() {
+                $("#myAlert").fadeOut(500);
+            },3500);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            function togglePriceField() {
+                let isFree = $('select[name="is_free"]').val();
+                if (isFree == 1) {
+                    $('input[name="price"]').val('');
+                    $('input[name="price"]').prop('readonly', true);
+                } else {
+                    $('input[name="price"]').prop('readonly', false);
+                }
+            }
+
+            function togglePublicationYear() {
+                let publisherId = parseInt($('select[name="publisher_id"]').val());
+                let yearInput = $('input[name="publication_year"]');
+
+                if (publisherId > 1) {
+                    yearInput.prop('readonly', false);
+                } else {
+                    yearInput.val('');
+                    yearInput.prop('readonly', true);
+                }
+            }
+
+            togglePriceField();
+            togglePublicationYear();
+
+            $('select[name="is_free"]').change(function () {
+                togglePriceField();
+            });
+
+            $('select[name="publisher_id"]').change(function () {
+                togglePublicationYear();
+            });
+
+            $('input[name="publication_year"]').on('change blur', function () {
+                togglePublicationYear();
+            });
+        });
+    </script>
 @endsection

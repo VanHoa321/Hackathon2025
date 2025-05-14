@@ -68,7 +68,7 @@
                                             <div class="form-group">
                                                 <label>Tải lên tài liệu</label>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <a id="lfm2" data-input="thumbnail2" data-preview="holder" class="btn btn-info mr-2" style="width: 250px">
+                                                    <a id="lfm2" data-input="thumbnail2" class="btn btn-info mr-2" style="width: 250px">
                                                         <i class="fa-solid fa-file-arrow-up"></i> Chọn file tài liệu
                                                     </a>
                                                     <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">

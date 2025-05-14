@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="{{asset("assets/plugins/select2/css/select2.min.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")}}">
     
 
     @yield( 'styles')
@@ -122,19 +124,24 @@
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
 
-            var initialUrl2 = $('#thumbnail2').val();
-            if (initialUrl2) {
-                $('#holder2').attr('src', initialUrl2);
-            } else {
-                $('#holder2').attr('src', '/storage/files/1/Avatar/no-image.jpg');
-            }
-
             var initialUrl3 = $('#thumbnail3').val();
             if (initialUrl3) {
                 $('#holder3').attr('src', initialUrl3);
             } else {
                 $('#holder3').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
+
+            $('#lfm3').on('click', function() {
+                var route_prefix = '/files-manager';
+                window.open(route_prefix + '?type=file', 'FileManager', 'width=700,height=400');
+                window.SetUrl = function(items) {
+                    var url = items[0].url;
+                    $('#holder3').attr('src', url);
+                    $('#thumbnail3').val(url);
+                    $('#thumbnail3').trigger('change');
+                };
+            });
+
 
             $('#thumbnail2').on('change', function () {
                 updateFileNameDisplay();
