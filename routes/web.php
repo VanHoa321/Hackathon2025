@@ -173,6 +173,8 @@ Route::post('/contact-us/send', [HomeController::class, 'sendContact'])->middlew
 Route::get('/document', [FrontEndDocumentController::class, 'index'])->name('frontend.document.index');
 Route::get('/document/getData', [FrontEndDocumentController::class, 'getData']);
 Route::get('/document-details/{id}', [FrontEndDocumentController::class, 'details'])->name('frontend.document.details');
+Route::get('/document/download/{id}', [FrontEndDocumentController::class, 'download'])->name('frontend.document.download');
+
 
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');

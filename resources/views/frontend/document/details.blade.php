@@ -2,7 +2,7 @@
 @section('content')
     <main class="main">
         <div class="site-breadcrumb">
-            <div class="site-breadcrumb-bg" style="background: url(/web-/web-assets/img/breadcrumb/01.jpg)"></div>
+            <div class="site-breadcrumb-bg" style="background: url(/web-assets/img/breadcrumb/01.jpg)"></div>
             <div class="container">
                 <div class="site-breadcrumb-wrap">
                     <h4 class="breadcrumb-title">{{ $item->title }}</h4>
@@ -13,6 +13,13 @@
                 </div>
             </div>
         </div>
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+            </div>
+        @endif
 
         <div class="shop-single py-100">
             <div class="container">
@@ -63,7 +70,7 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="shop-single-btn">
                                             <a href="#" class="theme-btn"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
-                                            <a href="#" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
+                                            <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
                                             <a href="#" class="theme-btn theme-btn2" data-tooltip="tooltip" title="Add To Wishlist"><span class="far fa-heart"></span></a>
                                         </div>
                                     </div>

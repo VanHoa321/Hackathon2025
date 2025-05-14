@@ -5,8 +5,11 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DocumentCategory;
+use App\Models\Favourite;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -45,6 +48,14 @@ class DocumentController extends Controller
         $query->orderBy('created_at', 'desc');
         $total_documents = $query->count();
         $documents = $query->skip(($current_page - 1) * $per_page)->take($per_page)->get();
+
+        $documents = $documents->map(function ($doc) {
+            $doc->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
+                ->where('document_id', $doc->id)
+                ->exists();
+            return $doc;
+        });
+
         $last_page = ceil($total_documents / $per_page);
 
         return response()->json([
@@ -59,6 +70,29 @@ class DocumentController extends Controller
     public function details($id)
     {
         $item = Document::with('category', 'publisher', 'authors')->find($id);
+        $item->increment('view_count');
         return view('frontend.document.details', compact('item'));
     }
+
+    public function download($id)
+    {
+        $document = Document::findOrFail($id);
+
+        if (!$document->is_free) {
+            return redirect()->back()->with('error', 'Tài liệu này không miễn phí.');
+        }
+
+        $relativePath = $document->file_path;
+
+        $filePath = public_path('storage/' . $relativePath);
+
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'Tài liệu không tồn tại hoặc đã bị xóa.');
+        }
+
+        $document->increment('download_count');
+
+        return response()->download($filePath);
+    }
+
 }

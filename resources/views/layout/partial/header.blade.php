@@ -32,8 +32,8 @@
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
                                                     <div class="dropdown-user">
-                                                        <h5>Welcome! {{ auth()->user()->name }}</h5>
-                                                        <p>Số coin: 50</p>
+                                                        <h5>Xin chào! {{ auth()->user()->name }}</h5>
+                                                        <p>Số coin: <span>50.000 đ</span></p>
                                                     </div>
                                                 </li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
@@ -46,7 +46,7 @@
                                 </li>
                             @endauth
                             @auth
-                                <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span></a></li>
+                                <li><a href="{{ route('frontend.my-favourite') }}" class="list-item"><i class="far fa-heart"></i></a></li>
                             @endauth
                         </ul>
                     </div>

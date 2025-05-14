@@ -10,8 +10,6 @@
 
     <title>SenseLib</title>
 
-    <link rel="icon" type="image/x-icon" href="/web-assets/img/logo/favicon.png">
-
     <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/all-fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/animate.min.css') }}">
@@ -21,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
 
     @yield( 'styles')
 
@@ -73,6 +72,7 @@
     <script src="{{ asset('web-assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('web-assets/js/main.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('scripts')
     <script>
         $('#lfm').filemanager('file', {
