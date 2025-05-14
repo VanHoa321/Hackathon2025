@@ -83,6 +83,10 @@
             prefix: '/files-manager'
         });
 
+        $('#lfm3').filemanager('file', {
+            prefix: '/files-manager'
+        });
+
         $(document).ready(function() {
             var lfm = function(options, cb) {
                 var route_prefix = (options && options.prefix) ? options.prefix : '/files-manager';
@@ -118,12 +122,35 @@
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
 
-            var initialUrl = $('#thumbnail2').val();
-            if (initialUrl) {
-                $('#holder2').attr('src', initialUrl);
+            var initialUrl2 = $('#thumbnail2').val();
+            if (initialUrl2) {
+                $('#holder2').attr('src', initialUrl2);
             } else {
                 $('#holder2').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
+
+            var initialUrl3 = $('#thumbnail3').val();
+            if (initialUrl3) {
+                $('#holder3').attr('src', initialUrl3);
+            } else {
+                $('#holder3').attr('src', '/storage/files/1/Avatar/no-image.jpg');
+            }
+
+            $('#thumbnail2').on('change', function () {
+                updateFileNameDisplay();
+            });
+
+            function updateFileNameDisplay() {
+                var fullPath = $('#thumbnail2').val();
+                if (fullPath) {
+                    var fileName = fullPath.split('/').pop();
+                    $('#file_name_display').text(fileName);
+                } else {
+                    $('#file_name_display').text('');
+                }
+            }
+
+            updateFileNameDisplay();
 
             $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
