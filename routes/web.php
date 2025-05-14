@@ -173,6 +173,7 @@ Route::post('/contact-us/send', [HomeController::class, 'sendContact'])->middlew
 Route::get('/document', [FrontEndDocumentController::class, 'index'])->name('frontend.document.index');
 Route::get('/document/getData', [FrontEndDocumentController::class, 'getData']);
 Route::get('/document-details/{id}', [FrontEndDocumentController::class, 'details'])->name('frontend.document.details');
+Route::post('/document/comment', [FrontEndDocumentController::class, 'comment'])->name('frontend.document.comment');
 Route::get('/document/download/{id}', [FrontEndDocumentController::class, 'download'])->name('frontend.document.download');
 
 
@@ -189,4 +190,6 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/my-favourite', [FrontEndAccountController::class, 'myFavourite'])->name('frontend.my-favourite');
     Route::post('/favourite/{id}', [FrontEndAccountController::class, 'addFavourite'])->name('frontend.add-favourite');
     Route::delete('/favourite/{id}', [FrontEndAccountController::class, 'removeFavourite'])->name('frontend.remove-favourite');
+    Route::get('/uploads', [FrontEndAccountController::class, 'uploads'])->name('frontend.uploads');
+    Route::post('/post-upload', [FrontEndAccountController::class, 'postUpload'])->name('frontend.post-upload');
 });

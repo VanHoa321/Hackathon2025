@@ -15,14 +15,14 @@
         </div>
 
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="fas fa-exclamation-triangle me-2"></i> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
-            </div>
+            <script>
+                toastr.error("{{ session('error') }}");
+            </script>
         @endif
 
         <div class="shop-single py-100">
             <div class="container">
+                <input type="hidden" value="{{ $item->id }}" id="documentId">
                 <div class="row">
                     <div class="col-md-9 col-lg-6 col-xxl-5">
                         <div class="shop-single-gallery">
@@ -95,8 +95,9 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab1"
                                 type="button" role="tab" aria-controls="tab1" aria-selected="true">Nội dung tóm tắt</button>
-                            <button class="nav-link" id="nav-tab3" data-bs-toggle="tab" data-bs-target="#tab3"
-                                type="button" role="tab" aria-controls="tab3" aria-selected="false">Bình luận (5)</button>
+                            <button class="nav-link" id="nav-tab3" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
+                                role="tab" aria-controls="tab3" aria-selected="false">Bình luận
+                                ({{ $comments->count() }})</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
@@ -109,22 +110,25 @@
                                     Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of
                                     text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
                                     chunks as necessary, making this the first true generator on the Internet.
-                                </p>                                
+                                </p>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="nav-tab3">
                             <div class="shop-single-review">
                                 <div class="blog-comments">
-                                    <h5>Reviews (05)</h5>
-                                    <div class="blog-comments-wrapper">
-                                        <div class="blog-comments-single">
-                                            <img src="/web-assets/img/blog/com-3.jpg" alt="thumb">
-                                            <div class="blog-comments-content">
-                                                <h5>Kenneth Evans</h5>
-                                                <span><i class="far fa-clock"></i> 31 January, 2025</span>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries but also the leap electronic typesetting, remaining essentially unchanged. It was popularised in the with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    <div class="blog-comments-wrapper" style="max-height: 400px; overflow-y: auto;"
+                                        id="comment-list">
+                                        @foreach ($comments as $cmt)
+                                            <div class="blog-comments-single mt-0" style="margin-bottom: 20px;">
+                                                <img src="{{ asset($cmt->user->avatar) }}" alt="avatar" class="rounded-circle"
+                                                    width="50">
+                                                <div class="blog-comments-content">
+                                                    <h5>{{ $cmt->user->name }}</h5>
+                                                    <span><i class="far fa-clock"></i>{{ $cmt->created_at }}</span>
+                                                    <p>{{ $cmt->content }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class="blog-comments-form">
                                         <h4 class="mb-4">Bình luận tài liệu</h4>
@@ -132,9 +136,9 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="5" placeholder="Nhập nội dung bình luận"></textarea>
+                                                        <textarea id="comment-content" class="form-control" rows="5" placeholder="Nhập nội dung bình luận"></textarea>
                                                     </div>
-                                                    <button type="submit" class="theme-btn"><span class="far fa-paper-plane"></span> Bình luận</button>
+                                                    <button type="button" id="submit-comment" class="theme-btn"><span class="far fa-paper-plane"></span> Bình luận</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -297,5 +301,45 @@
     </main>
 @endsection
 @section('scripts')
-    
+    <script>
+        $(document).ready(function () {
+            $('#submit-comment').click(function () {
+                let content = $('#comment-content').val();
+                let documentId = $('#documentId').val();
+
+                $.ajax({
+                    url: '{{ route("frontend.document.comment") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        content: content,
+                        document_id: documentId
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            toastr.success(response.message);
+                            $('#comment-list').prepend(`
+                                <div class="blog-comments-single mt-0" style="margin-bottom: 20px;">
+                                    <img src="${response.comment.avatar}" alt="avatar" class="rounded-circle" width="50">
+                                    <div class="blog-comments-content">
+                                        <h5>${response.comment.user_name}</h5>
+                                        <span><i class="far fa-clock"></i>${response.comment.created_at.toLocaleString('vi-VN')}</span>
+                                        <p>${response.comment.content}</p>
+                                    </div>
+                                </div>
+                            `);
+                            $('#comment-content').val('');
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            toastr.warning('Vui lòng đăng nhập để bình luận!');
+                        } else {
+                            toastr.error('Đã xảy ra lỗi khi gửi bình luận.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

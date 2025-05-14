@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DocumentCategory;
+use App\Models\DocumentComment;
 use App\Models\Favourite;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
@@ -70,8 +71,39 @@ class DocumentController extends Controller
     public function details($id)
     {
         $item = Document::with('category', 'publisher', 'authors')->find($id);
+        $comments = DocumentComment::where('document_id', $id)->orderBy('created_at', 'desc')->get();
         $item->increment('view_count');
-        return view('frontend.document.details', compact('item'));
+        return view('frontend.document.details', compact('item', 'comments'));
+    }
+
+    public function comment(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['status' => 'unauthenticated'], 401);
+        }
+
+        $request->validate([
+            'document_id' => 'required|exists:documents,id',
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $comment = new DocumentComment();
+        $comment->document_id = $request->document_id;
+        $comment->user_id = Auth::id();
+        $comment->content = $request->content;
+        $comment->created_at = now();
+        $comment->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Đã bình luận!',
+            'comment' => [
+                'user_name' => Auth::user()->name,
+                'avatar' => Auth::user()->avatar,
+                'created_at' => $comment->created_at,
+                'content' => $comment->content
+            ]
+        ]);
     }
 
     public function download($id)
@@ -79,7 +111,7 @@ class DocumentController extends Controller
         $document = Document::findOrFail($id);
 
         if (!$document->is_free) {
-            return redirect()->back()->with('error', 'Tài liệu này không miễn phí.');
+            return redirect()->back()->with('error', 'Tài liệu này không miễn phí!');
         }
 
         $relativePath = $document->file_path;
@@ -87,7 +119,7 @@ class DocumentController extends Controller
         $filePath = public_path('storage/' . $relativePath);
 
         if (!file_exists($filePath)) {
-            return redirect()->back()->with('error', 'Tài liệu không tồn tại hoặc đã bị xóa.');
+            return redirect()->back()->with('error', 'Tài liệu không tồn tại hoặc đã bị xóa!');
         }
 
         $document->increment('download_count');

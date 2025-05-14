@@ -118,6 +118,13 @@
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
 
+            var initialUrl = $('#thumbnail2').val();
+            if (initialUrl) {
+                $('#holder2').attr('src', initialUrl);
+            } else {
+                $('#holder2').attr('src', '/storage/files/1/Avatar/no-image.jpg');
+            }
+
             $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
                 var route_prefix = '/files-manager';
@@ -137,7 +144,8 @@
             closeButton: true,
             progressBar: true,
             positionClass: 'toast-top-right',
-            timeOut: 3000
+            timeOut: 3000,
+            "extendedTimeOut": "1000"
         };
     </script>
     <script>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use App\Models\Favourite;
+use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,5 +162,18 @@ class AccountController extends Controller
             'success' => true,
             'message' => 'Tài liệu đã được xóa khỏi danh sách yêu thích!'
         ]);
+    }
+
+    public function uploads()
+    {
+        $publishers = Publisher::where("is_active", 1)->get();
+        $categories = DocumentCategory::where("is_active", 1)->orderBy("id", "asc")->get();
+        $authors = Author::where("is_active", 1)->orderBy("id", "asc")->get();
+        return view('frontend.account.upload', compact('publishers', 'categories', 'authors'));
+    }
+
+    public function postUpload()
+    {
+
     }
 }
