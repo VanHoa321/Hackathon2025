@@ -20,7 +20,7 @@
                                         {{ $slide->sub_title }}
                                     </p>
                                     <div class="hero-btn" data-animation="fadeInUp" data-delay="1s">
-                                        <a href="{{ $slide->alias ? $slide->alias : route('frontend.home.index') }}" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
+                                        <a href="{{ $slide->alias ? $slide->alias : route('frontend.home.index') }}" class="theme-btn">Xem ngay<i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,6 @@
         </div>
     </div>
     <!-- hero slider end -->
-
 
     <!-- category area -->
     <div class="category-area4 pt-80">
@@ -118,69 +117,11 @@
     </div>
     <!-- category area end-->
 
-
-    <!-- feature area -->
-    <div class="feature-area2 pt-80">
-        <div class="container">
-            <div class="feature-wrap wow fadeInUp" data-wow-delay=".25s">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fal fa-truck"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Free Delivery</h4>
-                                <p>Orders Over $120</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fal fa-sync"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Get Refund</h4>
-                                <p>Within 30 Days Returns</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fal fa-wallet"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Safe Payment</h4>
-                                <p>100% Secure Payment</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fal fa-headset"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>24/7 Support</h4>
-                                <p>Feel Free To Call Us</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- feature area end -->
-
-    <!-- product area -->
     <div class="product-area pt-80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto">
                     <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
-                        <span class="site-title-tagline">Lastest</span>
                         <h2 class="site-title">Những tài liệu <span>Mới nhất</span></h2>
                     </div>
                 </div>
@@ -190,14 +131,14 @@
                 <div class="product-item">
                     <div class="product-img">
                         @if ($item->is_free)
-                        <span class="type discount">Miễn phí</span>
+                        <span class="type hot">Miễn phí</span>
                         @elseif (!$item->is_new)
-                        <span class="type hot">Trả phí</span>
+                        <span class="type discount">Trả phí</span>
                         @endif
-                        <a href="#"><img src="{{ asset($item->cover_image) }}" alt="{{ $item->title }}"></a>
+                        <a href="/document-details/{{ $item->id }}"><img src="{{ asset($item->cover_image) }}" alt="{{ $item->title }}"></a>
                         <div class="product-action-wrap">
                             <div class="product-action ms-3">
-                                <a class="mb-2" href="#" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                <a class="mb-2" href="/document-details/{{ $item->id }}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
                                 <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
                                     class="favourite-btn {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
                                     data-document-id="{{ $item->id }}"
@@ -213,15 +154,15 @@
                         <div class="product-bottom">
                             <div class="product-price">
                                 @if($item->price)
-                                <span><i class="fa-solid fa-dollar-sign"></i> {{ number_format($item->price, 2) }}</span>
+                                    <span><i class="fa-solid fa-coins"></i> {{ number_format($item->price, 0, ',', '.') }} đ</span>
                                 @else
-                                <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                    <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
                                 @endif
                             </div>
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span><i class="fa-solid fa-eye"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
                             </div>
                         </div>
                         <div class="product-bottom">
@@ -241,682 +182,6 @@
         </div>
     </div>
     <!-- product area end -->
-
-
-    <!-- popular item -->
-    <div class="product-area pt-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
-                        <span class="site-title-tagline">Popular</span>
-                        <h2 class="site-title">Popular <span>Items</span></h2>
-                        <div class="item-tab mt-4">
-                            <ul class="nav nav-pills justify-content-center" id="item-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="item-tab1" data-bs-toggle="pill"
-                                        data-bs-target="#pill-item-tab1" type="button" role="tab"
-                                        aria-controls="pill-item-tab1" aria-selected="true">All Items</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="item-tab2" data-bs-toggle="pill"
-                                        data-bs-target="#pill-item-tab2" type="button" role="tab"
-                                        aria-controls="pill-item-tab2" aria-selected="false">Living Room</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="item-tab3" data-bs-toggle="pill"
-                                        data-bs-target="#pill-item-tab3" type="button" role="tab"
-                                        aria-controls="pill-item-tab3" aria-selected="false">Tables &
-                                        Chairs</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="item-tab4" data-bs-toggle="pill"
-                                        data-bs-target="#pill-item-tab4" type="button" role="tab"
-                                        aria-controls="pill-item-tab4" aria-selected="false">Office
-                                        Furniture</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-content wow fadeInUp" data-wow-delay=".25s" id="item-tabContent">
-                <div class="tab-pane fade show active" id="pill-item-tab1" role="tabpanel"
-                    aria-labelledby="item-tab1" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type new">New</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type hot">Hot</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type discount">10% Off</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <del>$120.00</del>
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pill-item-tab2" role="tabpanel" aria-labelledby="item-tab2"
-                    tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type new">New</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type hot">Hot</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type oos">Out Of Stock</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f7.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type discount">10% Off</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f8.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <del>$120.00</del>
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pill-item-tab3" role="tabpanel" aria-labelledby="item-tab3"
-                    tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type new">New</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f9.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type hot">Hot</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f10.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type oos">Out Of Stock</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type discount">10% Off</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <del>$120.00</del>
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="pill-item-tab4" role="tabpanel" aria-labelledby="item-tab4"
-                    tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type new">New</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type hot">Hot</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type oos">Out Of Stock</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 col-xl-3">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <span class="type discount">10% Off</span>
-                                    <a href="shop-single.html"><img src="/web-assets/img/product/f6.png" alt=""></a>
-                                    <div class="product-action-wrap">
-                                        <div class="product-action">
-                                            <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                                    class="far fa-eye"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                                    class="far fa-heart"></i></a>
-                                            <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                                    class="far fa-arrows-repeat"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content">
-                                    <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a>
-                                    </h3>
-                                    <div class="product-rate">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                    <div class="product-bottom">
-                                        <div class="product-price">
-                                            <del>$120.00</del>
-                                            <span>$100.00</span>
-                                        </div>
-                                        <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                            data-tooltip="tooltip" title="Add To Cart">
-                                            <i class="far fa-shopping-bag"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- popular item end -->
-
 
     <!-- deal area -->
     <div class="deal-area2 pt-80">
@@ -958,216 +223,132 @@
             <div class="row">
                 <div class="col-lg-6 mx-auto">
                     <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
-                        <span class="site-title-tagline">New Arrivals</span>
-                        <h2 class="site-title">Our New Arrivals <span>Items</span></h2>
+                        <h2 class="site-title">Những tài liệu <span>được tải nhiều nhất</span></h2>
                     </div>
                 </div>
             </div>
             <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                @foreach ($mostDownloadedDocuments as $item)
                 <div class="product-item">
                     <div class="product-img">
-                        <span class="type new">New</span>
-                        <a href="shop-single.html"><img src="/web-assets/img/product/f1.png" alt=""></a>
+                        @if ($item->is_free)
+                            <span class="type hot">Miễn phí</span>
+                        @elseif (!$item->is_new)
+                            <span class="type discount">Trả phí</span>
+                        @endif
+                        <a href="/document-details/{{ $item->id }}"><img src="{{ asset($item->cover_image) }}" alt="{{ $item->title }}"></a>
                         <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                        class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                        class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                        class="far fa-arrows-repeat"></i></a>
+                            <div class="product-action ms-3">
+                                <a class="mb-2" href="/document-details/{{ $item->id }}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
+                                    class="favourite-btn {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
+                                    data-document-id="{{ $item->id }}"
+                                    data-is-favourited="{{ Auth::check() && $item->favourited_by_user ? 'true' : 'false' }}"
+                                    @if (!Auth::check()) data-requires-login="true" @endif>
+                                    <i class="far fa-heart"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+                        <h3 class="product-title"><a href="#">{{ $item->title }}</a></h3>
+                        <div class="product-bottom">
+                            <div class="product-price">
+                                @if($item->price)
+                                    <span><i class="fa-solid fa-coins"></i> {{ number_format($item->price, 0, ',', '.') }} đ</span>
+                                @else
+                                    <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                @endif
+                            </div>
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span>$100.00</span>
+                                <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
                             </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-img">
-                        <span class="type hot">Hot</span>
-                        <a href="shop-single.html"><img src="/web-assets/img/product/f2.png" alt=""></a>
-                        <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                        class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                        class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                        class="far fa-arrows-repeat"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span>$100.00</span>
+                                <span><i class="fa-solid fa-eye"></i> {{ $item->view_count }} lượt xem</span>
                             </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-img">
-                        <span class="type oos">Out Of Stock</span>
-                        <a href="shop-single.html"><img src="/web-assets/img/product/f3.png" alt=""></a>
-                        <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                        class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                        class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                        class="far fa-arrows-repeat"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span>$100.00</span>
+                                <span><i class="fa-solid fa-download"></i> {{ $item->download_count }} lượt tải</span>
                             </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="product-item">
-                    <div class="product-img">
-                        <span class="type discount">10% Off</span>
-                        <a href="shop-single.html"><img src="/web-assets/img/product/f4.png" alt=""></a>
-                        <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                        class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                        class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                        class="far fa-arrows-repeat"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <del>$120.00</del>
-                                <span>$100.00</span>
-                            </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-img">
-                        <a href="shop-single.html"><img src="/web-assets/img/product/f5.png" alt=""></a>
-                        <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i
-                                        class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i
-                                        class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i
-                                        class="far fa-arrows-repeat"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">Modern Office Furniture</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <div class="product-bottom">
-                            <div class="product-price">
-                                <span>$100.00</span>
-                            </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left"
-                                data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
     <!-- product area end -->
 
-
-    <!-- big banner -->
-    <div class="big-banner pt-100">
+    <div class="product-area pt-80">
         <div class="container">
-            <div class="banner-wrap wow fadeInUp" data-wow-delay=".25s"
-                style="background-image: url(web-assets/img/banner/big-banner.jpg);">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="banner-content">
-                            <div class="banner-info">
-                                <h6>Mega Collections</h6>
-                                <h2>Huge Sale Up To <span>40%</span> Off</h2>
-                                <p>at our outlet stores</p>
-                            </div>
-                            <a href="#" class="theme-btn">Shop Now<i class="fas fa-arrow-right"></i></a>
-                        </div>
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
+                        <h2 class="site-title">Những tài liệu <span>được xem nhiều nhất</span></h2>
                     </div>
                 </div>
             </div>
+            <div class="product-slider owl-carousel owl-theme wow fadeInUp" data-wow-delay=".25s">
+                @foreach ($mostViewedDocuments as $item)
+                    <div class="product-item">
+                        <div class="product-img">
+                            @if ($item->is_free)
+                                <span class="type hot">Miễn phí</span>
+                            @elseif (!$item->is_new)
+                                <span class="type discount">Trả phí</span>
+                            @endif
+                            <a href="/document-details/{{ $item->id }}"><img src="{{ asset($item->cover_image) }}" alt="{{ $item->title }}"></a>
+                            <div class="product-action-wrap">
+                                <div class="product-action ms-3">
+                                    <a class="mb-2" href="/document-details/{{ $item->id }}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                    <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
+                                        class="favourite-btn {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
+                                        data-document-id="{{ $item->id }}"
+                                        data-is-favourited="{{ Auth::check() && $item->favourited_by_user ? 'true' : 'false' }}"
+                                        @if (!Auth::check()) data-requires-login="true" @endif>
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title"><a href="#">{{ $item->title }}</a></h3>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    @if($item->price)
+                                        <span><i class="fa-solid fa-coins"></i> {{ number_format($item->price, 0, ',', '.') }} đ</span>
+                                    @else
+                                        <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                </div>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span><i class="fa-solid fa-eye"></i> {{ $item->view_count }} lượt xem</span>
+                                </div>
+                            </div>
+                            <div class="product-bottom">
+                                <div class="product-price">
+                                    <span><i class="fa-solid fa-download"></i> {{ $item->download_count }} lượt tải</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
-    <!-- big banner end -->
-
-
+    
     <!-- blog area -->
     <div class="blog-area py-90">
         <div class="container">

@@ -57,12 +57,21 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Phân loại</label>
-                                                        <select name="category_id" class="form-control select2bs4" style="width: 100%">
+                                                        <select name="category_id" class="select">
                                                             @foreach($categories as $item)
                                                                 <option value="{{$item->id}}" {{ old('category_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="user-card-filter">
+                                                    <select class="select">
+                                                        <option value="">Default</option>
+                                                        <option value="1">Open</option>
+                                                        <option value="2">Urgent</option>
+                                                        <option value="3">Normal</option>
+                                                        <option value="4">Closed</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">

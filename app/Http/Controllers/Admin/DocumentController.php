@@ -69,12 +69,16 @@ class DocumentController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $full_path = $request->file_path;
+
+        $relative_path = str_replace('http://127.0.0.1:8000/storage/', '', $full_path);
+
         $data = [
             'title' => $request->title,
             'category_id' => $request->category_id,
             'publisher_id' => $request->publisher_id,
             'cover_image' => $request->cover_image,
-            'file_path' => $request->file_path,
+            'file_path' => $relative_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,
             "price" => $request->price,

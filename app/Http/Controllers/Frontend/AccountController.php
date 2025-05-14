@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use App\Models\Favourite;
+use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +43,6 @@ class AccountController extends Controller
                 ->withInput();
         }
 
-        // Truy xuất user từ Model User thông qua ID từ Auth
         $user = User::findOrFail(Auth::id());
         $user->update([
             'name' => $request->name,
@@ -76,7 +78,6 @@ class AccountController extends Controller
                 ->withInput();
         }
 
-        // Truy xuất user từ Model User thông qua ID từ Auth
         $user = User::findOrFail(Auth::id());
 
         if (!Hash::check($request->old_password, $user->password)) {
@@ -117,7 +118,6 @@ class AccountController extends Controller
         $user = User::findOrFail(Auth::id());
         $document = Document::findOrFail($id);
 
-        // Check if already favourited
         $existingFavourite = Favourite::where('user_id', $user->id)
             ->where('document_id', $document->id)
             ->first();
@@ -162,5 +162,18 @@ class AccountController extends Controller
             'success' => true,
             'message' => 'Tài liệu đã được xóa khỏi danh sách yêu thích!'
         ]);
+    }
+
+    public function uploads()
+    {
+        $publishers = Publisher::where("is_active", 1)->get();
+        $categories = DocumentCategory::where("is_active", 1)->orderBy("id", "asc")->get();
+        $authors = Author::where("is_active", 1)->orderBy("id", "asc")->get();
+        return view('frontend.account.upload', compact('publishers', 'categories', 'authors'));
+    }
+
+    public function postUpload()
+    {
+
     }
 }

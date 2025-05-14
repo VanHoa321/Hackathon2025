@@ -32,22 +32,22 @@
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
                                                     <div class="dropdown-user">
-                                                        <h5>Welcome! {{ auth()->user()->name }}</h5>
-                                                        <p>Số coin: 50</p>
+                                                        <h5>Xin chào! {{ auth()->user()->name }}</h5>
+                                                        <p>Số coin: <span>50.000 đ</span></p>
                                                     </div>
                                                 </li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi mật khẩu</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
-                                                <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Logout</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
                             @endauth
                             @auth
-                                <li><a href="#" class="list-item"><i class="far fa-heart"></i><span>0</span></a></li>
+                                <li><a href="{{ route('frontend.my-favourite') }}" class="list-item"><i class="far fa-heart"></i></a></li>
                             @endauth
                         </ul>
                     </div>
@@ -82,7 +82,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.index") }}">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.document.index") }}">Tài liệu</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Giới thiệu</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.contact-us") }}">Liên lạc</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.contact-us") }}">Liên hệ</a></li>
                     </ul>
                     @guest
                         <div class="nav-right">
