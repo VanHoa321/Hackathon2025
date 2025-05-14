@@ -174,7 +174,6 @@
     </div>
     <!-- feature area end -->
 
-
     <!-- product area -->
     <div class="product-area pt-80">
         <div class="container">
@@ -191,35 +190,49 @@
                 <div class="product-item">
                     <div class="product-img">
                         @if ($item->is_free)
-                        <span class="type discount">Free</span>
+                        <span class="type discount">Miễn phí</span>
                         @elseif (!$item->is_new)
-                        <span class="type hot">Paid</span>
+                        <span class="type hot">Trả phí</span>
                         @endif
-                        <a href="shop-single.html"><img src="{{ asset($item->cover_image) }}" alt=""></a>
+                        <a href="#"><img src="{{ asset($item->cover_image) }}" alt="{{ $item->title }}"></a>
                         <div class="product-action-wrap">
-                            <div class="product-action">
-                                <a href="#" data-tooltip="tooltip" title="View Details"><i class="far fa-eye"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i class="far fa-heart"></i></a>
-                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i class="far fa-arrows-repeat"></i></a>
+                            <div class="product-action ms-3">
+                                <a class="mb-2" href="#" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
+                                    class="favourite-btn {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
+                                    data-document-id="{{ $item->id }}"
+                                    data-is-favourited="{{ Auth::check() && $item->favourited_by_user ? 'true' : 'false' }}"
+                                    @if (!Auth::check()) data-requires-login="true" @endif>
+                                    <i class="far fa-heart"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="product-content">
-                        <h3 class="product-title"><a href="shop-single.html">{{ $item->title }}</a></h3>
-                        <div class="product-rate">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+                        <h3 class="product-title"><a href="#">{{ $item->title }}</a></h3>
+                        <div class="product-bottom">
+                            <div class="product-price">
+                                @if($item->price)
+                                <span><i class="fa-solid fa-dollar-sign"></i> {{ number_format($item->price, 2) }}</span>
+                                @else
+                                <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                @endif
+                            </div>
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span>$100.00</span>
+                                <span><i class="fa-solid fa-eye"></i> 9.0/10.0 (10 lượt đánh giá)</span>
                             </div>
-                            <button type="button" class="product-cart-btn" data-bs-placement="left" data-tooltip="tooltip" title="Add To Cart">
-                                <i class="far fa-shopping-bag"></i>
-                            </button>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="product-price">
+                                <span><i class="fa-solid fa-eye"></i> {{ $item->view_count }} lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="product-price">
+                                <span><i class="fa-solid fa-download"></i> {{ $item->download_count }} lượt tải</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1233,62 +1246,7 @@
             </div>
         </div>
     </div>
-    <!-- blog area end -->
-
 </main>
 @endsection
 @section('styles')
-<style>
-    .product-item {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        /* Đảm bảo item chiếm toàn bộ chiều rộng container */
-        max-width: 300px;
-        /* Giới hạn chiều rộng tối đa */
-        min-height: 400px;
-        /* Đặt chiều cao tối thiểu để đồng nhất */
-        border: 1px solid #ddd;
-        /* Tùy chọn: thêm border để dễ nhìn */
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .product-img {
-        position: relative;
-        width: 100%;
-        height: 350px;
-        /* Chiều cao cố định cho phần hình ảnh */
-        overflow: hidden;
-    }
-
-    .product-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* Cắt hình ảnh để vừa khung mà không làm méo */
-        object-position: center;
-        /* Căn giữa hình ảnh */
-        display: block;
-    }
-
-
-    .product-content {
-        padding: 15px;
-        flex-grow: 1;
-        /* Đảm bảo phần content chiếm không gian còn lại */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .product-title {
-        font-size: 18px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        /* Ngăn tiêu đề quá dài làm vỡ layout */
-    }
-</style>
 @endsection

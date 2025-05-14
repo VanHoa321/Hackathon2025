@@ -63,7 +63,7 @@
                                                 <td><img src="{{ $item->cover_image }}" alt="" style="width: 60px; height: 80px"></td>
                                                 <td>{{ $item->title }}</td>
                                                 <td>
-                                                    @if ($item->is_free == 0)
+                                                    @if ($item->is_free == 1)
                                                         <span class="badge badge-success px-3 py-2">Miễn phí</span>
                                                     @else
                                                         <span class="badge badge-danger px-3 py-2">Mất phí</span>

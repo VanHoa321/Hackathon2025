@@ -81,7 +81,7 @@
                                                         <label>Nhà xuất bản</label>
                                                         <select name="publisher_id" class="form-control select2bs4" style="width: 100%">
                                                             @foreach($publishers as $item)
-                                                                <option value="{{$item->id}}" {{ old('publisher_id', $edit->publisger_id) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                                                <option value="{{$item->id}}" {{ old('publisher_id', $edit->publisher_id) == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -111,8 +111,8 @@
                                                     <div class="form-group">
                                                         <label>Hình thức</label>
                                                         <select name="is_free" class="form-control select2bs4" style="width: 100%">
-                                                           <option value="0" {{ old('is_free', $edit->is_free) == 0 ? 'selected' : '' }}>Miễn phí</option>
-                                                           <option value="1" {{ old('is_free', $edit->is_free) == 1 ? 'selected' : '' }}>Mất phí</option>
+                                                           <option value="1" {{ old('is_free', $edit->is_free) == 1 ? 'selected' : '' }}>Miễn phí</option>
+                                                           <option value="0" {{ old('is_free', $edit->is_free) == 0 ? 'selected' : '' }}>Mất phí</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -217,7 +217,7 @@
         $(document).ready(function () {
             function togglePriceField() {
                 let isFree = $('select[name="is_free"]').val();
-                if (isFree == 0) {
+                if (isFree == 1) {
                     $('input[name="price"]').val('');
                     $('input[name="price"]').prop('readonly', true);
                 } else {

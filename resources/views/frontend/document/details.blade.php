@@ -32,17 +32,16 @@
                         <div class="shop-single-info">
                             <h4 class="shop-single-title">{{ $item->title }}</h4>
                             <div class="shop-single-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                                <span class="rating-count"> (4 Customer Reviews)</span>
+                                9.5/10 điểm 
+                                <span class="rating-count"> (320 đánh giá)</span>
                             </div>
                             <div class="shop-single-price">
-                                <del>$690</del>
-                                <span class="amount">$650</span>
-                                <span class="discount-percentage">30% Off</span>
+                                Hình thức: 
+                                @if($item->is_free)
+                                    Miễn phí
+                                @else
+                                    Mất phí - {{ number_format($item->price, 0, ',', '.') }}đ
+                                @endif
                             </div>
                             <p class="mb-3">
                                 {{ $item->description }}
@@ -117,32 +116,6 @@
                                                 <h5>Kenneth Evans</h5>
                                                 <span><i class="far fa-clock"></i> 31 January, 2025</span>
                                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries but also the leap electronic typesetting, remaining essentially unchanged. It was popularised in the with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                                <a href="#"><i class="far fa-reply"></i> Reply</a>
-                                                <div class="review-rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="blog-comments-wrapper">
-                                        <div class="blog-comments-single">
-                                            <img src="/web-assets/img/blog/com-3.jpg" alt="thumb">
-                                            <div class="blog-comments-content">
-                                                <h5>Kenneth Evans</h5>
-                                                <span><i class="far fa-clock"></i> 31 January, 2025</span>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries but also the leap electronic typesetting, remaining essentially unchanged. It was popularised in the with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                                <a href="#"><i class="far fa-reply"></i> Reply</a>
-                                                <div class="review-rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -150,17 +123,6 @@
                                         <h4 class="mb-4">Bình luận tài liệu</h4>
                                         <form action="#">
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <select class="form-control form-select">
-                                                            <option value="5">5 sao</option>
-                                                            <option value="4">4 sao</option>
-                                                            <option value="3">3 sao</option>
-                                                            <option value="2">2 sao</option>
-                                                            <option value="1">1 sao</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <textarea class="form-control" rows="5" placeholder="Nhập nội dung bình luận"></textarea>

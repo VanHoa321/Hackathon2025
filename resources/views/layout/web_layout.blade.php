@@ -10,6 +10,8 @@
 
     <title>SenseLib</title>
 
+    <link rel="icon" type="image/x-icon" href="/web-assets/img/logo/favicon.png">
+
     <link rel="stylesheet" href="{{ asset('web-assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/all-fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/animate.min.css') }}">
@@ -18,14 +20,27 @@
     <link rel="stylesheet" href="{{ asset('web-assets/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/nice-select.min.css') }}">
     <link rel="stylesheet" href="{{ asset('web-assets/css/style.css') }}">
-    @yield('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    @yield( 'styles')
+
+    <style>
+        .favourite-btn.favourited i {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .favourite-btn i {
+            transition: color 0.3s;
+        }
+    </style>
 
 </head>
 
 <body class="home-9">
     @include('layout.partial.header')
 
-     @if(Session::has('messenge') && is_array(Session::get('messenge')))
+    @if(Session::has('messenge') && is_array(Session::get('messenge')))
         @php
             $messenge = Session::get('messenge');
         @endphp
@@ -34,7 +49,7 @@
                 Session::forget('messenge');
             @endphp
         @endif
-    @endif    
+    @endif
 
     @yield('content')
 
@@ -102,7 +117,7 @@
             } else {
                 $('#holder').attr('src', '/storage/files/1/Avatar/no-image.jpg');
             }
-            
+
             $('#lfm').filemanager('file');
             $('#lfm').on('click', function() {
                 var route_prefix = '/files-manager';
@@ -112,12 +127,53 @@
                     $('#holder').attr('src', url);
                     $('#thumbnail').val(url);
                     $('#thumbnail').trigger('change');
-                };               
+                };
             });
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+            timeOut: 3000
+        };
+    </script>
+    <script>
+        document.querySelectorAll('.favourite-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const documentId = this.getAttribute('data-document-id');
+                const isFavourited = this.getAttribute('data-is-favourited') === 'true';
+                const url = isFavourited ?
+                    '{{ url("account/favourite") }}/' + documentId :
+                    '{{ route("frontend.add-favourite", ":id") }}'.replace(':id', documentId);
+                const method = isFavourited ? 'DELETE' : 'POST';
 
-            setTimeout(function() {
-                $("#myAlert").fadeOut(500);
-            }, 3500);
+                fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            this.classList.toggle('favourited');
+                            this.setAttribute('data-is-favourited', isFavourited ? 'false' : 'true');
+                            this.setAttribute('title', isFavourited ? 'Yêu thích' : 'Bỏ yêu thích');
+                        } else {
+                            toastr.error(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        toastr.error('Bạn cần phải đăng nhập để thực hiện chức năng này');
+                        console.error(error);
+                    });
+            });
         });
     </script>
 </body>

@@ -77,9 +77,9 @@ class DocumentController extends Controller
             'file_path' => $request->file_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,
-            "price" => $request->is_free == 1 ? 0 : $request->price,
+            "price" => $request->price,
             'description' => $request->description,
-            'publication_year' => $request->publisher_id > 1 ? null : $request->publication_year,
+            'publication_year' => $request->publication_year,
             'uploaded_by' => Auth::user()->id,
             'status' => 1
         ];
@@ -116,9 +116,9 @@ class DocumentController extends Controller
             'file_path' => $request->file_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,
-            "price" => $request->is_free == 1 ? 0 : $request->price,
+            'price' => $request->price,
             'description' => $request->description,
-            'publication_year' => $request->publisher_id > 1 ? null : $request->publication_year,
+            'publication_year' => $request->publication_year,
             'uploaded_by' => Auth::user()->id,
             'status' => 1
         ];

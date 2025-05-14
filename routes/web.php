@@ -184,4 +184,7 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/change-password', [FrontEndAccountController::class, 'editPassword'])->name('frontend.edit-password');
     Route::post('/update-password', [FrontEndAccountController::class, 'updatePassword'])->name('frontend.update-password');
     Route::get('/settings', [FrontEndAccountController::class, 'settings'])->name('frontend.settings');
+    Route::get('/my-favourite', [FrontEndAccountController::class, 'myFavourite'])->name('frontend.my-favourite');
+    Route::post('/favourite/{id}', [FrontEndAccountController::class, 'addFavourite'])->name('frontend.add-favourite');
+    Route::delete('/favourite/{id}', [FrontEndAccountController::class, 'removeFavourite'])->name('frontend.remove-favourite');
 });
