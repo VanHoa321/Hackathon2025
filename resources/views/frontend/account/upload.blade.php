@@ -34,7 +34,7 @@
                                 <li><a href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
                                 <li><a href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi Mật Khẩu</a></li>
                                 <li><a href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
-                                <li><a class="active" href="{{ route('frontend.uploads') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
+                                <li><a class="active" href="{{ route('frontend.mydocument') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
                                 <li><a href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
                                 <li><a href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                             </ul>
@@ -48,7 +48,7 @@
                                         <div class="user-card-header">
                                             <h4 class="user-card-title">Thông tin tài liệu đăng tải</h4>
                                             <div class="user-card-header-right">
-                                                <a href="#" class="theme-btn"><span class="fas fa-arrow-left"></span>Quay lại</a>
+                                                <a href="{{ route("frontend.mydocument") }}" class="theme-btn"><span class="fas fa-arrow-left"></span>Quay lại</a>
                                             </div>
                                         </div>
                                         <div class="user-form">

@@ -27,6 +27,7 @@ class Document extends Model
         'updated_at',
         'uploaded_by',
         'status',
+        'approve',
     ];
 
     protected $primaryKey = 'id';

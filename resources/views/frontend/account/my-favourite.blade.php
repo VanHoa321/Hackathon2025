@@ -34,27 +34,28 @@
                             <li><a href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
                             <li><a href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi Mật Khẩu</a></li>
                             <li><a class="active" href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
-                            <li><a href="{{ route('frontend.uploads') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
+                            <li><a href="{{ route('frontend.mydocument') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
                             <li><a href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
                             <li><a href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-lg-9">
                     <div class="user-wrapper">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="user-card">
-                                    <h4 class="user-card-title">My Wishlist</h4>
+                                    <h4 class="user-card-title">Danh sách tài liệu yêu thích</h4>
                                     <div class="row mt-20">
                                         @foreach ($favourites as $item)
-                                        <div class="col-md-6 col-lg-4">
+                                        <div class="col-md-4 col-lg-3">
                                             <div class="product-item">
                                                 <div class="product-img">
                                                     @if ($item->document->is_free)
-                                                    <span class="type discount">Miễn phí</span>
+                                                    <span class="type hot">Miễn phí</span>
                                                     @elseif (!$item->document->is_new)
-                                                    <span class="type hot">Trả phí</span>
+                                                    <span class="type discount">Trả phí</span>
                                                     @endif
                                                     <a href="{{ route('frontend.document.details', $item->document->id) }}"><img src="{{ asset($item->document->cover_image) }}" alt="{{ $item->document->title }}"></a>
                                                     <div class="product-action-wrap">
@@ -71,15 +72,15 @@
                                                     <div class="product-bottom">
                                                         <div class="product-price">
                                                             @if($item->document->price)
-                                                            <span><i class="fa-solid fa-dollar-sign"></i> {{ number_format($item->document->price, 2) }}</span>
+                                                                <span><i class="fa-solid fa-coins"></i> {{ number_format($item->document->price, 0, ',', '.') }} đ</span>
                                                             @else
-                                                            <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                                                <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
                                                             @endif
                                                         </div>
                                                     </div>
                                                     <div class="product-bottom">
                                                         <div class="product-price">
-                                                            <span><i class="fa-solid fa-eye"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                                            <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 đánh giá)</span>
                                                         </div>
                                                     </div>
                                                     <div class="product-bottom">
@@ -98,28 +99,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
-                                        <!-- pagination -->
-                                        <!-- <div class="pagination-area mt-3 mb-3">
-                                            <div aria-label="Page navigation example">
-                                                <ul class="pagination">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                            <span aria-hidden="true"><i class="far fa-angle-double-left"></i></span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
-                                                            <span aria-hidden="true"><i class="far fa-angle-double-right"></i></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div> -->
-                                        <!-- pagination end -->
+                                        @endforeach                                       
                                     </div>
                                 </div>
                             </div>
@@ -128,6 +108,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </main>
 @endsection
 @section('scripts')
@@ -139,8 +120,7 @@
             button.addEventListener('click', function() {
                 const documentId = this.getAttribute('data-id');
                 const url = `/account/favourite/${documentId}`;
-
-                // Hiển thị SweetAlert để xác nhận
+                
                 Swal.fire({
                     title: 'Bạn có chắc chắn?',
                     text: "Bạn muốn bỏ yêu thích tài liệu này?",
@@ -152,7 +132,6 @@
                     cancelButtonText: 'Hủy'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Gửi yêu cầu DELETE nếu người dùng xác nhận
                         fetch(url, {
                                 method: 'DELETE',
                                 headers: {
@@ -168,7 +147,7 @@
                                         data.message,
                                         'success'
                                     ).then(() => {
-                                        location.reload(); // Reload the page to update the list
+                                        location.reload();
                                     });
                                 } else {
                                     Swal.fire(

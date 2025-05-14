@@ -166,8 +166,8 @@ class AccountController extends Controller
 
     public function myDocument()
     {
-        $items = Document::where("uploaded_by", Auth::user()->id)->where("created_at", "desc")->get();
-        return view("frontend.account.my-customer", compact("items"));
+        $items = Document::where("uploaded_by", Auth::user()->id)->orderBy("created_at", "desc")->get();
+        return view("frontend.account.my-document", compact("items"));
     }
 
     public function uploads()
@@ -188,7 +188,7 @@ class AccountController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'publisher_id' => $request->publisher_id,
-            'cover_image' => $request->cover_image,
+            'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,
@@ -196,7 +196,8 @@ class AccountController extends Controller
             'description' => $request->description,
             'publication_year' => $request->publication_year,
             'uploaded_by' => Auth::user()->id,
-            'status' => 0
+            'status' => 0,
+            'approve' => 0
         ];
 
         $document = Document::create($data);
@@ -204,6 +205,6 @@ class AccountController extends Controller
             $document->authors()->sync($request->authors);
         }
         $request->session()->put("messenge", ["style" => "success", "msg" => "Thêm mới tài liệu thành công"]);
-        return redirect()->route("frontend.uploads");
+        return redirect()->route("frontend.mydocument");
     }
 }

@@ -15,7 +15,7 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $items = Document::with('category', 'publisher')->orderBy('id', 'desc')->get();
+        $items = Document::with('category', 'publisher')->where("approve", 1)->orderBy('id', 'desc')->get();
         return view('admin.document.index', compact('items'));
     }
 
@@ -159,5 +159,29 @@ class DocumentController extends Controller
         else {
             return response()->json(['success' => false, 'message' => 'Thay đổi trạng thái không thành công'], 404);
         }
+    }
+
+    public function list_approve()
+    {
+        $items = Document::where("approve", 0)->orderBy('id', 'desc')->get();
+        return view('admin.document.approve', compact('items'));
+    }
+
+    public function approve($id)
+    {
+        $item = Document::findOrFail($id);
+        $item->approve = 1;
+        $item->status = 1;
+        $item->save();
+        return response()->json(['success' => true, 'message' => 'Duyệt tài liệu thành công']);
+    }
+
+    public function refuse($id)
+    {
+        $item = Document::findOrFail($id);
+        $item->approve = 2;
+        $item->status = 0;
+        $item->save();
+        return response()->json(['success' => true, 'message' => 'Đã từ chối phê duyệt']);
     }
 }

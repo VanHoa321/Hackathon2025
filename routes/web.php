@@ -110,6 +110,9 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/update/{id}', [DocumentController::class, 'update'])->name('document.update');
         Route::post('/change/{id}', [DocumentController::class, 'changeActive'])->name('document.change');
         Route::delete('/destroy/{id}', [DocumentController::class, 'destroy'])->name('document.destroy');
+        Route::get('/list/approve', [DocumentController::class, 'list_approve'])->name('document.approve');
+        Route::post('/approve/{id}', [DocumentController::class, 'approve']);
+        Route::post('/refuse/{id}', [DocumentController::class, 'refuse']);
     });
 
     //Tag
@@ -190,6 +193,7 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/my-favourite', [FrontEndAccountController::class, 'myFavourite'])->name('frontend.my-favourite');
     Route::post('/favourite/{id}', [FrontEndAccountController::class, 'addFavourite'])->name('frontend.add-favourite');
     Route::delete('/favourite/{id}', [FrontEndAccountController::class, 'removeFavourite'])->name('frontend.remove-favourite');
+    Route::get('/my-document', [FrontEndAccountController::class, 'myDocument'])->name('frontend.mydocument');
     Route::get('/uploads', [FrontEndAccountController::class, 'uploads'])->name('frontend.uploads');
     Route::post('/post-upload', [FrontEndAccountController::class, 'postUpload'])->name('frontend.post-upload');
 });
