@@ -81,7 +81,7 @@ class AccountController extends Controller
 
         if (!Hash::check($request->old_password, $user->password)) {
             return redirect()->back()
-                ->withErrors(['old_password' => 'The old password is incorrect'])
+                ->withErrors(['old_password' => 'Tài khoản cũ không đúng!'])
                 ->withInput();
         }
 
@@ -103,8 +103,13 @@ class AccountController extends Controller
 
      public function myFavourite()
     {
-        $favourites = Favourite::where('user_id', Auth::id())->with('document')->get();
-        return view('frontend.my-favourite', compact('favourites'));
+        $favourites = Favourite::where('user_id', Auth::id())->with('document')->get()->map(function ($favourites) {
+            $favourites->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
+                ->where('document_id', $favourites->id)
+                ->exists();
+            return $favourites;
+        });
+        return view('frontend.account.my-favourite', compact('favourites'));
     }
 
     public function addFavourite(Request $request, $id)
@@ -120,7 +125,7 @@ class AccountController extends Controller
         if ($existingFavourite) {
             return response()->json([
                 'success' => false,
-                'message' => 'Document is already in your favourites!'
+                'message' => 'Tài liệu này đã tồn tại trong danh sách yêu thích của bạn!'
             ], 400);
         }
 
@@ -131,7 +136,7 @@ class AccountController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Document added to favourites!'
+            'message' => 'Tài liệu đã được thêm vào danh sách yêu thích!'
         ]);
     }
 
@@ -147,7 +152,7 @@ class AccountController extends Controller
         if (!$favourite) {
             return response()->json([
                 'success' => false,
-                'message' => 'Document is not in your favourites!'
+                'message' => 'Tài liệu này không tồn tại trong danh sách yêu thích của bạn!'
             ], 400);
         }
 
@@ -155,7 +160,7 @@ class AccountController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Document removed from favourites!'
+            'message' => 'Tài liệu đã được xóa khỏi danh sách yêu thích!'
         ]);
     }
 }

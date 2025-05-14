@@ -38,6 +38,7 @@
                                                 </li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi mật khẩu</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Logout</a></li>
                                             </ul>
