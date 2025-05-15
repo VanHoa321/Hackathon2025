@@ -40,8 +40,7 @@
             <div class="row">
                 <div class="col-lg-6 mx-auto">
                     <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
-                        <span class="site-title-tagline">Our Category</span>
-                        <h2 class="site-title">Our Popular <span>Category</span></h2>
+                        <h2 class="site-title">Danh mục <span>tài liệu</span></h2>
                     </div>
                 </div>
             </div>
@@ -182,39 +181,6 @@
         </div>
     </div>
     <!-- product area end -->
-
-    <!-- deal area -->
-    <div class="deal-area2 pt-80">
-        <div class="container">
-            <div class="deal-wrap wow fadeInUp" data-wow-delay=".25s">
-                <div class="row g-0">
-                    <div class="col-12 col-lg-6">
-                        <div class="deal-img">
-                            <img src="/web-assets/img/deal/03.jpg" alt="#">
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 align-self-center">
-                        <div class="deal-content">
-                            <span class="deal-sub-title">Todays Deal 20% Off</span>
-                            <h3 class="deal-title">Summer Beach Bag With Elegant Women's Accessories.</h3>
-                            <p class="deal-text">There are many variations of passages available but the majority
-                                have suffered alteration in some form words look even slightly believable.</p>
-                            <h3 class="deal-price"><span>$1020</span><del>$1200</del></h3>
-                            <div class="col-lg-12 col-xl-8 mx-auto">
-                                <div class="deal-countdown">
-                                    <div class="countdown" data-countdown="2030/12/30"></div>
-                                </div>
-                            </div>
-                            <div class="deal-btn">
-                                <a href="#" class="theme-btn">Buy Now<i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- deal area end  -->
 
 
     <!-- product area -->

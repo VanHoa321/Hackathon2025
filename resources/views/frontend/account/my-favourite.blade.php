@@ -48,62 +48,69 @@
                                 <div class="user-card">
                                     <h4 class="user-card-title">Danh sách tài liệu yêu thích</h4>
                                     <div class="row mt-20">
-                                        @foreach ($favourites as $item)
-                                        <div class="col-md-4 col-lg-3">
-                                            <div class="product-item">
-                                                <div class="product-img">
-                                                    @if ($item->document->is_free)
-                                                    <span class="type hot">Miễn phí</span>
-                                                    @elseif (!$item->document->is_new)
-                                                    <span class="type discount">Trả phí</span>
-                                                    @endif
-                                                    <a href="{{ route('frontend.document.details', $item->document->id) }}"><img src="{{ asset($item->document->cover_image) }}" alt="{{ $item->document->title }}"></a>
-                                                    <div class="product-action-wrap">
-                                                        <div class="product-action ms-3">
-                                                            <a class="mb-2" href="{{ route('frontend.document.details', $item->document->id) }}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
-                                                            <a class="mb-2 remove-favourite" href="javascript:void(0);" data-id="{{ $item->document->id }}" data-tooltip="tooltip" title="Bỏ yêu thích">
-                                                                <i class="far fa-heart-broken"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-content">
-                                                    <h3 class="product-title"><a href="{{ route('frontend.document.details', $item->document->id) }}">{{ $item->document->title }}</a></h3>
-                                                    <div class="product-bottom">
-                                                        <div class="product-price">
-                                                            @if($item->document->price)
-                                                                <span><i class="fa-solid fa-coins"></i> {{ number_format($item->document->price, 0, ',', '.') }} đ</span>
-                                                            @else
-                                                                <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                        @if ($favourites->count() > 0)
+                                            @foreach ($favourites as $item)
+                                                <div class="col-md-4 col-lg-3">
+                                                    <div class="product-item">
+                                                        <div class="product-img">
+                                                            @if ($item->document->is_free)
+                                                            <span class="type hot">Miễn phí</span>
+                                                            @elseif (!$item->document->is_new)
+                                                            <span class="type discount">Trả phí</span>
                                                             @endif
+                                                            <a href="{{ route('frontend.document.details', $item->document->id) }}"><img src="{{ asset($item->document->cover_image) }}" alt="{{ $item->document->title }}"></a>
+                                                            <div class="product-action-wrap">
+                                                                <div class="product-action ms-3">
+                                                                    <a class="mb-2" href="{{ route('frontend.document.details', $item->document->id) }}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                                                    <a class="mb-2 remove-favourite" href="javascript:void(0);" data-id="{{ $item->document->id }}" data-tooltip="tooltip" title="Bỏ yêu thích">
+                                                                        <i class="far fa-heart-broken"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-content">
+                                                            <h3 class="product-title"><a href="{{ route('frontend.document.details', $item->document->id) }}">{{ $item->document->title }}</a></h3>
+                                                            <div class="product-bottom">
+                                                                <div class="product-price">
+                                                                    @if($item->document->price)
+                                                                        <span><i class="fa-solid fa-coins"></i> {{ number_format($item->document->price, 0, ',', '.') }} đ</span>
+                                                                    @else
+                                                                        <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-bottom">
+                                                                <div class="product-price">
+                                                                    <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 đánh giá)</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-bottom">
+                                                                <div class="product-price">
+                                                                    <span><i class="fa-solid fa-eye"></i> {{ $item->document->view_count }} lượt xem</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-bottom">
+                                                                <div class="product-price">
+                                                                    <span><i class="fa-solid fa-download"></i> {{ $item->document->download_count }} lượt tải</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <input type="hidden" id="thumbnail" value="{{ old('avatar', auth()->user()->avatar) }}">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="product-bottom">
-                                                        <div class="product-price">
-                                                            <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 đánh giá)</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-bottom">
-                                                        <div class="product-price">
-                                                            <span><i class="fa-solid fa-eye"></i> {{ $item->document->view_count }} lượt xem</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-bottom">
-                                                        <div class="product-price">
-                                                            <span><i class="fa-solid fa-download"></i> {{ $item->document->download_count }} lượt tải</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <input type="hidden" id="thumbnail" value="{{ old('avatar', auth()->user()->avatar) }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach                                       
+                                                </div>  
+                                            @endforeach  
+                                        @else
+                                            <p>Chưa có tài liệu yêu thích!</p>   
+                                        @endif                                  
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="hidden" name="avatar" id="thumbnail" value="{{ old('avatar', auth()->user()->avatar) }}">
                     </div>
                 </div>
             </div>

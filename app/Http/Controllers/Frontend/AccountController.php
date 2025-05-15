@@ -187,14 +187,12 @@ class AccountController extends Controller
         $data = [
             'title' => $request->title,
             'category_id' => $request->category_id,
-            'publisher_id' => $request->publisher_id,
+            'publisher_id' => 1,
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
             'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
-            'is_free' => $request->is_free,
-            "price" => $request->price,
+            'is_free' => 1,
             'description' => $request->description,
-            'publication_year' => $request->publication_year,
             'uploaded_by' => Auth::user()->id,
             'status' => 0,
             'approve' => 0

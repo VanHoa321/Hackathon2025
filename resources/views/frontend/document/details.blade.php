@@ -57,12 +57,17 @@
                                 <ul>
                                     <li>Tác giả: 
                                         <span>
-                                            {{ $item->authors->pluck('name')->implode(', ') }}
+                                            @if ($item->authors && $item->authors->count() > 0)
+                                                {{ $item->authors->pluck('name')->implode(', ') }}
+                                            @else
+                                                {{ $item->user->name }}
+                                            @endif
                                         </span>
                                     </li>
                                     <li>Phân loại: <span>{{ $item->category->name }}</span></li>
-                                    <li>Lượt xem: <span>{{ $item->view_count }}</span></li>
-                                    <li>Lượt tải: <span>{{ $item->download_count }}</span></li>
+                                    <li>Lượt xem: <span>{{ $item->view_count }} lượt</span></li>
+                                    <li>Lượt tải: <span>{{ $item->download_count }} lượt</span></li>
+                                    <li>Định dạng tệp: <span>{{ $item->file_format }}</span></li>
                                 </ul>
                             </div>
                             <div class="shop-single-action">
@@ -94,7 +99,7 @@
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="pdfPreviewModalLabel">Xem trước: {{ $item->title }} (5 trang đầu)</h5>
+                                <h5 class="modal-title" id="pdfPreviewModalLabel">Xem trước: {{ $item->title }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -106,6 +111,8 @@
                         </div>
                     </div>
                 </div>
+
+                @include('layout.partial.chatbot-document')
 
                 <!-- shop single details -->
                 <div class="shop-single-details">
@@ -433,4 +440,28 @@
             display: none;
         }
     </style>
+
+    <script>
+        const chatButton = document.getElementById("chatDocumentButton");
+        const chatBox = document.getElementById("chatBoxDocument");
+
+        chatButton.addEventListener("click", function () {
+            chatBox.classList.toggle("d-none");
+            chatButton.innerHTML = chatBox.classList.contains("d-none") ? "<i class='bi bi-chat-dots fs-4'></i>" : "<i class='bi bi-x-lg fs-4'></i>";
+        });
+
+        document.getElementById("closeChatDocument").addEventListener("click", function () {
+            chatBox.classList.add("d-none");
+            chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!chatBox.contains(event.target) && !chatButton.contains(event.target)) {
+                chatBox.classList.add("d-none");
+                chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
+            }
+        }, true);
+    </script>
+
+
 @endsection

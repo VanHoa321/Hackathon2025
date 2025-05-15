@@ -79,9 +79,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route("document.edit", $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin tài liệu">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </a>
+                                                    @if ($item->uploaded_by == Auth::user()->id)
+                                                        <a href="{{ route("document.edit", $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin tài liệu">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </a>
+                                                    @endif
                                                     <a href="#" class="btn btn-danger btn-sm btn-delete" data-id="{{ $item->id }}" title="Xóa tài liệu">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>

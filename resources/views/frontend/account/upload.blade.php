@@ -95,49 +95,7 @@
                                                                     <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">
                                                                     <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da; padding: 10px; display: inline-block; min-height: 44px;"></span>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Nhà xuất bản</label>
-                                                                    <select name="publisher_id" class="select" style="width: 100%">
-                                                                        @foreach($publishers as $item)
-                                                                            <option value="{{$item->id}}" {{ old('publisher_id') == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Năm xuất bản</label>
-                                                                    <input type="number" name="publication_year" class="form-control" placeholder="VD: 2023" value="{{old('publication_year')}}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 mb-2">
-                                                                <label>Tác giả</label>
-                                                                <select name="authors[]" class="form-control authors" multiple style="width:100%">
-                                                                    @foreach($authors as $item)
-                                                                        <option value="{{ $item->id }}" data-name="{{ $item->name }}" data-avatar="{{ $item->avatar }}" 
-                                                                            {{ in_array($item->id, old('authors', [])) ? 'selected' : '' }}>
-                                                                            {{ $item->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div> 
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Hình thức</label>
-                                                                    <select name="is_free" class="select" style="width: 100%">
-                                                                    <option value="1" {{ old('is_free') == 1 ? 'selected' : '' }}>Miễn phí</option>
-                                                                    <option value="0" {{ old('is_free') == 0 ? 'selected' : '' }}>Mất phí</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label>Phí tải về</label>
-                                                                    <input type="number" name="price" class="form-control" placeholder="VD: 100000" value="{{old('price')}}">
-                                                                </div>
-                                                            </div>     
+                                                            </div>                                                                                                                                                                                
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label>Mô tả thêm</label>
@@ -180,20 +138,14 @@
                         required: true,
                         minlength: 5,
                         maxlength: 50
-                    },
-                    'authors[]': {
-                        required: true
-                    },     
+                    }                  
                 },
                 messages: {
                     title: {
                         required: "Tiêu đề tài liệu không được để trống!",
                         minlength: "Tiêu đề tài liệu phải có ít nhất {0} ký tự!",
                         maxlength: "Tiêu đề tài liệu tối đa {0} ký tự!"
-                    },
-                    'authors[]': {
-                        required: "Vui lòng chọn ít nhất một tác giả!"
-                    },    
+                    }                       
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
@@ -213,68 +165,9 @@
                 theme: 'bootstrap4'
             })
 
-            $('.authors').select2({
-                theme: 'bootstrap4',
-                placeholder: "Chọn tác giả cho tài liệu",
-                templateResult: formatAuthor,
-                templateSelection: formatAuthorSelection,
-            })
-            
-            function formatAuthor(author) {
-                if (!author.id) { return author.text; }
-                var $author = $(
-                    '<span><img src="' + author.element.getAttribute('data-avatar') + '" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 10px;"> ' + author.text + '</span>'
-                );
-                return $author;
-            }
-
-            function formatAuthorSelection(author) {
-                return author.text;
-            }
-
             setTimeout(function() {
                 $("#myAlert").fadeOut(500);
             },3500);
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            function togglePriceField() {
-                let isFree = $('select[name="is_free"]').val();
-                if (isFree == 1) {
-                    $('input[name="price"]').val('');
-                    $('input[name="price"]').prop('readonly', true);
-                } else {
-                    $('input[name="price"]').prop('readonly', false);
-                }
-            }
-
-            function togglePublicationYear() {
-                let publisherId = parseInt($('select[name="publisher_id"]').val());
-                let yearInput = $('input[name="publication_year"]');
-
-                if (publisherId > 1) {
-                    yearInput.prop('readonly', false);
-                } else {
-                    yearInput.val('');
-                    yearInput.prop('readonly', true);
-                }
-            }
-
-            togglePriceField();
-            togglePublicationYear();
-
-            $('select[name="is_free"]').change(function () {
-                togglePriceField();
-            });
-
-            $('select[name="publisher_id"]').change(function () {
-                togglePublicationYear();
-            });
-
-            $('input[name="publication_year"]').on('change blur', function () {
-                togglePublicationYear();
-            });
         });
     </script>
 @endsection

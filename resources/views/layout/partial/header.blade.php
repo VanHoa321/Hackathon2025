@@ -81,7 +81,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.index") }}">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.document.index") }}">Tài liệu</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Giới thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.about-us") }}">Giới thiệu</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.contact-us") }}">Liên hệ</a></li>
                     </ul>
                     @guest
