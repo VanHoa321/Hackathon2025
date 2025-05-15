@@ -178,6 +178,8 @@ Route::get('/document/getData', [FrontEndDocumentController::class, 'getData']);
 Route::get('/document-details/{id}', [FrontEndDocumentController::class, 'details'])->name('frontend.document.details');
 Route::post('/document/comment', [FrontEndDocumentController::class, 'comment'])->name('frontend.document.comment');
 Route::get('/document/download/{id}', [FrontEndDocumentController::class, 'download'])->name('frontend.document.download');
+Route::post('/document/{id}/rate', [FrontEndDocumentController::class, 'rate'])->name('frontend.document.rate');
+Route::delete('/document/{id}/unrate', [FrontEndDocumentController::class, 'unrate'])->name('frontend.document.unrate');
 
 
 //Frontend Post

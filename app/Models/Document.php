@@ -52,4 +52,14 @@ class Document extends Model
     {
         return $this->belongsToMany(Author::class, 'document_authors');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(DocumentComment::class, 'document_id');
+    }
+    
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'document_id');
+    }
 }

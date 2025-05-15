@@ -8,6 +8,7 @@ use App\Models\DocumentCategory;
 use App\Models\DocumentComment;
 use App\Models\Favourite;
 use App\Models\Publisher;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -54,6 +55,8 @@ class DocumentController extends Controller
             $doc->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $doc->id)
                 ->exists();
+            $doc->average_rating = Rating::where('document_id', $doc->id)->avg('rating') ?? 0;
+            $doc->rating_count = Rating::where('document_id', $doc->id)->count();
             return $doc;
         });
 
@@ -72,8 +75,11 @@ class DocumentController extends Controller
     {
         $item = Document::with('category', 'publisher', 'authors')->find($id);
         $comments = DocumentComment::where('document_id', $id)->orderBy('created_at', 'desc')->get();
+        $averageRating = Rating::where('document_id', $id)->avg('rating') ?? 0;
+        $ratingCount = Rating::where('document_id', $id)->count();
+        $userRating = Auth::check() ? Rating::where('document_id', $id)->where('user_id', Auth::id())->first() : null;
         $item->increment('view_count');
-        return view('frontend.document.details', compact('item', 'comments'));
+        return view('frontend.document.details', compact('item', 'comments', 'ratingCount', 'averageRating', 'userRating'));
     }
 
     public function comment(Request $request)
@@ -127,4 +133,32 @@ class DocumentController extends Controller
         return response()->download($filePath);
     }
 
+    public function rate(Request $request, $id)
+    {
+        $request->validate([
+            'rating' => 'required|numeric|min:0|max:10',
+        ]);
+
+        $doc = Document::findOrFail($id);
+        $user = auth()->user();
+
+        // Tạo hoặc cập nhật đánh giá
+        $doc->ratings()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['rating' => $request->rating]
+        );
+
+        return response()->json(['message' => 'Đánh giá của bạn đã được lưu.']);
+    }
+
+    public function unrate($filmId)
+    {
+        $doc = Document::findOrFail($filmId);
+        $user = auth()->user();
+
+        // Xóa đánh giá
+        $doc->ratings()->where('user_id', $user->id)->delete();
+
+        return response()->json(['message' => 'Đánh giá của bạn đã được xóa.']);
+    }
 }

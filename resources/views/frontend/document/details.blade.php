@@ -39,8 +39,8 @@
                         <div class="shop-single-info">
                             <h4 class="shop-single-title">{{ $item->title }}</h4>
                             <div class="shop-single-rating">
-                                9.5/10 điểm 
-                                <span class="rating-count"> (320 đánh giá)</span>
+                                {{ number_format( $averageRating, 1) }}/10 điểm đánh giá
+                                <span class="rating-count"> ({{ $ratingCount }} đánh giá)</span>
                             </div>
                             <div class="shop-single-price">
                                 Hình thức: 
@@ -76,7 +76,21 @@
                                         <div class="shop-single-btn">
                                             <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#pdfPreviewModal"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
                                             <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
-                                            <a href="#" class="theme-btn theme-btn2" data-tooltip="tooltip" title="Add To Wishlist"><span class="far fa-heart"></span></a>
+                                            @auth
+                                                <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
+                                                    data-requires-login="{{ Auth::check() ? 'false' : 'true' }}"
+                                                    data-has-rated="{{ $userRating ? 'true' : 'false' }}"
+                                                    data-rating="{{ $userRating ? $userRating->rating : '' }}">
+                                                    <i class="fa-solid fa-star me-1"></i>{{ $userRating ? 'Sửa đánh giá' : 'Đánh giá' }}
+                                                </a>
+                                            @endauth
+                                            <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
+                                                class="favourite-btn theme-btn theme-btn2 {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
+                                                data-document-id="{{ $item->id }}"
+                                                data-is-favourited="{{ Auth::check() && $item->favourited_by_user ? 'true' : 'false' }}"
+                                                @if (!Auth::check()) data-requires-login="true" @endif>
+                                                <i class="far fa-heart" style="margin-left:0"></i>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-lg-12 col-xl-12 mt-4">
@@ -107,6 +121,41 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal quickview fade" id="ratingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-xmark"></i></button>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <form id="ratingForm">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Điểm đánh giá (từ 0.0 đến 10.0)</label>
+                                                    <input type="number" step="0.1" min="0" max="10" id="ratingInput" name="rating" value="{{ $userRating->rating ?? '' }}" class="form-control" placeholder="0.0" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="m-2 col-md-4 col-lg-4 col-sm-6 justify-content-center">
+                                                <button type="submit" class="theme-btn"><span class="far fa-user"></span> Lưu</button>
+                                            </div>
+                                            @if($userRating)
+                                            <div class="m-2 col-md-4 col-lg-4 col-sm-6 justify-content-center">
+                                                <button type="button" id="deleteRatingBtn" class="theme-btn bg-danger"><span class="far fa-user"></span> Xóa đánh giá</button>
+                                            </div>
+                                            @endif
+                                        </div>
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -365,6 +414,49 @@
                         } else {
                             toastr.error('Đã xảy ra lỗi khi gửi bình luận.');
                         }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Lưu đánh giá
+            $('#ratingForm').on('submit', function(e) {
+                e.preventDefault();
+                const rating = $('#ratingInput').val();
+                $.ajax({
+                    url: '{{ route("frontend.document.rate", $item->id) }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        rating: rating
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                        location.reload(); // Reload lại trang để cập nhật điểm đánh giá
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON.message || 'Đã xảy ra lỗi.');
+                    }
+                });
+            });
+
+            // Xóa đánh giá
+            $('#deleteRatingBtn').on('click', function() {
+                $.ajax({
+                    url: '{{ route("frontend.document.unrate", $item->id) }}',
+                    method: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                        location.reload(); // Reload lại trang để cập nhật
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON.message || 'Đã xảy ra lỗi.');
                     }
                 });
             });
