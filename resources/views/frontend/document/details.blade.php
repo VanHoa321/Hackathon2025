@@ -75,7 +75,8 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="shop-single-btn">
                                             <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#pdfPreviewModal"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
-                                            <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i></i>Tóm tắt</a>
+                                            <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i>Tóm tắt</a>
+                                            <a id="tts" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#ttsModal"><i class="fa-solid fa-play me-1"></i>Nghe trước</a>
                                             <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
                                             @auth
                                                 <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
@@ -110,7 +111,7 @@
                 </div>
 
                 <!-- PDF Preview Modal -->
-                <div class="modal fade" id="pdfPreviewModal" tabindex="-1" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
+                <div class="modal fade" id="pdfPreviewModal" tabindex="-1" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true" style="max-height: 650px; overflow-y: auto;">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -136,9 +137,31 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Nội dung tóm tắt với AI</label>
+                                                <label class="fs-4">Tóm tắt nội dung với AI</label>
                                                 <div class="mt-2">
-                                                    <p id="summaryDocument"></p>
+                                                    <p id="summaryDocument" style="max-height: 400px; overflow-y: auto;"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal quickview fade" id="ttsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ttsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="btn-close" id="stop-audio" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-xmark"></i></button>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="fs-4">Nghe tài liệu</label>
+                                                <div class="mt-2">
+                                                    <p id="ttsDocument" style="max-height: 400px; overflow-y: auto;"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +186,6 @@
                                                     <input type="number" step="0.1" min="0" max="10" id="ratingInput" name="rating" value="{{ $userRating->rating ?? '' }}" class="form-control" placeholder="0.0" required>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="m-2 col-md-4 col-lg-4 col-sm-6 justify-content-center">
@@ -427,7 +449,8 @@
 
             $('#summaryButton').click(function() {
                 let documentId = $('#documentId').val();
-
+                $('#summaryDocument').html('');
+                $('#summaryDocument').html('<div class="text-center text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Đang tóm tắt, vui lòng chờ...</div>');
                 $.ajax({
                     url: '/api/summary',
                     method: 'POST',
@@ -436,6 +459,8 @@
                     },
                     success: function(response) {
                         let answer = response.answer;
+                        answer = answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        answer = answer.replace(/\*(.*?)\*/g, '<em>$1</em>');
                         $('#summaryDocument').html(answer);
                     },
                     error: function(xhr) {
@@ -443,9 +468,59 @@
                     }
                 });
             });
+
+            let audioElement = null;
+
+            $('#tts').click(function (e) {
+                e.preventDefault();
+                let documentId = $('#documentId').val();
+                $('#ttsDocument').html('');
+                $('#ttsDocument').html('<div class="text-center text-muted fs-3"><i class="fas fa-spinner fa-spin me-2" style="font-size: 2rem;"></i>Đang xử lý audio, vui lòng chờ...</div>');
+                $.ajax({
+                    url: '/api/tts',
+                    method: 'POST',
+                    data: {
+                        id: documentId
+                    },
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (audioBlob) {
+                        const audioUrl = URL.createObjectURL(audioBlob);
+
+                        if (audioElement) {
+                            audioElement.pause();
+                            audioElement.src = "";
+                            audioElement.load();
+                            audioElement = null;
+                        }
+
+                        audioElement = document.createElement('audio');
+                        audioElement.src = audioUrl;
+                        audioElement.controls = true;
+                        audioElement.autoplay = true;
+                        audioElement.style.width = '100%';
+
+                        const container = $('#ttsDocument');
+                        container.html('');
+                        container.append(audioElement);
+                        container.append(stopButton);
+                        const audio = new Audio(audioUrl);
+                    },
+                    error: function (xhr) {
+                        toastr.error('Có lỗi khi tải giọng đọc');
+                    }
+                });
+            });
+
+            $('#stop-audio').on('click', function() {
+                if (ajaxRequest) {
+                    ajaxRequest.abort();
+                    console.log('Request AJAX đã bị hủy.');
+                }
+            });
         });
     </script>
-
     <script>
         $(document).ready(function() {
             // Lưu đánh giá
@@ -527,7 +602,7 @@
                         let loadingBubble = `
                             <div id="loadingMessage" class="d-flex align-items-start mb-3">
                                 <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
-                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%"><i class="fa-solid fa-ellipsis"></i></div>
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%"><i class="fas fa-spinner fa-spin"></i></div>
                             </div>`;
                         $("#chatbotDocumentContent").append(loadingBubble);
                         $("#chatbotDocumentContent").animate({

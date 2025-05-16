@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\account\ForgotPasswordController;
 use App\Http\Controllers\Admin\AdminSiderbarController;
 use App\Http\Controllers\admin\AuthorController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentCategoryController;
 use App\Http\Controllers\admin\DocumentController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontEnd\AccountController as FrontEndAccountController;
@@ -151,6 +153,23 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('/update/{id}', [TagController::class, 'update'])->name('tag.update');
         Route::post('/change/{id}', [TagController::class, 'changeActive'])->name('tag.change');
         Route::delete('/destroy/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
+    });
+
+    //Admin Statistic
+    Route::prefix('statistic')->group(function () {
+        Route::get('/rating', [StatisticController::class, 'ratingStatistic'])->name('statistic.rating');
+        Route::get('/favourite', [StatisticController::class, 'favouriteStatistic'])->name('statistic.favourite');
+        Route::get('/download', [StatisticController::class, 'downloadStatistic'])->name('statistic.download');
+        Route::get('/comment', [StatisticController::class, 'commentStatistic'])->name('statistic.comment');
+    });
+
+    //Admin Contact
+    Route::prefix('admin')->group(function () {
+        Route::get('contact', [ContactController::class, 'index'])->name('admin.contact.index');
+        Route::get('contact/{id}', [ContactController::class, 'show'])->name('admin.contact.show');
+        Route::delete('contact/{id}', [ContactController::class, 'destroy'])->name('admin.contact.destroy');
+        Route::post('contact/mark-read/{id}', [ContactController::class, 'markAsRead'])->name('admin.contact.mark-read');
+        Route::post('contact/mark-unread/{id}', [ContactController::class, 'markAsUnread'])->name('admin.contact.mark-unread');
     });
 
     //Admin Post

@@ -113,4 +113,25 @@ class CallApiController extends Controller
 
         return response()->json(['answer' => $formattedAnswer]);
     }
+
+    public function tts(Request $request)
+    {
+        $id = $request->input('id');
+        $document = Document::findOrFail($id);
+        $file_path = $document->file_path;
+
+        $full_path = storage_path('app/public/' . $file_path);
+
+        $response = Http::timeout(30)->post('http://127.0.0.1:5004/tts', [
+            'file_path' => $full_path,
+        ]);
+
+        if ($response->failed()) {
+            Log::error('Flask API Error: ' . $response->body());
+            return response()->json(['answer' => 'Không có phản hồi từ AI']);
+        }
+
+        $audioContent = $response->body();
+        return response($audioContent, 200)->header('Content-Type', 'audio/mpeg');
+    }
 }
