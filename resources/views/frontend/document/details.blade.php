@@ -24,18 +24,18 @@
             <div class="container">
                 <input type="hidden" value="{{ $item->id }}" id="documentId">
                 <div class="row">
-                    <div class="col-md-9 col-lg-6 col-xxl-5">
+                    <div class="col-md-9 col-lg-4">
                         <div class="shop-single-gallery">
                             <div class="flexslider">
                                 <ul class="slides">
                                     <li data-thumb="{{ $item->cover_image }}">
                                         <img src="{{ $item->cover_image }}" alt="#">
-                                    </li>                                  
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 col-xxl-6">
+                    <div class="col-md-12 col-lg-8">
                         <div class="shop-single-info">
                             <h4 class="shop-single-title">{{ $item->title }}</h4>
                             <div class="shop-single-rating">
@@ -43,7 +43,7 @@
                                 <span class="rating-count"> ({{ $ratingCount }} đánh giá)</span>
                             </div>
                             <div class="shop-single-price">
-                                Hình thức: 
+                                Hình thức:
                                 @if($item->is_free)
                                     Miễn phí
                                 @else
@@ -55,7 +55,7 @@
                             </p>
                             <div class="shop-single-sortinfo">
                                 <ul>
-                                    <li>Tác giả: 
+                                    <li>Tác giả:
                                         <span>
                                             @if ($item->authors && $item->authors->count() > 0)
                                                 {{ $item->authors->pluck('name')->implode(', ') }}
@@ -75,6 +75,7 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="shop-single-btn">
                                             <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#pdfPreviewModal"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
+                                            <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i></i>Tóm tắt</a>
                                             <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
                                             @auth
                                                 <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
@@ -126,6 +127,28 @@
                     </div>
                 </div>
 
+                <div class="modal quickview fade" id="summaryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-xmark"></i></button>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Nội dung tóm tắt với AI</label>
+                                                <div class="mt-2">
+                                                    <p id="summaryDocument"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal quickview fade" id="ratingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -152,8 +175,6 @@
                                             </div>
                                             @endif
                                         </div>
-
-                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -163,31 +184,16 @@
 
                 @include('layout.partial.chatbot-document')
 
-                <!-- shop single details -->
                 <div class="shop-single-details">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab1"
-                                type="button" role="tab" aria-controls="tab1" aria-selected="true">Nội dung tóm tắt</button>
-                            <button class="nav-link" id="nav-tab3" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
+                            <button class="nav-link active" id="nav-tab3" data-bs-toggle="tab" data-bs-target="#tab3" type="button"
                                 role="tab" aria-controls="tab3" aria-selected="false">Bình luận
                                 ({{ $comments->count() }})</button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="nav-tab1">
-                            <div class="shop-single-desc">
-                                <p>
-                                    There are many variations of passages of Lorem Ipsum available, but the majority
-                                    have suffered alteration in some form, by injected humour, or randomised words which
-                                    don't look even slightly believable. If you are going to use a passage of Lorem
-                                    Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of
-                                    text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                                    chunks as necessary, making this the first true generator on the Internet.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="nav-tab3">
+                        <div class="tab-pane fade show active" id="tab3" role="tabpanel" aria-labelledby="nav-tab3">
                             <div class="shop-single-review">
                                 <div class="blog-comments">
                                     <div class="blog-comments-wrapper" style="max-height: 400px; overflow-y: auto;"
@@ -374,13 +380,14 @@
         </div>
     </main>
 @endsection
+
 @section('scripts')
     <link rel="stylesheet" href="https://unpkg.com/pdfjs-dist@3.11.174/web/pdf_viewer.css">
     <script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#submit-comment').click(function () {
+        $(document).ready(function() {
+            $('#submit-comment').click(function() {
                 let content = $('#comment-content').val();
                 let documentId = $('#documentId').val();
 
@@ -392,28 +399,47 @@
                         content: content,
                         document_id: documentId
                     },
-                    success: function (response) {
+                    success: function(response) {
                         if (response.status === 'success') {
                             toastr.success(response.message);
                             $('#comment-list').prepend(`
-                                <div class="blog-comments-single mt-0" style="margin-bottom: 20px;">
-                                    <img src="${response.comment.avatar}" alt="avatar" class="rounded-circle" width="50">
-                                    <div class="blog-comments-content">
-                                        <h5>${response.comment.user_name}</h5>
-                                        <span><i class="far fa-clock"></i>${response.comment.created_at.toLocaleString('vi-VN')}</span>
-                                        <p>${response.comment.content}</p>
+                                    <div class="blog-comments-single mt-0" style="margin-bottom: 20px;">
+                                        <img src="${response.comment.avatar}" alt="avatar" class="rounded-circle" width="50">
+                                        <div class="blog-comments-content">
+                                            <h5>${response.comment.user_name}</h5>
+                                            <span><i class="far fa-clock"></i>${response.comment.created_at.toLocaleString('vi-VN')}</span>
+                                            <p>${response.comment.content}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            `);
+                                `);
                             $('#comment-content').val('');
                         }
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         if (xhr.status === 401) {
                             toastr.warning('Vui lòng đăng nhập để bình luận!');
                         } else {
                             toastr.error('Đã xảy ra lỗi khi gửi bình luận.');
                         }
+                    }
+                });
+            });
+
+            $('#summaryButton').click(function() {
+                let documentId = $('#documentId').val();
+
+                $.ajax({
+                    url: '/api/summary',
+                    method: 'POST',
+                    data: {
+                        id: documentId
+                    },
+                    success: function(response) {
+                        let answer = response.answer;
+                        $('#summaryDocument').html(answer);
+                    },
+                    error: function(xhr) {
+                        toastr.error('Có lỗi khi xem bản tóm tắt');
                     }
                 });
             });
@@ -435,7 +461,7 @@
                     },
                     success: function(response) {
                         toastr.success(response.message);
-                        location.reload(); // Reload lại trang để cập nhật điểm đánh giá
+                        location.reload();
                     },
                     error: function(xhr) {
                         toastr.error(xhr.responseJSON.message || 'Đã xảy ra lỗi.');
@@ -453,19 +479,127 @@
                     },
                     success: function(response) {
                         toastr.success(response.message);
-                        location.reload(); // Reload lại trang để cập nhật
+                        location.reload();
                     },
                     error: function(xhr) {
                         toastr.error(xhr.responseJSON.message || 'Đã xảy ra lỗi.');
                     }
                 });
             });
+
+            $("#sendMessageChatbotDocument").click(function() {
+                sendChatbotMessage();
+            });
+
+            $("#chatBotDocumentInput").keypress(function(e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    sendChatbotMessage();
+                }
+            });
+
+            function sendChatbotMessage() {
+                let userMessage = $("#chatBotDocumentInput").val();
+                if (userMessage === "") {
+                    toastr.error("Vui lòng nhập câu hỏi");
+                    return;
+                }
+                $("#chatbotIntro").remove();
+                let userBubble =
+                    `<div class="d-flex justify-content-end mb-1">
+                        <div class="bg-primary text-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">${userMessage}</div>
+                    </div>`;
+                $("#chatbotDocumentContent").append(userBubble);
+                $("#chatbotDocumentContent").animate({
+                    scrollTop: $('#chatbotDocumentContent')[0].scrollHeight
+                }, 500);
+
+                $("#chatBotDocumentInput").val("");
+                let documentId = $('#documentId').val();
+                $.ajax({
+                    url: "/api/ask-document-ai",
+                    type: "POST",
+                    data: {
+                        id: documentId,
+                        question: userMessage
+                    },
+                    beforeSend: function() {
+                        let loadingBubble = `
+                            <div id="loadingMessage" class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%"><i class="fa-solid fa-ellipsis"></i></div>
+                            </div>`;
+                        $("#chatbotDocumentContent").append(loadingBubble);
+                        $("#chatbotDocumentContent").animate({
+                            scrollTop: $('#chatbotDocumentContent')[0].scrollHeight
+                        }, 500);
+                    },
+                    success: function(response) {
+                        $("#loadingMessage").remove();
+                        let botMessage = response.answer;
+                        botMessage = botMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                        botMessage = botMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                        let botBubble =
+                            `<div class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">${botMessage}</div>
+                            </div>`;
+                        $("#chatbotDocumentContent").append(botBubble);
+                    },
+                    error: function() {
+                        $("#loadingMessage").remove();
+                        toastr.error("Có lỗi xảy ra, vui lòng thử lại");
+                    }
+                });
+            }
         });
     </script>
 
     <script>
+        const toggleBtn = document.getElementById("toggleModal");
+        const modal = document.getElementById("modalContainer");
+        const minimizeBtn = document.getElementById("minimizeModal");
+        const zoomBtn = document.getElementById("zoomModal");
+        const chatIcon = toggleBtn.querySelector(".fa-comments");
+        const closeIcon = toggleBtn.querySelector(".fa-times");
+
+        function openModal() {
+            modal.style.visibility = "visible";
+            modal.style.opacity = "1";
+            modal.style.transform = "scale(1)";
+            chatIcon.style.display = "none";
+            closeIcon.style.display = "inline-block";
+        }
+
+        function closeModal() {
+            modal.style.opacity = "0";
+            modal.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                modal.style.visibility = "hidden";
+            }, 300);
+            chatIcon.style.display = "inline-block";
+            closeIcon.style.display = "none";
+        }
+
+        function toggleFullscreen() {
+            modal.classList.toggle("fullscreen");
+            zoomBtn.querySelector("i").classList.toggle("fa-compress");
+            zoomBtn.querySelector("i").classList.toggle("fa-expand");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            if (modal.style.visibility === "visible") closeModal();
+            else openModal();
+        });
+        minimizeBtn.addEventListener("click", closeModal);
+        zoomBtn.addEventListener("click", toggleFullscreen);
+
+        closeModal();
+    </script>
+
+    <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
-        document.getElementById('pdfPreviewModal').addEventListener('shown.bs.modal', function () {
+        document.getElementById('pdfPreviewModal').addEventListener('shown.bs.modal', function() {
             const pdfUrl = "{{ asset('storage/' . $item->file_path) }}";
             const maxPages = 5;
             const zoomScale = 1.0;
@@ -481,7 +615,9 @@
                         canvas.className = 'pdf-page';
                         viewerContainer.appendChild(canvas);
                         const context = canvas.getContext('2d');
-                        const viewport = page.getViewport({ scale: zoomScale });
+                        const viewport = page.getViewport({
+                            scale: zoomScale
+                        });
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
                         page.render({
@@ -502,58 +638,41 @@
             max-width: 800px;
             margin: 1.75rem auto;
         }
+
         .modal-body {
             padding: 0;
             background: #f8f9fa;
         }
+
         .pdf-viewer {
             width: 100%;
             height: 600px;
             overflow-y: auto;
             text-align: center;
         }
+
         .pdf-page {
             margin: 10px auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: block;
         }
+
         @media (max-width: 576px) {
             .modal-dialog {
                 max-width: 95vw;
             }
+
             .pdf-viewer {
                 height: 400px;
             }
+
             .pdf-page {
                 width: 100%;
             }
         }
+
         #toolbarContainer {
             display: none;
         }
     </style>
-
-    <script>
-        const chatButton = document.getElementById("chatDocumentButton");
-        const chatBox = document.getElementById("chatBoxDocument");
-
-        chatButton.addEventListener("click", function () {
-            chatBox.classList.toggle("d-none");
-            chatButton.innerHTML = chatBox.classList.contains("d-none") ? "<i class='bi bi-chat-dots fs-4'></i>" : "<i class='bi bi-x-lg fs-4'></i>";
-        });
-
-        document.getElementById("closeChatDocument").addEventListener("click", function () {
-            chatBox.classList.add("d-none");
-            chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!chatBox.contains(event.target) && !chatButton.contains(event.target)) {
-                chatBox.classList.add("d-none");
-                chatButton.innerHTML = "<i class='bi bi-chat-dots fs-4'></i>";
-            }
-        }, true);
-    </script>
-
-
 @endsection

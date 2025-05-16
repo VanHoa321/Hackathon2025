@@ -165,7 +165,6 @@ Route::prefix('admin')->middleware("admin")->group(function () {
     });
 });
 
-
 //Frontend
 Route::get('/home', [HomeController::class, 'index'])->name('frontend.home.index');
 Route::get('/about-us', [HomeController::class, 'about'])->name('frontend.home.about-us');
@@ -180,7 +179,6 @@ Route::post('/document/comment', [FrontEndDocumentController::class, 'comment'])
 Route::get('/document/download/{id}', [FrontEndDocumentController::class, 'download'])->name('frontend.document.download');
 Route::post('/document/{id}/rate', [FrontEndDocumentController::class, 'rate'])->name('frontend.document.rate');
 Route::delete('/document/{id}/unrate', [FrontEndDocumentController::class, 'unrate'])->name('frontend.document.unrate');
-
 
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');

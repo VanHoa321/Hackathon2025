@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{asset("assets/plugins/select2/css/select2.min.css")}}">
     <link rel="stylesheet" href="{{asset("assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")}}">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     @yield( 'styles')
 
@@ -42,21 +42,23 @@
     @include('layout.partial.header')
 
     @if(Session::has('messenge') && is_array(Session::get('messenge')))
-    @php
-    $messenge = Session::get('messenge');
-    @endphp
-    @if(isset($messenge['style']) && isset($messenge['msg']))
-    @php
-    Session::forget('messenge');
-    @endphp
-    @endif
+        @php
+            $messenge = Session::get('messenge');
+        @endphp
+        @if(isset($messenge['style']) && isset($messenge['msg']))
+            @php
+                Session::forget('messenge');
+            @endphp
+        @endif
     @endif
 
     @yield('content')
 
-    @include('layout.partial.footer')
+    @if(!request()->routeIs('frontend.document.details'))
+        @include('layout.partial.chatbot')
+    @endif
 
-    <a href="#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+    @include('layout.partial.footer')
 
     <script src="{{ asset('web-assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('web-assets/js/modernizr.min.js') }}"></script>
@@ -183,6 +185,52 @@
             "extendedTimeOut": "1000"
         };
     </script>
+
+    <script>
+        const toggleBtn = document.getElementById("toggleModal2");
+        const modal = document.getElementById("modalContainer2");
+        const minimizeBtn = document.getElementById("minimizeModal2");
+        const zoomBtn = document.getElementById("zoomModal2");
+        const chatIcon = toggleBtn.querySelector(".fa-comments");
+        const closeIcon = toggleBtn.querySelector(".fa-times");
+
+        function openModal() {
+            modal.style.visibility = "visible";
+            modal.style.opacity = "1";
+            modal.style.transform = "scale(1)";
+            chatIcon.style.display = "none";
+            closeIcon.style.display = "inline-block";
+        }
+
+        function closeModal() {
+            modal.style.opacity = "0";
+            modal.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                modal.style.visibility = "hidden";
+            }, 300);
+            chatIcon.style.display = "inline-block";
+            closeIcon.style.display = "none";
+        }
+
+        function toggleFullscreen() {
+            modal.classList.toggle("fullscreen");
+            zoomBtn.querySelector("i").classList.toggle("fa-compress");
+            zoomBtn.querySelector("i").classList.toggle("fa-expand");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            if (modal.style.opacity === "1") {
+                closeModal();
+            } else {
+                openModal();
+            }
+        });
+
+        minimizeBtn.addEventListener("click", closeModal);
+        zoomBtn.addEventListener("click", toggleFullscreen);
+        closeModal();
+    </script>
+
     <script>
         document.querySelectorAll('.favourite-btn').forEach(button => {
             button.addEventListener('click', function(e) {

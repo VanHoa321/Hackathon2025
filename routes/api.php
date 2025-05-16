@@ -8,5 +8,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/ask-document-ai', [CallApiController::class, 'askFromDocument']);
 Route::post('/ask-ai', [CallApiController::class, 'askAI']);
+Route::post('/summary', [CallApiController::class, 'summary']);
 Route::post('/generate-post', [CallApiController::class, 'generatePostContent']);
