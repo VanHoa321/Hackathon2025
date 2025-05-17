@@ -643,7 +643,7 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
         document.getElementById('pdfPreviewModal').addEventListener('shown.bs.modal', function() {
             const pdfUrl = "{{ $pdfUrl }}";
-            const maxPages = 5;
+            const maxPages = "{{ $doc_preview }}";
             const zoomScale = 1.0;
 
             const viewerContainer = document.getElementById('pdfViewer');

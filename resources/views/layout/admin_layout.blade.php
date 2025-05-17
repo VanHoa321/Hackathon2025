@@ -138,6 +138,27 @@
                 lengthMenu: [5, 10, 25, 50, 100],
                 pageLength: 5
             });
+
+            $('#example-table-2').DataTable({
+                pageLength: 10,
+                scrollCollapse: true,
+                language: {
+                    "lengthMenu": "Hiển thị _MENU_ mục",
+                    "search": "Tìm kiếm:",
+                    "zeroRecords": "Không tìm thấy dữ liệu",
+                    "info": "Hiển thị từ _START_ đến _END_ của _TOTAL_ mục",
+                    "infoEmpty": "Hiển thị từ 0 đến 0 của 0 mục",
+                    "infoFiltered": "(được lọc từ _MAX_ tổng số mục)",
+                    "paginate": {
+                        "first": "Đầu",
+                        "last": "Cuối",
+                        "next": "Tiếp",
+                        "previous": "Trước"
+                    }
+                },
+                lengthMenu: [10, 25, 50, 100],
+                pageLength: 10
+            });
         });
     </script>
 

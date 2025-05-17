@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,6 +21,7 @@ class AccountController extends Controller
 
     public function postLogin(Request $request) 
     {
+        $setting = Setting::first();
         $username = $request->user_name;
         $cacheKey = "login_attempts:{$username}";
         $lockoutKey = "lockout:{$username}";
@@ -37,7 +39,7 @@ class AccountController extends Controller
             }
 
             $attempts = Cache::get($cacheKey, 0);
-            if ($attempts >= 3) {
+            if ($attempts >= $setting->max_login ?? 3) {
                 
                 Cache::put($lockoutKey, true, now()->addMinutes(5));
                 Cache::forget($cacheKey);
@@ -50,7 +52,7 @@ class AccountController extends Controller
                 $user->update(['last_login' => now()]);
                 Cache::forget($cacheKey);
                 $request->session()->put("messenge", ["style" => "success", "msg" => "Đăng nhập quyền quản trị thành công"]);
-                return redirect()->route("tag.index");
+                return redirect()->route("home.index");
             } 
             elseif (Auth::attempt(["user_name" => $request->user_name, "password" => $request->password, "role_id" => 2])) {
 

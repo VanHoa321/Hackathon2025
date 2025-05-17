@@ -79,6 +79,9 @@
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    <a href="{{ route('document.show', $item->id) }}" class="btn btn-primary btn-sm" title="Xem tài liệu">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </a>
                                                     @if ($item->uploaded_by == Auth::user()->id)
                                                         <a href="{{ route("document.edit", $item->id) }}" class="btn btn-info btn-sm" title="Sửa thông tin tài liệu">
                                                             <i class="fa-solid fa-pen-to-square"></i>
@@ -117,7 +120,7 @@
                     success: function(response) {
                         if (response.success) {
                             toastr.success(response.message);
-                        }
+                        }                       
                     },
                     error: function(xhr) {
                         toastr.error('Có lỗi xảy ra khi đổi trạng thái');
@@ -144,8 +147,13 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                toastr.success(response.message);
-                                $('#document-' + id).remove();
+                                if(response.success){
+                                    toastr.success(response.message);
+                                    $('#document-' + id).remove();
+                                }
+                                else{
+                                    toastr.error(response.message);
+                                }
                             },
                             error: function(xhr) {
                                 toastr.error('Có lỗi khi xóa tài liệu');

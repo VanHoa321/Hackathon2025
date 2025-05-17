@@ -99,7 +99,7 @@
                                                             </div>                                                                                                                                                                                
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    <label>Mô tả thêm</label>
+                                                                    <label>Mô tả</label>
                                                                     <textarea class="form-control mb-3" name="description" placeholder="Nhập mô tả tài liệu" style="height: 100px">{{ old('description') }}</textarea>
                                                                 </div>
                                                             </div>
@@ -139,14 +139,20 @@
                         required: true,
                         minlength: 5,
                         maxlength: 50
-                    }                  
+                    },
+                    description: {
+                        required: true,
+                    }
                 },
                 messages: {
                     title: {
                         required: "Tiêu đề tài liệu không được để trống!",
                         minlength: "Tiêu đề tài liệu phải có ít nhất {0} ký tự!",
                         maxlength: "Tiêu đề tài liệu tối đa {0} ký tự!"
-                    }                       
+                    },
+                    description: {
+                        required: "Mô tả tài liệu không được để trống!",
+                    }                 
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {

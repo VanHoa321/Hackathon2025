@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Document;
 use App\Models\Favourite;
 use App\Models\Rating;
+use App\Models\Setting;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,11 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $setting = Setting::first();
+
         $slides = Slide::where('is_active', 1)->get();
 
-        $mostViewedDocuments = Document::where("status", 1)->orderBy('view_count', 'desc')->take(8)->get()->map(function ($mostViewedDocuments) {
+        $mostViewedDocuments = Document::where("status", 1)->orderBy('view_count', 'desc')->take($setting->home_doc_view ?? 8)->get()->map(function ($mostViewedDocuments) {
             $mostViewedDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $mostViewedDocuments->id)
                 ->exists();
@@ -26,7 +29,7 @@ class HomeController extends Controller
             return $mostViewedDocuments;
         });
 
-        $mostDownloadedDocuments = Document::where("status", 1)->orderBy('download_count', 'desc')->take(8)->get()->map(function ($mostDownloadedDocuments) {
+        $mostDownloadedDocuments = Document::where("status", 1)->orderBy('download_count', 'desc')->take($setting->home_doc_download ?? 8)->get()->map(function ($mostDownloadedDocuments) {
             $mostDownloadedDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $mostDownloadedDocuments->id)
                 ->exists();
@@ -35,7 +38,7 @@ class HomeController extends Controller
             return $mostDownloadedDocuments;
         });
 
-        $latestDocuments = Document::where("status", 1)->orderBy('created_at', 'desc')->take(8)->get()->map(function ($latestDocuments) {
+        $latestDocuments = Document::where("status", 1)->orderBy('created_at', 'desc')->take($setting->home_doc_new ?? 8)->get()->map(function ($latestDocuments) {
             $latestDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $latestDocuments->id)
                 ->exists();

@@ -177,6 +177,7 @@ class AccountController extends Controller
     public function postUpload(Request $request)
     {
         $full_path = $request->file_path;
+        $uid = Auth::user()->id;
 
         $relative_path = preg_replace('#^https?://[^/]+/storage/#', '', $full_path);
         $file_extension = strtolower(pathinfo($relative_path, PATHINFO_EXTENSION));
@@ -185,7 +186,7 @@ class AccountController extends Controller
         if ($file_extension !== 'pdf') {
             // Đường dẫn cục bộ tới tệp
             $input_path = storage_path('app/public/' . $relative_path);
-            $output_dir = storage_path('app/public/files/pdf');
+            $output_dir = storage_path('app/public/files/pdf/' . $uid . '/');
             $output_filename = pathinfo($relative_path, PATHINFO_FILENAME) . '.pdf';
             $output_path = $output_dir . DIRECTORY_SEPARATOR . $output_filename;
 
@@ -225,7 +226,7 @@ class AccountController extends Controller
 
             // Kiểm tra xem tệp PDF đã được tạo
             if (file_exists($output_path)) {
-                $file_path_pdf = 'files/pdf/' . $output_filename;
+                $file_path_pdf = 'files/pdf/' . $uid . '/' . $output_filename;
             } else {
                 return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Không thể tạo tệp PDF. Kiểm tra log để biết chi tiết.']);
             }

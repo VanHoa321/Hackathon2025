@@ -62,4 +62,9 @@ class Document extends Model
     {
         return $this->hasMany(Rating::class, 'document_id');
     }
+
+    public function upload_by()
+    {
+        return $this->belongsTo(User::class, 'uploaded_by');
+    }
 }

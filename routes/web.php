@@ -8,10 +8,12 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentCategoryController;
 use App\Http\Controllers\admin\DocumentController;
+use App\Http\Controllers\admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PublisherController;
+use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\admin\TagController;
@@ -116,6 +118,8 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::get('/list/approve', [DocumentController::class, 'list_approve'])->name('document.approve');
         Route::post('/approve/{id}', [DocumentController::class, 'approve']);
         Route::post('/refuse/{id}', [DocumentController::class, 'refuse']);
+        Route::get('/approve/show/{id}', [DocumentController::class, 'showApprove'])->name('document.show-approve');
+        Route::get('/show/{id}', [DocumentController::class, 'show'])->name('document.show');
     });
 
     //Tag
@@ -177,6 +181,14 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::get('/index', [TransactionController::class, 'index'])->name('admin.tran.index');
     });
 
+    Route::prefix('setting')->group(function () {
+        Route::get('/index', [SettingController::class, 'index'])->name('setting.index');
+        Route::post('/update', [SettingController::class, 'update'])->name('setting.update');
+    });
+
+    Route::prefix('home')->group(function () {
+        Route::get('/index', [AdminHomeController::class, 'index'])->name('home.index');
+    });
 
     //Admin Post
     Route::prefix('post')->group(function () {
@@ -208,6 +220,7 @@ Route::delete('/document/{id}/unrate', [FrontEndDocumentController::class, 'unra
 
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');
+Route::get('/posts/{id}', [FrontendPostController::class, 'show'])->name('frontend.posts.show');
 
 Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/profile', [FrontEndAccountController::class, 'profile'])->name('frontend.profile');

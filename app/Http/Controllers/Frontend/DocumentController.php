@@ -9,6 +9,7 @@ use App\Models\DocumentComment;
 use App\Models\Favourite;
 use App\Models\Publisher;
 use App\Models\Rating;
+use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
 use GuzzleHttp\Client;
@@ -29,9 +30,10 @@ class DocumentController extends Controller
 
     public function getData(Request $request)
     {
+        $setting = Setting::first();
         $search_name = $request->search_name;
 
-        $per_page = 8;
+        $per_page = $setting->doc_page;
         $current_page = $request->input('page', 1);
 
         $query = Document::where('status', 1);
@@ -113,7 +115,9 @@ class DocumentController extends Controller
             Log::error("Failed to fetch recommendations: {$e->getMessage()}");
         }
 
-        return view('frontend.document.details', compact('item', 'comments', 'ratingCount', 'averageRating', 'userRating', 'hasAccess', 'recommendations'));
+        $doc_preview = Setting::first()->doc_preview;
+
+        return view('frontend.document.details', compact('item', 'comments', 'ratingCount', 'averageRating', 'userRating', 'hasAccess', 'recommendations', 'doc_preview'));
     }
 
     public function comment(Request $request)

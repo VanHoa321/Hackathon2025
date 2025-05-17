@@ -1,317 +1,129 @@
 @extends('layout/web_layout')
 @section('content')
-<section class="page-title">
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-10">
-                <h1>
-                    Bài viết đăng tải
-                </h1>
+<div class="site-breadcrumb">
+        <div class="site-breadcrumb-bg" style="background: url(/web-assets/img/breadcrumb/01.jpg)"></div>
+        <div class="container">
+            <div class="site-breadcrumb-wrap">
+                <h4 class="breadcrumb-title">Các bài viết đăng tải</h4>
+                <ul class="breadcrumb-menu">
+                    <li><a href="{{ route('frontend.home.index') }}"><i class="far fa-home"></i> Trang chủ</a></li>
+                    <li class="active">Bài viết</li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="page-title-wave">
-        <img src="web-assets/images/page-bg.svg" alt="">
-    </div>
-</section>
 
-    <div class="page-content">
-
-        <section class="themeht-blogs">
+   <div class="page-content">
+    <section class="themeht-blogs">
+        <div class="blog-area py-100">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 order-lg-12">
-                        <div class="post-card post-classic">
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images//blog/large/01.jpg" alt="">
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-meta">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-person"></i> Admin
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-calendar3"></i>January 04, 2024
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-chat-right-text"></i>3 Comments
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-tag"></i> Marketing
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Simple ways to Optimize Website For SEO</a>
-                                    </h4>
-                                </div>
-                                <p>SEO strategies help you to rank higher on the search engine’s results page (SERP). This means that when your target customers search for products and services that your industry offers to find your website.</p>
-                                <a class="themeht-btn primary-btn" href="blog-single.html">
-                                    <span>Learn More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="post-card post-classic">
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images//blog/large/02.jpg" alt="">
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-meta">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-person"></i> Admin
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-calendar3"></i>January 04, 2024
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-chat-right-text"></i>3 Comments
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-tag"></i> Marketing
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">How Chatbots Can Help You Drive More Sales</a>
-                                    </h4>
-                                </div>
-                                <p>SEO strategies help you to rank higher on the search engine’s results page (SERP). This means that when your target customers search for products and services that your industry offers to find your website.</p>
-                                <a class="themeht-btn primary-btn" href="blog-single.html">
-                                    <span>Learn More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="post-card post-classic">
-                            <div class="post-image">
-                                <img class="img-fluid w-100" src="web-assets/images//blog/large/03.jpg" alt="">
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-meta">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-person"></i> Admin
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-calendar3"></i>January 04, 2024
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-chat-right-text"></i>3 Comments
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-tag"></i> Marketing
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Leveraging Feedback on Insights best SEO</a>
-                                    </h4>
-                                </div>
-                                <p>SEO strategies help you to rank higher on the search engine’s results page (SERP). This means that when your target customers search for products and services that your industry offers to find your website.</p>
-                                <a class="themeht-btn primary-btn" href="blog-single.html">
-                                    <span>Learn More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="post-card post-classic">
-                            <div class="video-post">
-                                <iframe src="https://www.youtube.com/embed/89KViUHE_dk?si=QLKX_cbExfl0hOeA"></iframe>
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-meta">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-person"></i> Admin
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-calendar3"></i>January 04, 2024
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-chat-right-text"></i>3 Comments
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-tag"></i> Marketing
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Seoland With Youtube Video</a>
-                                    </h4>
-                                </div>
-                                <p>SEO strategies help you to rank higher on the search engine’s results page (SERP). This means that when your target customers search for products and services that your industry offers to find your website.</p>
-                                <a class="themeht-btn primary-btn" href="blog-single.html">
-                                    <span>Learn More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="post-card post-classic">
-                            <div class="video-post">
-                                <iframe src="https://player.vimeo.com/video/320922460?h=656fae83b0"></iframe>
-                            </div>
-                            <div class="post-desc">
-                                <div class="post-meta">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-person"></i> Admin
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-calendar3"></i>January 04, 2024
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-chat-right-text"></i>3 Comments
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <i class="bi bi-tag"></i> Marketing
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="post-title">
-                                    <h4>
-                                        <a href="blog-single.html">Seoland With vimeo Video</a>
-                                    </h4>
-                                </div>
-                                <p>SEO strategies help you to rank higher on the search engine’s results page (SERP). This means that when your target customers search for products and services that your industry offers to find your website.</p>
-                                <a class="themeht-btn primary-btn" href="blog-single.html">
-                                    <span>Learn More</span>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <nav aria-label="Page navigation" class="mt-8">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="bi bi-arrow-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-lg-4 col-md-12 order-lg-1 mt-7 mt-lg-0 ps-lg-10">
-                        <div class="themeht-sidebar">
-                            <div class="widget">
-                                <div class="widget-search">
-                                    <form>
-                                        <div class="widget-searchbox">
-                                            <input type="text" placeholder="Search Here..." class="form-control">
-                                            <button type="submit" class="search-btn">
-                                                <i class="bi bi-search"></i>
-                                            </button>
+                    <div class="col-lg-8 col-12">
+                        <div class="row">
+                            @foreach ($posts as $post)
+                            <div class="col-md-6">
+                                <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
+                                    <div class="blog-item-img">
+                                        <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                    </div>
+                                    <div class="blog-item-info">
+                                        <div class="blog-item-meta">
+                                            <ul>
+                                                <li><a href="{{ route('frontend.posts.show', $post->id ) }}"><i class="far fa-user-circle"></i> {{ $post->user->name ?? 'Không hiển thị tác giả' }}</a></li>
+                                                <li><a href="{{ route('frontend.posts.show', $post->id ) }}"><i class="far fa-calendar-alt"></i> {{ $post->created_at->format('F d, Y') }}</a></li>
+                                            </ul>
                                         </div>
+                                        <h4 class="blog-title">
+                                            <a href="{{ route('frontend.posts.show', $post->id ) }}">{{ $post->title }}</a>
+                                        </h4>
+                                        <p>{{ Str::limit($post->abstract, 100) }}</p>
+                                        <a class="theme-btn" href="{{ route('frontend.posts.show', $post->id) }}">Đọc thêm<i class="fas fa-arrow-right-long"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <!-- Pagination -->
+                        <div class="pagination-area mb-lg-0">
+                            <div aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    @if ($posts->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <a class="page-link ms-0" href="#" aria-label="Previous">
+                                                <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link ms-0" href="{{ $posts->previousPageUrl() }}" aria-label="Previous">
+                                                <span aria-hidden="true"><i class="far fa-arrow-left"></i></span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @for ($i = 1; $i <= $posts->lastPage(); $i++)
+                                        <li class="page-item {{ $posts->currentPage() == $i ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $posts->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    @if ($posts->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $posts->nextPageUrl() }}" aria-label="Next">
+                                                <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true"><i class="far fa-arrow-right"></i></span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Pagination end -->
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            <aside class="sidebar">
+                                <!-- search-->
+                                <div class="widget search">
+                                    <h5 class="widget-title">Tìm kiếm</h5>
+                                    <form class="search-form" method="GET" action="{{ route('frontend.post.index') }}">
+                                        <input type="text" class="form-control" name="search" placeholder="Tìm kiếm ở đây..." value="{{ $search ?? '' }}">
+                                        <button type="submit"><i class="far fa-search"></i></button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="widget">
-                                <h5 class="widget-title">Recent Post</h5>
-                                <div class="recent-post">
-                                    <ul class="list-unstyled">
-                                        <li class="mb-3">
-                                            <div class="recent-post-thumb">
-                                                <img class="img-fluid" src="web-assets/images//blog/blog-thumb/01.jpg" alt="">
-                                            </div>
-                                            <div class="recent-post-desc">
-                                                <a href="blog-single.html">Simple ways to Optimize Website For SEO</a>
-                                                <div class="post-date-small">March 04, 2024 </div>
-                                            </div>
-                                        </li>
-                                        <li class="mb-3">
-                                            <div class="recent-post-thumb">
-                                                <img class="img-fluid" src="web-assets/images//blog/blog-thumb/02.jpg" alt="">
-                                            </div>
-                                            <div class="recent-post-desc">
-                                                <a href="blog-single.html">How Chatbots Can Help You Drive More Sales</a>
-                                                <div class="post-date-small">March 04, 2024 </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="recent-post-thumb">
-                                                <img class="img-fluid" src="web-assets/images//blog/blog-thumb/03.jpg" alt="">
-                                            </div>
-                                            <div class="recent-post-desc">
-                                                <a href="blog-single.html">Leveraging Feedback on Insights best SEO</a>
-                                                <div class="post-date-small">March 04, 2024 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <!-- category -->
+                                <div class="widget category">
+                                    <h5 class="widget-title">Lọc theo danh mục</h5>
+                                    <div class="category-list">
+                                        @foreach ($tags as $tag)
+                                            <a href="{{ route('frontend.post.index', ['tag_id' => $tag->id]) }}">
+                                                <i class="far fa-arrow-right"></i>
+                                                {{ $tag->name }}
+                                                <span>({{ $tag->posts()->where('is_active', 1)->count() }})</span>
+                                            </a>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="widget">
-                                <h5 class="widget-title">Categories</h5>
-                                <ul class="widget-categories list-unstyled">
-                                    <li>
-                                        <a href="#">SEO Analysis <span>(3)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Online Marketing <span>(5)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Marketing Agency <span>(4)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">SEO Marketing <span>(6)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Digital Agency <span>(2)</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="widget">
-                                <h5 class="widget-title">Popular Tags</h5>
-                                <ul class="widget-tags list-inline">
-                                    <li>
-                                        <a href="#">SEO</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Agency</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Marketing</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Business</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Digital</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bootstrap</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Startup</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Technology</a>
-                                    </li>
-                                </ul>
-                            </div>
+                                <!-- recent post -->
+                                <div class="widget recent-post">
+                                    <h5 class="widget-title">Bài viết mới nhất</h5>
+                                    @foreach ($recentPosts as $recentPost)
+                                    <div class="recent-post-single">
+                                        <div class="recent-post-img">
+                                            <img src="{{ asset($recentPost->image) }}" alt="{{ $recentPost->title }}">
+                                        </div>
+                                        <div class="recent-post-bio">
+                                            <h6><a href="{{ route('frontend.posts.show', $recentPost->id) }}">{{ $recentPost->title }}</a></h6>
+                                            <span><i class="far fa-clock"></i>{{ $recentPost->created_at->format('F d, Y') }}</span>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>

@@ -16,5 +16,5 @@ class DocumentAuthor extends Model
 
     protected $primaryKey = 'id';
     protected $table = 'document_authors';
-        public $timestamps = false;
+    public $timestamps = false;
 }

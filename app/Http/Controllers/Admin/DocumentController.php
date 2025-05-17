@@ -7,6 +7,7 @@ use App\Models\Author;
 use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\Publisher;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -70,8 +71,60 @@ class DocumentController extends Controller
         }
 
         $full_path = $request->file_path;
+        $uid = Auth::user()->id;
 
-        $relative_path = str_replace('http://127.0.0.1:8000/storage/', '', $full_path);
+        $relative_path = preg_replace('#^https?://[^/]+/storage/#', '', $full_path);
+        $file_extension = strtolower(pathinfo($relative_path, PATHINFO_EXTENSION));
+        $file_path_pdf = null;
+
+        if ($file_extension !== 'pdf') {
+            // Đường dẫn cục bộ tới tệp
+            $input_path = storage_path('app/public/' . $relative_path);
+            $output_dir = storage_path('app/public/files/pdf/' . $uid . '/');
+            $output_filename = pathinfo($relative_path, PATHINFO_FILENAME) . '.pdf';
+            $output_path = $output_dir . DIRECTORY_SEPARATOR . $output_filename;
+
+            // Thay thế / thành \ cho Windows
+            $input_path = str_replace('/', '\\', $input_path);
+            $output_dir = str_replace('/', '\\', $output_dir);
+            $output_path = str_replace('/', '\\', $output_path);
+
+            // Đảm bảo thư mục đầu ra tồn tại
+            if (!file_exists($output_dir)) {
+                mkdir($output_dir, 0775, true);
+            }
+
+            // Kiểm tra xem tệp đầu vào tồn tại
+            if (!file_exists($input_path)) {
+                return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Tệp đầu vào không tồn tại: ' . $input_path]);
+            }
+
+            // Đường dẫn tới soffice.exe
+            $soffice_path = 'C:\\Program Files\\LibreOffice\\program\\soffice.exe';
+            // Xây dựng lệnh
+            $command = [
+                escapeshellarg($soffice_path),
+                '--headless',
+                '--convert-to',
+                'pdf',
+                escapeshellarg($input_path),
+                '--outdir',
+                escapeshellarg($output_dir)
+            ];
+
+            // Ghi log lệnh
+            $command_str = implode(' ', $command);
+
+            // Thử chạy lệnh bằng shell_exec để lấy đầu ra chi tiết
+            $output = shell_exec($command_str . ' 2>&1');
+
+            // Kiểm tra xem tệp PDF đã được tạo
+            if (file_exists($output_path)) {
+                $file_path_pdf = 'files/pdf/' . $uid . '/' . $output_filename;
+            } else {
+                return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Không thể tạo tệp PDF. Kiểm tra log để biết chi tiết.']);
+            }
+        }
 
         $data = [
             'title' => $request->title,
@@ -79,7 +132,8 @@ class DocumentController extends Controller
             'publisher_id' => $request->publisher_id,
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
-            'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
+            'file_path_pdf' => $file_path_pdf,
+            'file_format' => $file_extension,
             'is_free' => $request->is_free,
             "price" => $request->price,
             'description' => $request->description,
@@ -92,6 +146,14 @@ class DocumentController extends Controller
         if ($request->has('authors')) {
             $document->authors()->sync($request->authors);
         }
+
+        Transaction::create([
+            'user_id' => Auth::user()->id,
+            'type' => 3,
+            'document_id' => $document->id,
+            'note' => 'Tải lên tài liệu: ' . $document->title,
+        ]);
+
         $request->session()->put("messenge", ["style" => "success", "msg" => "Thêm mới tài liệu thành công"]);
         return redirect()->route("document.index");
     }
@@ -142,8 +204,16 @@ class DocumentController extends Controller
     {
         $destroy = Document::find($id);
         if ($destroy) {
-            $destroy->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa tài liệu thành công']);
+
+            $hasTransaction = Transaction::where('document_id', $id)->whereIn("type", [2, 4])->exists();
+
+            if ($hasTransaction) {
+                return response()->json(['success' => false, 'message' => 'Không thể xóa tài liệu vì đã có giao dịch liên quan']);
+            }
+            else{
+                $destroy->delete();
+                return response()->json(['success' => true, 'message' => 'Xóa tài liệu thành công']);
+            }
         } else {
             return response()->json(['danger' => false, 'message' => 'Tài liệu không tồn tại'], 404);
         }
@@ -184,5 +254,17 @@ class DocumentController extends Controller
         $item->status = 0;
         $item->save();
         return response()->json(['success' => true, 'message' => 'Đã từ chối phê duyệt']);
+    }
+
+    public function show($id)
+    {
+        $item = Document::findOrFail($id);
+        return view('admin.document.show', compact('item'));
+    }
+
+    public function showApprove($id)
+    {
+        $item = Document::findOrFail($id);
+        return view('admin.document.approve-show', compact('item'));
     }
 }

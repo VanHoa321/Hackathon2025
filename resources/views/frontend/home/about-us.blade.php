@@ -31,7 +31,6 @@
                         <div class="help-content">
                             <h4>Tìm kiếm tài liệu</h4>
                             <p>Dễ dàng tìm kiếm tài liệu theo tên, từ khóa, môn học hoặc lĩnh vực bạn quan tâm.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +43,6 @@
                         <div class="help-content">
                             <h4>Đăng tải tài liệu</h4>
                             <p>Chia sẻ tài liệu của bạn với cộng đồng, hỗ trợ người khác học tập và nghiên cứu.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +55,6 @@
                         <div class="help-content">
                             <h4>Tải về tài liệu</h4>
                             <p>Tải tài liệu về thiết bị cá nhân để đọc offline bất cứ khi nào bạn cần.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +67,6 @@
                         <div class="help-content">
                             <h4>Xem trước nội dung</h4>
                             <p>Xem nhanh trước nội dung tài liệu để quyết định có phù hợp với nhu cầu của bạn hay không.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -83,7 +79,6 @@
                         <div class="help-content">
                             <h4>Hỏi đáp AI</h4>
                             <p>Đặt câu hỏi liên quan đến nội dung tài liệu và nhận câu trả lời tức thì từ AI hỗ trợ.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -96,7 +91,6 @@
                         <div class="help-content">
                             <h4>Tóm tắt văn bản bằng AI</h4>
                             <p>AI giúp bạn tóm tắt nhanh nội dung tài liệu dài, tiết kiệm thời gian đọc hiểu.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -109,7 +103,6 @@
                         <div class="help-content">
                             <h4>Nghe tài liệu</h4>
                             <p>Chuyển đổi văn bản thành giọng nói để bạn có thể nghe tài liệu mọi lúc, mọi nơi.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +115,6 @@
                         <div class="help-content">
                             <h4>Quản lý thông tin cá nhân</h4>
                             <p>Chỉnh sửa hồ sơ, theo dõi tài liệu đã đăng, đã tải và tương tác với hệ thống.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -135,7 +127,6 @@
                         <div class="help-content">
                             <h4>Đánh giá & bình luận</h4>
                             <p>Đọc nhận xét từ người dùng khác và để lại đánh giá của bạn cho từng tài liệu.</p>
-                            <a href="#" class="theme-btn">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -151,12 +142,12 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="team-item wow fadeInUp" data-wow-delay=".25s">
                         <div class="team-img">
-                            <img src="/web-assets/img/team/01.jpg" alt="thumb">
+                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
-                                <h5><a href="#">Chad Smith</a></h5>
-                                <span>Senior Manager</span>
+                                <h5><a href="#">Võ Văn Hòa</a></h5>
+                                <span>215748010310021</span>
                             </div>
                         </div>
                         <div class="team-social">
@@ -170,12 +161,12 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="team-item wow fadeInUp" data-wow-delay=".50s">
                         <div class="team-img">
-                            <img src="/web-assets/img/team/02.jpg" alt="thumb">
+                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
-                                <h5><a href="#">Malissa Fie</a></h5>
-                                <span>SEO Expert</span>
+                                <h5><a href="#">Bùi Mạnh Phúc</a></h5>
+                                <span>215748010310011</span>
                             </div>
                         </div>
                         <div class="team-social">
@@ -193,8 +184,8 @@
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
-                                <h5><a href="#">Arron Rodri</a></h5>
-                                <span>CEO & Founder</span>
+                                <h5><a href="#">Đặng Hồ Anh Quý</a></h5>
+                                <span>215748010310009</span>
                             </div>
                         </div>
                         <div class="team-social">
@@ -208,12 +199,12 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="team-item wow fadeInUp" data-wow-delay="1s">
                         <div class="team-img">
-                            <img src="/web-assets/img/team/04.jpg" alt="thumb">
+                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
-                                <h5><a href="#">Tony Pinako</a></h5>
-                                <span>Digital Marketer</span>
+                                <h5><a href="#">Lê Đình Anh</a></h5>
+                                <span>215748010310013</span>
                             </div>
                         </div>
                         <div class="team-social">
