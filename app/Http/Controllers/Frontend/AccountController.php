@@ -98,11 +98,6 @@ class AccountController extends Controller
             ]);
     }
 
-    public function settings()
-    {
-        return view('frontend.account.settings');
-    }
-
      public function myFavourite()
     {
         $favourites = Favourite::where('user_id', Auth::id())->with('document')->get()->map(function ($favourites) {
@@ -255,6 +250,14 @@ class AccountController extends Controller
         if ($request->has('authors')) {
             $document->authors()->sync($request->authors);
         }
+
+        Transaction::create([
+            'user_id' => Auth::user()->id,
+            'type' => 3,
+            'document_id' => $document->id,
+            'note' => 'Tải lên tài liệu: ' . $document->title,
+        ]);
+
         $request->session()->put("messenge", ["style" => "success", "msg" => "Thêm mới tài liệu thành công"]);
         return redirect()->route("frontend.mydocument");
     }
@@ -355,6 +358,15 @@ class AccountController extends Controller
     public function vnpSuccess()
     {
         return view("frontend.account.success");
+    }
+
+    public function tranHistory()
+    {
+        $transactions = Transaction::where('user_id', Auth::user()->id)
+            ->with('document')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('frontend.account.tran-history', compact('transactions'));
     }
 
 }

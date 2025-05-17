@@ -98,12 +98,29 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="modal fade" id="pdfPreviewModal" tabindex="-1" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true" style="max-height: 650px; overflow-y: auto;">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="pdfPreviewModalLabel">Xem trước: {{ $item->title }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="pdfViewer" class="pdf-viewer"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
 @endsection
 @section('scripts')
     <link rel="stylesheet" href="https://unpkg.com/pdfjs-dist@3.11.174/web/pdf_viewer.css">
@@ -177,4 +194,87 @@
             }, 3500);
         })
     </script>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+        $(document).on('click', '.btn-preview', function () {
+            const pdfUrl = $(this).data('pdf-url');
+            const title = $(this).data('title');
+
+            const maxPages = 5;
+            const zoomScale = 1.0;
+
+            const viewerContainer = document.getElementById('pdfViewer');
+            viewerContainer.innerHTML = '';
+
+            $('#pdfPreviewModalLabel').text('Xem trước: ' + title);
+
+            const loadingTask = pdfjsLib.getDocument(pdfUrl);
+            loadingTask.promise.then(pdf => {
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    pdf.getPage(pageNum).then(page => {
+                        const canvas = document.createElement('canvas');
+                        canvas.className = 'pdf-page';
+                        viewerContainer.appendChild(canvas);
+
+                        const context = canvas.getContext('2d');
+                        const viewport = page.getViewport({ scale: zoomScale });
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        });
+                    });
+                }
+            }).catch(error => {
+                console.error('Lỗi khi tải PDF:', error);
+                viewerContainer.innerHTML = '<p class="text-danger p-3">Không thể hiển thị tài liệu. Vui lòng thử lại.</p>';
+            });
+        });
+    </script>
+
+    <style>
+        .modal-dialog {
+            max-width: 800px;
+            margin: 1.75rem auto;
+        }
+
+        .modal-body {
+            padding: 0;
+            background: #f8f9fa;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 600px;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .pdf-page {
+            margin: 10px auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+
+        @media (max-width: 576px) {
+            .modal-dialog {
+                max-width: 95vw;
+            }
+
+            .pdf-viewer {
+                height: 400px;
+            }
+
+            .pdf-page {
+                width: 100%;
+            }
+        }
+
+        #toolbarContainer {
+            display: none;
+        }
+    </style>
 @endsection

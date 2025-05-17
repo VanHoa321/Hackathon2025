@@ -14,10 +14,17 @@
             </div>
         </div>
 
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 1050;">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         @if (session('error'))
-            <script>
-                toastr.error("{{ session('error') }}");
-            </script>
+            <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index: 1050;">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
 
         <div class="shop-single py-100">
@@ -80,11 +87,17 @@
                                     <div class="col-md-12 col-lg-12 col-xl-12">
                                         <div class="shop-single-btn">
                                             <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#pdfPreviewModal"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
-                                            <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i>Tóm tắt</a>
-                                            <a id="tts" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#ttsModal"><i class="fa-solid fa-play me-1"></i>Nghe trước</a>
-                                            <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về ({{ $item->file_format }})</a>
-                                            @if ($item->file_path_pdf)
-                                                <a href="{{ route("frontend.document.downloadPDF", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về (pdf)</a>
+                                            <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i>Tóm tắt</a>                                        
+                                            @if ($hasAccess)
+                                                @auth
+                                                    <a id="tts" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#ttsModal"><i class="fa-solid fa-play me-1"></i></a>
+                                                    <a href="{{ route('frontend.document.download', $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>({{ $item->file_format }})</a>
+                                                    @if ($item->file_path_pdf)
+                                                        <a href="{{ route('frontend.document.downloadPDF', $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>(pdf)</a>
+                                                    @endif
+                                                @endauth
+                                            @else
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#purchaseModal" class="theme-btn"><i class="fa-solid fa-cart-shopping me-1"></i>Mua tài liệu ({{ number_format($item->price, 0, ',', '.') }}đ)</a>
                                             @endif
                                             @auth
                                                 <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
@@ -158,6 +171,27 @@
                     </div>
                 </div>
 
+                @auth
+                    <div class="modal fade" id="purchaseModal" tabindex="-1" aria-labelledby="purchaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="purchaseModalLabel">Xác nhận mua tài liệu</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    Bạn có muốn mua tài liệu <strong>{{ $item->title }}</strong> với giá <strong>{{ number_format($item->price, 0, ',', '.') }}</strong> điểm? <br>
+                                    Số dư hiện tại: <strong>{{ number_format(Auth::user()->point, 0, ',', '.') }}</strong> điểm.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                    <a href="{{ route('frontend.purchase', $item->id) }}" class="btn btn-primary">Xác nhận</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endauth
+
                 <div class="modal quickview fade" id="ttsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ttsModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -212,7 +246,9 @@
                     </div>
                 </div>
 
-                @include('layout.partial.chatbot-document')
+                @if ($hasAccess)
+                    @include('layout.partial.chatbot-document')
+                @endif
 
                 <div class="shop-single-details">
                     <nav>
@@ -270,139 +306,59 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <span class="type new">New</span>
-                                        <a href="shop-single.html"><img src="/web-assets/img/product/p7.png" alt=""></a>
-                                        <div class="product-action-wrap">
-                                            <div class="product-action">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickview" data-tooltip="tooltip" title="Quick View"><i class="far fa-eye"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i class="far fa-heart"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i class="far fa-arrows-repeat"></i></a>
+                            @foreach($recommendations as $recommendation)
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="product-item">
+                                        <div class="product-img">
+                                            @if ($recommendation->is_free)
+                                            <span class="type hot">Miễn phí</span>
+                                            @elseif (!$recommendation->is_new)
+                                            <span class="type discount">Trả phí</span>
+                                            @endif
+                                            <a href="{{route('frontend.document.details',  $recommendation->id )}}"><img src="{{ asset($recommendation->cover_image) }}" alt="{{ $recommendation->title }}"></a>
+                                            <div class="product-action-wrap">
+                                                <div class="product-action ms-3">
+                                                    <a class="mb-2" href="{{route('frontend.document.details',  $recommendation->id )}}" data-tooltip="tooltip" title="Xem chi tiết"><i class="far fa-eye"></i></a>
+                                                    <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $recommendation->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
+                                                        class="favourite-btn {{ Auth::check() && $recommendation->favourited_by_user ? 'favourited' : '' }}"
+                                                        data-document-id="{{ $recommendation->id }}"
+                                                        data-is-favourited="{{ Auth::check() && $recommendation->favourited_by_user ? 'true' : 'false' }}"
+                                                        @if (!Auth::check()) data-requires-login="true" @endif>
+                                                        <i class="far fa-heart"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="product-title"><a href="shop-single.html">Bluetooth Earphones</a></h3>
-                                        <div class="product-rate">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                        <div class="product-bottom">
-                                            <div class="product-price">
-                                                <span>$100.00</span>
+                                        <div class="product-content">
+                                            <h3 class="product-title"><a href="{{route('frontend.document.details',  $recommendation->id )}}">{{ $recommendation->title }}</a></h3>
+                                            <div class="product-bottom">
+                                                <div class="product-price">
+                                                    @if($recommendation->price) 
+                                                    <span><i class="fa-solid fa-coins"></i> {{ number_format($recommendation->price, 0, ',', '.') }} đ</span>
+                                                    @else
+                                                    <span><i class="fa-solid fa-hand-holding-heart"></i> Miễn phí</span>
+                                                    @endif
+                                                </div>
                                             </div>
-                                            <button type="button" class="product-cart-btn" data-bs-placement="left" data-tooltip="tooltip" title="Add To Cart">
-                                                <i class="far fa-shopping-bag"></i>
-                                            </button>
+                                            <div class="product-bottom">
+                                                <div class="product-price">
+                                                    <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-bottom">
+                                                <div class="product-price">
+                                                    <span><i class="fa-solid fa-eye"></i> {{ $recommendation->view_count }} lượt xem</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-bottom">
+                                                <div class="product-price">
+                                                    <span><i class="fa-solid fa-download"></i> {{ $recommendation->download_count }} lượt tải</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <span class="type hot">Hot</span>
-                                        <a href="shop-single.html"><img src="/web-assets/img/product/p8.png" alt=""></a>
-                                        <div class="product-action-wrap">
-                                            <div class="product-action">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickview" data-tooltip="tooltip" title="Quick View"><i class="far fa-eye"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i class="far fa-heart"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i class="far fa-arrows-repeat"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="product-title"><a href="shop-single.html">Bluetooth Earphones</a></h3>
-                                        <div class="product-rate">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                        <div class="product-bottom">
-                                            <div class="product-price">
-                                                <span>$100.00</span>
-                                            </div>
-                                            <button type="button" class="product-cart-btn" data-bs-placement="left" data-tooltip="tooltip" title="Add To Cart">
-                                                <i class="far fa-shopping-bag"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <span class="type oos">Out Of Stock</span>
-                                        <a href="shop-single.html"><img src="/web-assets/img/product/p12.png" alt=""></a>
-                                        <div class="product-action-wrap">
-                                            <div class="product-action">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickview" data-tooltip="tooltip" title="Quick View"><i class="far fa-eye"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i class="far fa-heart"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i class="far fa-arrows-repeat"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="product-title"><a href="shop-single.html">Bluetooth Earphones</a></h3>
-                                        <div class="product-rate">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                        <div class="product-bottom">
-                                            <div class="product-price">
-                                                <span>$100.00</span>
-                                            </div>
-                                            <button type="button" class="product-cart-btn" data-bs-placement="left" data-tooltip="tooltip" title="Add To Cart">
-                                                <i class="far fa-shopping-bag"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <span class="type discount">10% Off</span>
-                                        <a href="shop-single.html"><img src="/web-assets/img/product/p14.png" alt=""></a>
-                                        <div class="product-action-wrap">
-                                            <div class="product-action">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#quickview" data-tooltip="tooltip" title="Quick View"><i class="far fa-eye"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Wishlist"><i class="far fa-heart"></i></a>
-                                                <a href="#" data-tooltip="tooltip" title="Add To Compare"><i class="far fa-arrows-repeat"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3 class="product-title"><a href="shop-single.html">Bluetooth Earphones</a></h3>
-                                        <div class="product-rate">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-                                        <div class="product-bottom">
-                                            <div class="product-price">
-                                                <del>$120.00</del>
-                                                <span>$100.00</span>
-                                            </div>
-                                            <button type="button" class="product-cart-btn" data-bs-placement="left" data-tooltip="tooltip" title="Add To Cart">
-                                                <i class="far fa-shopping-bag"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

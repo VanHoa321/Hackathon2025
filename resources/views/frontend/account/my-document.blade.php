@@ -41,6 +41,7 @@
                                 <li><a href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi Mật Khẩu</a></li>
                                 <li><a href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
                                 <li><a class="active" href="{{ route('frontend.mydocument') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
+                                <li><a href="{{ route('frontend.tran-history') }}"><i class="far fa-money-bill-transfer"></i> Lịch sử giao dịch</a></li>
                                 <li><a href="{{ route('frontend.point') }}"><i class="far fa-coins"></i> Nạp coin</a></li>
                                 <li><a href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                             </ul>
@@ -105,68 +106,6 @@
     </main>
 @endsection
 @section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const removeFavouriteButtons = document.querySelectorAll('.remove-favourite');
-
-            removeFavouriteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const documentId = this.getAttribute('data-id');
-                    const url = `/account/favourite/${documentId}`;
-
-                    // Hiển thị SweetAlert để xác nhận
-                    Swal.fire({
-                        title: 'Bạn có chắc chắn?',
-                        text: "Bạn muốn bỏ yêu thích tài liệu này?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Có, bỏ yêu thích!',
-                        cancelButtonText: 'Hủy'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Gửi yêu cầu DELETE nếu người dùng xác nhận
-                            fetch(url, {
-                                    method: 'DELETE',
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                        'Content-Type': 'application/json',
-                                    },
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.success) {
-                                        Swal.fire(
-                                            'Thành công!',
-                                            data.message,
-                                            'success'
-                                        ).then(() => {
-                                            location.reload(); // Reload the page to update the list
-                                        });
-                                    } else {
-                                        Swal.fire(
-                                            'Lỗi!',
-                                            data.message,
-                                            'error'
-                                        );
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                    Swal.fire(
-                                        'Lỗi!',
-                                        'Đã xảy ra lỗi, vui lòng thử lại!',
-                                        'error'
-                                    );
-                                });
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-
     <script>
         $(document).ready(function() {
 

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\admin\TagController;
+use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontEnd\AccountController as FrontEndAccountController;
 use App\Http\Controllers\FrontEnd\DocumentController as FrontEndDocumentController;
@@ -172,6 +173,11 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::post('contact/mark-unread/{id}', [ContactController::class, 'markAsUnread'])->name('admin.contact.mark-unread');
     });
 
+    Route::prefix('transaction')->group(function () {
+        Route::get('/index', [TransactionController::class, 'index'])->name('admin.tran.index');
+    });
+
+
     //Admin Post
     Route::prefix('post')->group(function () {
         Route::get('/index', [PostController::class, 'index'])->name('admin-post.index');
@@ -209,7 +215,6 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::post('/update-profile', [FrontEndAccountController::class, 'updateProfile'])->name('frontend.update-profile');
     Route::get('/change-password', [FrontEndAccountController::class, 'editPassword'])->name('frontend.edit-password');
     Route::post('/update-password', [FrontEndAccountController::class, 'updatePassword'])->name('frontend.update-password');
-    Route::get('/settings', [FrontEndAccountController::class, 'settings'])->name('frontend.settings');
     Route::get('/my-favourite', [FrontEndAccountController::class, 'myFavourite'])->name('frontend.my-favourite');
     Route::post('/favourite/{id}', [FrontEndAccountController::class, 'addFavourite'])->name('frontend.add-favourite');
     Route::delete('/favourite/{id}', [FrontEndAccountController::class, 'removeFavourite'])->name('frontend.remove-favourite');
@@ -221,4 +226,6 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::post('/deposit', [FrontendAccountController::class, 'vnpay_payment'])->name('frontend.deposit');
     Route::get('/vnpay-return', [FrontendAccountController::class, 'vnpayReturn'])->name('vnpay.return');
     Route::get('/transaction-sucess', [FrontEndAccountController::class, 'vnpSuccess'])->name('frontend.success');
+    Route::get('/document/purchase/{id}', [FrontEndDocumentController::class, 'purchase'])->name('frontend.purchase');
+    Route::get('/transaction-history', [FrontEndAccountController::class, 'tranHistory'])->name('frontend.tran-history');
 });

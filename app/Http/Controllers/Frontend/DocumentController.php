@@ -9,8 +9,13 @@ use App\Models\DocumentComment;
 use App\Models\Favourite;
 use App\Models\Publisher;
 use App\Models\Rating;
+use App\Models\Transaction;
+use App\Models\User;
+use GuzzleHttp\Client;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -78,8 +83,37 @@ class DocumentController extends Controller
         $averageRating = Rating::where('document_id', $id)->avg('rating') ?? 0;
         $ratingCount = Rating::where('document_id', $id)->count();
         $userRating = Auth::check() ? Rating::where('document_id', $id)->where('user_id', Auth::id())->first() : null;
+
+        $hasAccess = $item->is_free || (Auth::check() && $this->hasPurchasedDocument(Auth::id(), $id));
+
         $item->increment('view_count');
-        return view('frontend.document.details', compact('item', 'comments', 'ratingCount', 'averageRating', 'userRating'));
+
+         $client = new Client();
+        $recommendations = [];
+
+        try {
+            $response = $client->get("http://127.0.0.1:5005/recommend/{$id}");
+            $data = json_decode($response->getBody(), true);
+            $recommendedIds = $data['recommendations'] ?? [];
+
+            // Query database for recommended doc
+            if (!empty($recommendedIds)) {
+                $recommendations = Document::whereIn('id', $recommendedIds)
+                    ->with(['category', 'authors'])
+                    ->get()->map(function ($doc) {
+                        $doc->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
+                            ->where('document_id', $doc->id)
+                            ->exists();
+                        $doc->average_rating = Rating::where('document_id', $doc->id)->avg('rating') ?? 0;
+                        $doc->rating_count = Rating::where('document_id', $doc->id)->count();
+                        return $doc;
+                    });
+            }
+        } catch (RequestException $e) {
+            Log::error("Failed to fetch recommendations: {$e->getMessage()}");
+        }
+
+        return view('frontend.document.details', compact('item', 'comments', 'ratingCount', 'averageRating', 'userRating', 'hasAccess', 'recommendations'));
     }
 
     public function comment(Request $request)
@@ -116,6 +150,10 @@ class DocumentController extends Controller
     {
         $document = Document::findOrFail($id);
 
+        if (!$document->is_free && (!Auth::check() || !$this->hasPurchasedDocument(Auth::id(), $id))) {
+            return redirect()->back()->with('error', 'Bạn cần mua tài liệu này để tải xuống!');
+        }
+
         if (!$document->is_free) {
             return redirect()->back()->with('error', 'Tài liệu này không miễn phí!');
         }
@@ -130,12 +168,23 @@ class DocumentController extends Controller
 
         $document->increment('download_count');
 
+        Transaction::create([
+            'user_id' => Auth::user()->id,
+            'type' => 4,
+            'document_id' => $document->id,
+            'note' => 'Tải xuống tài liệu: ' . $document->title,
+        ]);
+
         return response()->download($filePath);
     }
 
     public function downloadPDF($id)
     {
         $document = Document::findOrFail($id);
+
+        if (!$document->is_free && (!Auth::check() || !$this->hasPurchasedDocument(Auth::id(), $id))) {
+            return redirect()->back()->with('error', 'Bạn cần mua tài liệu này để tải xuống!');
+        }
 
         if (!$document->is_free) {
             return redirect()->back()->with('error', 'Tài liệu này không miễn phí!');
@@ -181,5 +230,44 @@ class DocumentController extends Controller
         $doc->ratings()->where('user_id', $user->id)->delete();
 
         return response()->json(['message' => 'Đánh giá của bạn đã được xóa.']);
+    }
+
+    private function hasPurchasedDocument($userId, $documentId)
+    {
+        return Transaction::where('user_id', $userId)
+            ->where('document_id', $documentId)
+            ->where('type', 2)
+            ->exists();
+    }
+
+    public function purchase($id)
+    {
+        $document = Document::findOrFail($id);
+
+        if (Auth::check() && $this->hasPurchasedDocument(Auth::id(), $id)) {
+            return redirect()->route('frontend.document.details', $id)
+                ->with('error', 'Bạn đã mua tài liệu này rồi!');
+        }
+
+        if (Auth::user()->point < $document->price) {
+            return redirect()->route('frontend.document.details', $id)
+                ->with('error', 'Số tiền không đủ để mua!');
+        }
+
+        Transaction::create([
+            'user_id' => Auth::id(),
+            'type' => 2,
+            'amount' => $document->price,
+            'document_id' => $document->id,
+            'note' => 'Mua tài liệu: ' . $document->title,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->point -= $document->price;
+        $user->save();
+
+        return redirect()->route('frontend.document.details', $id)->with('success', 'Mua tài liệu thành công! Bạn có thể tải xuống và sử dụng đầy đủ tính năng.');
     }
 }
