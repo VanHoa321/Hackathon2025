@@ -133,6 +133,27 @@ class DocumentController extends Controller
         return response()->download($filePath);
     }
 
+    public function downloadPDF($id)
+    {
+        $document = Document::findOrFail($id);
+
+        if (!$document->is_free) {
+            return redirect()->back()->with('error', 'Tài liệu này không miễn phí!');
+        }
+
+        $relativePath = $document->file_path_pdf;
+
+        $filePath = public_path('storage/' . $relativePath);
+
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'Tài liệu không tồn tại hoặc đã bị xóa!');
+        }
+
+        $document->increment('download_count');
+
+        return response()->download($filePath);
+    }
+
     public function rate(Request $request, $id)
     {
         $request->validate([

@@ -41,7 +41,7 @@
                                 <li><a href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi Mật Khẩu</a></li>
                                 <li><a href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
                                 <li><a class="active" href="{{ route('frontend.mydocument') }}"><i class="far fa-upload"></i> Danh sách tài liệu</a></li>
-                                <li><a href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
+                                <li><a href="{{ route('frontend.point') }}"><i class="far fa-coins"></i> Nạp coin</a></li>
                                 <li><a href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                             </ul>
                         </div>
@@ -70,26 +70,21 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($items as $item)
-                                                        <tr>
+                                                        <tr id="document-{{ $item->id }}">
                                                             <td><span class="table-list-code">{{ $item->title }}</span></td>
                                                             <td><a href="{{ route("frontend.document.download", $item->id) }}">{{ $item->file_path }}</a></td>
                                                             <td>{{ $item->download_count }} lượt</td>
                                                             <td>
-                                                                @if ($item->status == 1)
-                                                                    <span class="badge badge-success">Đã tải lên</span>
-                                                                @elseif ($item->status == 0) 
+                                                                @if ($item->approve == 1)
+                                                                    <span class="badge badge-success">Đã phê duyệt</span>
+                                                                @elseif ($item->approve == 0) 
                                                                     <span class="badge badge-info">Chờ phê duyệt</span>
                                                                 @else
                                                                     <span class="badge badge-danger">Đã từ chối</span>
                                                                 @endif                                                       
                                                             </td>
                                                             <td>
-                                                                @if ($item->approve == 0)
-                                                                    <a href="#" class="btn btn-outline-secondary btn-sm rounded-2" data-tooltip="tooltip" title="Cập nhật tài liệu">
-                                                                        <i class="far fa-pen"></i>
-                                                                    </a>
-                                                                @endif
-                                                                <a href="#" class="btn btn-outline-danger btn-sm rounded-2" data-tooltip="tooltip" title="Xóa tài liệu"><i class="far fa-trash-can"></i></a>
+                                                                <a href="#" data-id="{{ $item->id }}" class="btn btn-outline-danger btn-sm btn-delete rounded-2" data-tooltip="tooltip" title="Xóa tài liệu"><i class="far fa-trash-can"></i></a>
                                                             </td>
                                                         </tr>    
                                                     @endforeach                                                                                    
@@ -170,5 +165,44 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('body').on('click', '.btn-delete', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                Swal.fire({
+                    title: "Xác nhận xóa tài liệu này?",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Xác nhận",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/account/destroy/" + id,
+                            type: "DELETE",
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                toastr.success(response.message);
+                                $('#document-' + id).remove();
+                            },
+                            error: function(xhr) {
+                                toastr.error('Có lỗi khi xóa tài liệu này.');
+                            }
+                        });
+                    }
+                });
+            })
+
+            setTimeout(function() {
+                $("#myAlert").fadeOut(500);
+            }, 3500);
+        })
     </script>
 @endsection

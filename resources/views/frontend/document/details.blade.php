@@ -67,7 +67,12 @@
                                     <li>Phân loại: <span>{{ $item->category->name }}</span></li>
                                     <li>Lượt xem: <span>{{ $item->view_count }} lượt</span></li>
                                     <li>Lượt tải: <span>{{ $item->download_count }} lượt</span></li>
-                                    <li>Định dạng tệp: <span>{{ $item->file_format }}</span></li>
+                                    <li>Định dạng tệp: 
+                                        <span>{{ $item->file_format }}</span>
+                                        @if (!empty($item->file_path_pdf) && ($item->file_format != "pdf"))
+                                            , pdf
+                                        @endif
+                                    </li>
                                 </ul>
                             </div>
                             <div class="shop-single-action">
@@ -77,7 +82,10 @@
                                             <a href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#pdfPreviewModal"><i class="fa-solid fa-magnifying-glass me-1"></i>Xem trước</a>
                                             <a id="summaryButton" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#summaryModal"><i class="fa-solid fa-list me-1"></i>Tóm tắt</a>
                                             <a id="tts" href="#" class="theme-btn" data-bs-toggle="modal" data-bs-target="#ttsModal"><i class="fa-solid fa-play me-1"></i>Nghe trước</a>
-                                            <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về</a>
+                                            <a href="{{ route("frontend.document.download", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về ({{ $item->file_format }})</a>
+                                            @if ($item->file_path_pdf)
+                                                <a href="{{ route("frontend.document.downloadPDF", $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>Tải về (pdf)</a>
+                                            @endif
                                             @auth
                                                 <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
                                                     data-requires-login="{{ Auth::check() ? 'false' : 'true' }}"
@@ -672,10 +680,13 @@
         closeModal();
     </script>
 
+    @php
+        $pdfUrl = asset('storage/' . ($item->file_path_pdf ?? $item->file_path));
+    @endphp
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
         document.getElementById('pdfPreviewModal').addEventListener('shown.bs.modal', function() {
-            const pdfUrl = "{{ asset('storage/' . $item->file_path) }}";
+            const pdfUrl = "{{ $pdfUrl }}";
             const maxPages = 5;
             const zoomScale = 1.0;
 

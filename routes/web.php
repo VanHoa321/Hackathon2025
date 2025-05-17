@@ -196,6 +196,7 @@ Route::get('/document/getData', [FrontEndDocumentController::class, 'getData']);
 Route::get('/document-details/{id}', [FrontEndDocumentController::class, 'details'])->name('frontend.document.details');
 Route::post('/document/comment', [FrontEndDocumentController::class, 'comment'])->name('frontend.document.comment');
 Route::get('/document/download/{id}', [FrontEndDocumentController::class, 'download'])->name('frontend.document.download');
+Route::get('/document/download-pdf/{id}', [FrontEndDocumentController::class, 'downloadPDF'])->name('frontend.document.downloadPDF');
 Route::post('/document/{id}/rate', [FrontEndDocumentController::class, 'rate'])->name('frontend.document.rate');
 Route::delete('/document/{id}/unrate', [FrontEndDocumentController::class, 'unrate'])->name('frontend.document.unrate');
 
@@ -215,4 +216,9 @@ Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/my-document', [FrontEndAccountController::class, 'myDocument'])->name('frontend.mydocument');
     Route::get('/uploads', [FrontEndAccountController::class, 'uploads'])->name('frontend.uploads');
     Route::post('/post-upload', [FrontEndAccountController::class, 'postUpload'])->name('frontend.post-upload');
+    Route::delete('/destroy/{id}', [FrontEndAccountController::class, 'destroy'])->name('frontend.document.destroy');
+    Route::get('/point', [FrontEndAccountController::class, 'indexPoint'])->name('frontend.point');
+    Route::post('/deposit', [FrontendAccountController::class, 'vnpay_payment'])->name('frontend.deposit');
+    Route::get('/vnpay-return', [FrontendAccountController::class, 'vnpayReturn'])->name('vnpay.return');
+    Route::get('/transaction-sucess', [FrontEndAccountController::class, 'vnpSuccess'])->name('frontend.success');
 });

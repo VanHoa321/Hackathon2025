@@ -227,4 +227,5 @@
             </div>
         </div>
     </div>
+    @include('layout.partial.chatbot')
 @endsection

@@ -58,7 +58,7 @@
         #modalContainer {
             width: 450px;
             height: 600px;
-            z-index: 9998;
+            z-index: 99999;
             bottom: 90px;
             right: 1.5rem;
             border-radius: 12px;

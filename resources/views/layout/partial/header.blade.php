@@ -33,13 +33,11 @@
                                                 <li>
                                                     <div class="dropdown-user">
                                                         <h5>Xin chào! {{ auth()->user()->name }}</h5>
-                                                        <p>Số coin: <span>50.000 đ</span></p>
+                                                        <p>Số điểm: <span>{{ number_format(auth()->user()->point, 0, ',', '.') }}</span></p>
                                                     </div>
                                                 </li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.profile') }}"><i class="far fa-user"></i> Hồ sơ của tôi</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('frontend.edit-password') }}"><i class="far fa-lock"></i> Đổi mật khẩu</a></li>
-                                                <li><a class="dropdown-item" href="{{ route('frontend.my-favourite') }}"><i class="far fa-heart"></i> Danh sách yêu thích</a></li>
-                                                <li><a class="dropdown-item" href="{{ route('frontend.settings') }}"><i class="far fa-gear"></i> Cài đặt</a></li>
                                                 <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="far fa-sign-out"></i> Đăng xuất</a></li>
                                             </ul>
                                         </div>
@@ -81,6 +79,10 @@
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.index") }}">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.document.index") }}">Tài liệu</a></li>
+                        @auth
+                            <li class="nav-item"><a class="nav-link" href="{{ route('frontend.my-favourite') }}">Yêu thích</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route("frontend.mydocument") }}">Đăng tải tài liệu</a></li>
+                        @endauth
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.about-us") }}">Giới thiệu</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.contact-us") }}">Liên hệ</a></li>
                     </ul>

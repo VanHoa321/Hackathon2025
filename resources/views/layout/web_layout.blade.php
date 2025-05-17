@@ -54,10 +54,6 @@
 
     @yield('content')
 
-    @if(!request()->routeIs('frontend.document.details'))
-        @include('layout.partial.chatbot')
-    @endif
-
     @include('layout.partial.footer')
 
     <script src="{{ asset('web-assets/js/jquery-3.7.1.min.js') }}"></script>
@@ -78,6 +74,7 @@
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('scripts')
+    @yield('scriptchatbot')
     <script>
         $('#lfm').filemanager('file', {
             prefix: '/files-manager'
@@ -184,51 +181,6 @@
             timeOut: 3000,
             "extendedTimeOut": "1000"
         };
-    </script>
-
-    <script>
-        const toggleBtn = document.getElementById("toggleModal2");
-        const modal = document.getElementById("modalContainer2");
-        const minimizeBtn = document.getElementById("minimizeModal2");
-        const zoomBtn = document.getElementById("zoomModal2");
-        const chatIcon = toggleBtn.querySelector(".fa-comments");
-        const closeIcon = toggleBtn.querySelector(".fa-times");
-
-        function openModal() {
-            modal.style.visibility = "visible";
-            modal.style.opacity = "1";
-            modal.style.transform = "scale(1)";
-            chatIcon.style.display = "none";
-            closeIcon.style.display = "inline-block";
-        }
-
-        function closeModal() {
-            modal.style.opacity = "0";
-            modal.style.transform = "scale(0.95)";
-            setTimeout(() => {
-                modal.style.visibility = "hidden";
-            }, 300);
-            chatIcon.style.display = "inline-block";
-            closeIcon.style.display = "none";
-        }
-
-        function toggleFullscreen() {
-            modal.classList.toggle("fullscreen");
-            zoomBtn.querySelector("i").classList.toggle("fa-compress");
-            zoomBtn.querySelector("i").classList.toggle("fa-expand");
-        }
-
-        toggleBtn.addEventListener("click", () => {
-            if (modal.style.opacity === "1") {
-                closeModal();
-            } else {
-                openModal();
-            }
-        });
-
-        minimizeBtn.addEventListener("click", closeModal);
-        zoomBtn.addEventListener("click", toggleFullscreen);
-        closeModal();
     </script>
 
     <script>

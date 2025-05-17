@@ -1,4 +1,3 @@
-
 <button id="toggleModal2" class="btn rounded-circle position-fixed bottom-0 end-0 m-4" style="width: 60px; height: 60px; z-index: 9999; background-color:#11B76B; color:#FFFFFF">
     <i class="fas fa-comments"></i>
     <i class="fas fa-times" style="display: none"></i>
@@ -21,7 +20,7 @@
     <main id="chatbotDocumentContent2" class="flex-grow-1 overflow-auto chat-body px-3 py-4">
         <div id="chatbotIntro2" class="d-flex align-items-start mb-3">
             <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
-            <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">Xin chào, bạn cần hỏi gì trong tài liệu này!</div>
+            <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">Xin chào, bạn có câu hỏi gì về hệ thống!</div>
         </div>
     </main>
 
@@ -41,44 +40,166 @@
 </div>
 
 @section('styles')
-    <style>
-        .chat-body::-webkit-scrollbar {
-            width: 6px;
-        }
+<style>
+    .chat-body::-webkit-scrollbar {
+        width: 6px;
+    }
 
-        .chat-body::-webkit-scrollbar-track {
-            background: transparent;
-        }
+    .chat-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-        .chat-body::-webkit-scrollbar-thumb {
-            background-color: #cbd5e1;
-            border-radius: 3px;
-        }
+    .chat-body::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 3px;
+    }
 
-        #modalContainer2 {
-            width: 450px;
-            height: 600px;
-            z-index: 9999;
-            bottom: 90px;
-            right: 1.5rem;
-            border-radius: 12px;
-            visibility: hidden;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 0.4s ease;
-        }
+    #modalContainer2 {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        width: 450px;
+        height: 600px;
+        z-index: 9999;
+        bottom: 90px;
+        right: 1.5rem;
+        border-radius: 12px;
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.4s ease;
+        position: fixed;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
 
-        #modalContainer2.fullscreen {
-            width: 100% !important;
-            height: 100% !important;
-            top: 0;
-            left: 0;
-            border-radius: 0 !important;
-        }
+    #modalContainer2.scale-effect {
+        transform: translate(-50%, -50%) scale(0.95);
+    }
 
-        .custom-no-focus:focus {
-            box-shadow: none !important;
-            outline: none !important;
+    #modalContainer2.fullscreen {
+        width: 100% !important;
+        height: 100% !important;
+        top: 0;
+        left: 0;
+        transform: none;
+        border-radius: 0 !important;
+    }
+
+    .custom-no-focus:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+</style>
+@endsection
+
+<script>
+    // Toggle modal visibility
+    document.getElementById('toggleModal2').addEventListener('click', function() {
+        const modal = document.getElementById('modalContainer2');
+        const commentIcon = this.querySelector('.fa-comments');
+        const closeIcon = this.querySelector('.fa-times');
+        if (modal.style.visibility === 'hidden') {
+            modal.style.visibility = 'visible';
+            modal.style.opacity = '1';
+            modal.style.transform = 'scale(1)';
+            commentIcon.style.display = 'none';
+            closeIcon.style.display = 'inline';
+        } else {
+            modal.style.visibility = 'hidden';
+            modal.style.opacity = '0';
+            modal.style.transform = 'scale(0.95)';
+            commentIcon.style.display = 'inline';
+            closeIcon.style.display = 'none';
         }
-    </style>
+    });
+
+    // Zoom modal to fullscreen
+    document.getElementById('zoomModal2').addEventListener('click', function() {
+        const modal = document.getElementById('modalContainer2');
+        modal.classList.toggle('fullscreen');
+    });
+
+    // Minimize modal
+    document.getElementById('minimizeModal2').addEventListener('click', function() {
+        const modal = document.getElementById('modalContainer2');
+        const commentIcon = document.getElementById('toggleModal2').querySelector('.fa-comments');
+        const closeIcon = document.getElementById('toggleModal2').querySelector('.fa-times');
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+        modal.style.transform = 'scale(0.95)';
+        commentIcon.style.display = 'inline';
+        closeIcon.style.display = 'none';
+    });
+</script>
+
+@section('scriptchatbot')
+<script>
+    $(document).ready(function() {
+
+        $("#sendMessageChatbotDocument2").click(function() {
+            sendChatbotMessage();
+        });
+
+        $("#chatBotDocumentInput2").keypress(function(e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                sendChatbotMessage();
+            }
+        });
+
+        function sendChatbotMessage() {
+            let userMessage = $("#chatBotDocumentInput2").val();
+            if (userMessage === "") {
+                toastr.error("Vui lòng nhập câu hỏi");
+                return;
+            }
+            $("#chatbotIntro2").remove();
+            let userBubble =
+                `<div class="d-flex justify-content-end mb-1">
+                        <div class="bg-primary text-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">${userMessage}</div>
+                    </div>`;
+            $("#chatbotDocumentContent2").append(userBubble);
+            $("#chatbotDocumentContent2").animate({
+                scrollTop: $('#chatbotDocumentContent2')[0].scrollHeight
+            }, 500);
+
+            $("#chatBotDocumentInput2").val("");
+            $.ajax({
+                url: "/api/ask-ai",
+                type: "POST",
+                data: {
+                    question: userMessage
+                },
+                beforeSend: function() {
+                    let loadingBubble = `
+                            <div id="loadingMessage" class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%"><i class="fas fa-spinner fa-spin"></i></div>
+                            </div>`;
+                    $("#chatbotDocumentContent2").append(loadingBubble);
+                    $("#chatbotDocumentContent2").animate({
+                        scrollTop: $('#chatbotDocumentContent2')[0].scrollHeight
+                    }, 500);
+                },
+                success: function(response) {
+                    $("#loadingMessage").remove();
+                    let botMessage = response.answer;
+                    botMessage = botMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    botMessage = botMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    let botBubble =
+                        `<div class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">${botMessage}</div>
+                            </div>`;
+                    $("#chatbotDocumentContent2").append(botBubble);
+                },
+                error: function() {
+                    $("#loadingMessage").remove();
+                    toastr.error("Có lỗi xảy ra, vui lòng thử lại");
+                }
+            });
+        }
+    });
+</script>
 @endsection

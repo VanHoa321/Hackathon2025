@@ -5,17 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class Transaction extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
+        'type',
+        'amount',
         'document_id',
-        'rating',
+        'note',
     ];
-    protected $table = 'ratings';
-    public $timestamps = true;
-    
+
+    protected $primaryKey = 'id';
+    protected $table = 'transactions';
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,10 +28,5 @@ class Rating extends Model
     public function document()
     {
         return $this->belongsTo(Document::class);
-    }
-
-    public function scopeAverageRating($query, $documentId)
-    {
-        return $query->where('document_id', $documentId)->avg('rating');
     }
 }

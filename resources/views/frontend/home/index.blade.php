@@ -161,7 +161,7 @@
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
                             </div>
                         </div>
                         <div class="product-bottom">
@@ -182,7 +182,7 @@
     </div>
     <!-- product area end -->
 
-
+    @include('layout.partial.chatbot')
     <!-- product area -->
     <div class="product-area pt-80">
         <div class="container">
@@ -229,7 +229,7 @@
                         </div>
                         <div class="product-bottom">
                             <div class="product-price">
-                                <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
                             </div>
                         </div>
                         <div class="product-bottom">
@@ -295,7 +295,7 @@
                             </div>
                             <div class="product-bottom">
                                 <div class="product-price">
-                                    <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                    <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
                                 </div>
                             </div>
                             <div class="product-bottom">

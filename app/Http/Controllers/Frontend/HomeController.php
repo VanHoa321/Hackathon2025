@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Document;
 use App\Models\Favourite;
+use App\Models\Rating;
 use App\Models\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,8 @@ class HomeController extends Controller
             $mostViewedDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $mostViewedDocuments->id)
                 ->exists();
+            $mostViewedDocuments->average_rating = Rating::where('document_id', $mostViewedDocuments->id)->avg('rating') ?? 0;
+            $mostViewedDocuments->rating_count = Rating::where('document_id', $mostViewedDocuments->id)->count();
             return $mostViewedDocuments;
         });
 
@@ -27,6 +30,8 @@ class HomeController extends Controller
             $mostDownloadedDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $mostDownloadedDocuments->id)
                 ->exists();
+            $mostDownloadedDocuments->average_rating = Rating::where('document_id', $mostDownloadedDocuments->id)->avg('rating') ?? 0;
+            $mostDownloadedDocuments->rating_count = Rating::where('document_id', $mostDownloadedDocuments->id)->count();
             return $mostDownloadedDocuments;
         });
 
@@ -34,6 +39,8 @@ class HomeController extends Controller
             $latestDocuments->favourited_by_user = Auth::check() && Favourite::where('user_id', Auth::id())
                 ->where('document_id', $latestDocuments->id)
                 ->exists();
+            $latestDocuments->average_rating = Rating::where('document_id', $latestDocuments->id)->avg('rating') ?? 0;
+            $latestDocuments->rating_count = Rating::where('document_id', $latestDocuments->id)->count();
             return $latestDocuments;
         });
 

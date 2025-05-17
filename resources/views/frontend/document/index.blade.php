@@ -84,6 +84,7 @@
             </div>
         </div>
     </main>
+    @include('layout.partial.chatbot')
 @endsection
 @section('scripts')
     <script>

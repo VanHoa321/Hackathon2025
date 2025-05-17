@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\Favourite;
 use App\Models\Publisher;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +83,7 @@ class AccountController extends Controller
 
         if (!Hash::check($request->old_password, $user->password)) {
             return redirect()->back()
-                ->withErrors(['old_password' => 'Tài khoản cũ không đúng!'])
+                ->withErrors(['old_password' => 'Mật khẩu cũ không đúng!'])
                 ->withInput();
         }
 
@@ -93,7 +94,7 @@ class AccountController extends Controller
         return redirect()->route('frontend.profile')
             ->with('messenge', [
                 'style' => 'success',
-                'msg' => 'Password updated successfully!'
+                'msg' => 'Đổi mật khẩu thành công!'
             ]);
     }
 
@@ -182,7 +183,58 @@ class AccountController extends Controller
     {
         $full_path = $request->file_path;
 
-        $relative_path = str_replace('http://127.0.0.1:8000/storage/', '', $full_path);
+        $relative_path = preg_replace('#^https?://[^/]+/storage/#', '', $full_path);
+        $file_extension = strtolower(pathinfo($relative_path, PATHINFO_EXTENSION));
+        $file_path_pdf = null;
+
+        if ($file_extension !== 'pdf') {
+            // Đường dẫn cục bộ tới tệp
+            $input_path = storage_path('app/public/' . $relative_path);
+            $output_dir = storage_path('app/public/files/pdf');
+            $output_filename = pathinfo($relative_path, PATHINFO_FILENAME) . '.pdf';
+            $output_path = $output_dir . DIRECTORY_SEPARATOR . $output_filename;
+
+            // Thay thế / thành \ cho Windows
+            $input_path = str_replace('/', '\\', $input_path);
+            $output_dir = str_replace('/', '\\', $output_dir);
+            $output_path = str_replace('/', '\\', $output_path);
+
+            // Đảm bảo thư mục đầu ra tồn tại
+            if (!file_exists($output_dir)) {
+                mkdir($output_dir, 0775, true);
+            }
+
+            // Kiểm tra xem tệp đầu vào tồn tại
+            if (!file_exists($input_path)) {
+                return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Tệp đầu vào không tồn tại: ' . $input_path]);
+            }
+
+            // Đường dẫn tới soffice.exe
+            $soffice_path = 'C:\\Program Files\\LibreOffice\\program\\soffice.exe';
+            // Xây dựng lệnh
+            $command = [
+                escapeshellarg($soffice_path),
+                '--headless',
+                '--convert-to',
+                'pdf',
+                escapeshellarg($input_path),
+                '--outdir',
+                escapeshellarg($output_dir)
+            ];
+
+            // Ghi log lệnh
+            $command_str = implode(' ', $command);
+
+            // Thử chạy lệnh bằng shell_exec để lấy đầu ra chi tiết
+            $output = shell_exec($command_str . ' 2>&1');
+
+            // Kiểm tra xem tệp PDF đã được tạo
+            if (file_exists($output_path)) {
+                $file_path_pdf = 'files/pdf/' . $output_filename;
+            } else {
+                return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Không thể tạo tệp PDF. Kiểm tra log để biết chi tiết.']);
+            }
+        }
 
         $data = [
             'title' => $request->title,
@@ -190,7 +242,8 @@ class AccountController extends Controller
             'publisher_id' => 1,
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
-            'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
+            'file_path_pdf' => $file_path_pdf,
+            'file_format' => $file_extension,
             'is_free' => 1,
             'description' => $request->description,
             'uploaded_by' => Auth::user()->id,
@@ -205,4 +258,103 @@ class AccountController extends Controller
         $request->session()->put("messenge", ["style" => "success", "msg" => "Thêm mới tài liệu thành công"]);
         return redirect()->route("frontend.mydocument");
     }
+
+    public function destroy(string $id)
+    {
+        $destroy = Document::find($id);
+        if ($destroy) {
+            $destroy->delete();
+            return response()->json(['success' => true, 'message' => 'Xóa tài liệu thành công']);
+        } else {
+            return response()->json(['danger' => false, 'message' => 'Tài liệu không tồn tại'], 404);
+        }
+    }
+
+    public function indexPoint()
+    {
+        return view("frontend.account.point");
+    }
+
+    public function vnpay_payment(Request $request)
+    {
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = route('vnpay.return');
+        $vnp_TmnCode = "F23SUP2A";
+        $vnp_HashSecret = "JB7QJNX2P9Z3JXTX8X8Q4ADXIS1QHSY3"; 
+
+        $vnp_TxnRef = time(); 
+        $vnp_OrderInfo = "Nạp " . $request->point . " VNĐ vào tài khoản";
+        $vnp_OrderType = "Deposit";
+        $vnp_Amount = $request->point * 100;
+        $vnp_Locale = "vn";
+        $vnp_BankCode = "NCB";
+        $vnp_IpAddr = $request->ip();
+
+        $inputData = [
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => now()->format('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+        ];
+
+        if (!empty($vnp_BankCode)) {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+
+        ksort($inputData);
+        $query = "";
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+        $query = trim($query, "&");
+
+        $vnp_Url .= "?" . $query;
+        $vnpSecureHash = hash_hmac('sha512', ltrim($hashdata, '&'), $vnp_HashSecret);
+        $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;
+
+        return redirect($vnp_Url);
+    }
+
+    public function vnpayReturn(Request $request)
+    {
+        $vnp_ResponseCode = $request->get('vnp_ResponseCode');
+        $vnp_Amount = $request->get('vnp_Amount') / 100;
+
+        $user = User::find(Auth::user()->id);
+
+        if ($vnp_ResponseCode == '24') {
+            return redirect('/account/point');
+        }
+
+        if ($vnp_ResponseCode == '00') {
+            
+            Transaction::create([
+                'user_id'     => $user->id,
+                'type'        => 1,
+                'amount'      => $vnp_Amount,
+                'document_id' => null,
+                'note'        => 'Nạp tiền vào tài khoản qua VNPAY',
+            ]);
+
+            $user->point += $vnp_Amount;
+            $user->save();
+            return redirect()->route('frontend.success')->with('amount', $vnp_Amount);
+        }
+    }
+
+    public function vnpSuccess()
+    {
+        return view("frontend.account.success");
+    }
+
 }

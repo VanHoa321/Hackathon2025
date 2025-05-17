@@ -60,7 +60,14 @@ class CallApiController extends Controller
         $document = Document::findOrFail($id);
         $file_path = $document->file_path;
 
-        $full_path = storage_path('app/public/' . $file_path);
+        if ($document->file_path_pdf) 
+        {
+            $full_path = storage_path('app/public/' . $document->file_path_pdf);
+        }
+        else 
+        {
+            $full_path = storage_path('app/public/' . $file_path);
+        }
 
         $response = Http::timeout(30)->post('http://127.0.0.1:5002/ask', [
             'question' => $question,
@@ -84,7 +91,14 @@ class CallApiController extends Controller
         $document = Document::findOrFail($id);
         $file_path = $document->file_path;
 
-        $full_path = storage_path('app/public/' . $file_path);
+        if ($document->file_path_pdf) 
+        {
+            $full_path = storage_path('app/public/' . $document->file_path_pdf);
+        }
+        else 
+        {
+            $full_path = storage_path('app/public/' . $file_path);
+        }
 
         $response = Http::timeout(30)->post('http://127.0.0.1:5003/summarize', [
             'file_path' => $full_path,
@@ -120,7 +134,14 @@ class CallApiController extends Controller
         $document = Document::findOrFail($id);
         $file_path = $document->file_path;
 
-        $full_path = storage_path('app/public/' . $file_path);
+        if ($document->file_path_pdf) 
+        {
+            $full_path = storage_path('app/public/' . $document->file_path_pdf);
+        }
+        else 
+        {
+            $full_path = storage_path('app/public/' . $file_path);
+        }
 
         $response = Http::timeout(30)->post('http://127.0.0.1:5004/tts', [
             'file_path' => $full_path,
