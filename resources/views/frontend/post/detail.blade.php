@@ -24,7 +24,7 @@
                         <div class="blog-single-wrapper">
                             <div class="blog-single-content">
                                 <div class="blog-thumb-img">
-                                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" style="width:100%">
                                 </div>
                                 <div class="blog-info">
                                     <div class="blog-meta">
@@ -52,16 +52,6 @@
                                             <h6 class="blockqoute-author">{{ $post->user->name ?? 'Tác giả không rõ' }}</h6>
                                             <i class="far fa-quote-right"></i>
                                         </blockquote>
-                                        <div class="row">
-                                            @if ($post->image)
-                                                <div class="col-md-6 mb-20">
-                                                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
-                                                </div>
-                                            @endif
-                                        </div>
-                                        <p class="mb-20">
-                                            {{ Str::limit($post->content, 200) }}
-                                        </p>
                                         <hr>
                                         <div class="blog-details-tags pb-20">
                                             <h5>Danh mục bài viết : </h5>

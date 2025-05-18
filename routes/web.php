@@ -166,6 +166,7 @@ Route::prefix('admin')->middleware("admin")->group(function () {
         Route::get('/favourite', [StatisticController::class, 'favouriteStatistic'])->name('statistic.favourite');
         Route::get('/download', [StatisticController::class, 'downloadStatistic'])->name('statistic.download');
         Route::get('/comment', [StatisticController::class, 'commentStatistic'])->name('statistic.comment');
+        Route::get('/user-transaction', [StatisticController::class, 'userTransactionStatistic'])->name('statistic.user-transaction');
     });
 
     //Admin Contact
@@ -207,6 +208,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('frontend.home.index
 Route::get('/about-us', [HomeController::class, 'about'])->name('frontend.home.about-us');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name(name: 'frontend.home.contact-us');
 Route::post('/contact-us/send', [HomeController::class, 'sendContact'])->middleware('auth')->name('frontend.contact-us.send');
+Route::post('admin/contact/{id}/reply', [ContactController::class, 'reply'])->name('admin.contact.reply');
 
 //Frontend Document
 Route::get('/document', [FrontEndDocumentController::class, 'index'])->name('frontend.document.index');

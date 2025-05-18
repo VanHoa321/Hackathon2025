@@ -72,7 +72,7 @@
                                                     </td>
                                                     <td>
                                                         @if ($transaction->document)
-                                                            <a href="{{ route('frontend.document.details', $transaction->document->id) }}">
+                                                            <a href="{{ route('document.show', $transaction->document->id) }}">
                                                                 {{ $transaction->document->title }}
                                                             </a>
                                                         @else

@@ -66,13 +66,42 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if($contact->user->email ?? false)
+                                    <hr>
+                                    @if(!$contact->reply_message)
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Phản hồi</label>
+                                                    <textarea id="replySummernote" class="form-control" placeholder="Nhập nội dung phản hồi"></textarea>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="button" class="btn btn-primary btn-send-reply" data-id="{{ $contact->id }}" data-email="{{ $contact->user->email }}">Gửi phản hồi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($contact->reply_message)
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Nội dung phản hồi đã gửi</label>
+                                                    <div class="border p-3 rounded" style="background: #f8f9fa;">{!! $contact->reply_message !!}</div>
+                                                    <p class="text-muted mt-2">Gửi lúc: {{ \Carbon\Carbon::parse($contact->replied_at)->format('d/m/Y H:i') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @else
+                                    <div class="alert alert-warning mt-3">
+                                        <i class="fa-solid fa-exclamation-triangle"></i> Không thể gửi phản hồi vì liên hệ này không có email.
+                                    </div>
+                                @endif
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('admin.contact.index') }}" class="btn btn-warning">
                                     <i class="fa-solid fa-rotate-left" style="color:white" title="Quay lại"></i>
-                                </a>
-                                <a href="#" class="btn btn-{{ $contact->is_read ? 'secondary' : 'primary' }} btn-mark-read" data-id="{{ $contact->id }}" title="{{ $contact->is_read ? 'Đánh dấu chưa đọc' : 'Đánh dấu đã đọc' }}">
-                                    <i class="fa-solid {{ $contact->is_read ? 'fa-envelope' : 'fa-envelope-open' }} mark-icon"></i>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-delete" data-id="{{ $contact->id }}" title="Xóa liên hệ">
                                     <i class="fa-solid fa-trash"></i>
@@ -86,56 +115,25 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('body').on('click', '.btn-mark-read', function(e) {
-                e.preventDefault();
-                const id = $(this).data('id');
-                const isRead = $(this).hasClass('btn-primary');
-                const url = isRead
-                    ? "{{ route('admin.contact.mark-read', ['id' => ':id']) }}".replace(':id', id)
-                    : "{{ route('admin.contact.mark-unread', ['id' => ':id']) }}".replace(':id', id);
-                const $button = $(this);
-                const $statusInput = $('.status-input');
-                const $markIcon = $button.find('.mark-icon');
-
-                console.log('Nút đánh dấu được nhấn, ID:', id, 'isRead:', isRead, 'URL:', url);
-                console.log('Status Input found:', $statusInput.length, 'Mark Icon found:', $markIcon.length);
-
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        console.log('AJAX thành công:', response);
-                        if (response.success) {
-                            toastr.success(response.message);
-
-                            if (isRead) {
-                                $statusInput.val('Đã đọc');
-                                $button.removeClass('btn-primary').addClass('btn-secondary');
-                                $markIcon.removeClass('fa-envelope-open').addClass('fa-envelope');
-                                $button.attr('title', 'Đánh dấu chưa đọc');
-                            } else {
-                                $statusInput.val('Chưa đọc');
-                                $button.removeClass('btn-secondary').addClass('btn-primary');
-                                $markIcon.removeClass('fa-envelope').addClass('fa-envelope-open');
-                                $button.attr('title', 'Đánh dấu đã đọc');
-                            }
-                        } else {
-                            console.log('Response không thành công:', response);
-                            toastr.error('Không thể cập nhật trạng thái');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log('AJAX lỗi:', xhr.status, xhr.responseText);
-                        toastr.error('Có lỗi xảy ra khi thay đổi trạng thái');
-                    }
-                });
+            // Initialize Summernote for reply textarea
+            $('#replySummernote').summernote({
+                height: 200,
+                placeholder: 'Nhập nội dung phản hồi',
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['codeview']]
+                ]
             });
 
+            // Delete contact
             $('body').on('click', '.btn-delete', function(e) {
                 e.preventDefault();
                 const id = $(this).data('id');
@@ -148,7 +146,6 @@
                     cancelButtonText: "Hủy"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        console.log('Gửi yêu cầu xóa, ID:', id);
                         $.ajax({
                             url: "{{ route('admin.contact.destroy', ':id') }}".replace(':id', id),
                             type: "DELETE",
@@ -156,12 +153,10 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                console.log('Xóa thành công:', response);
                                 toastr.success(response.message);
                                 window.location.href = "{{ route('admin.contact.index') }}";
                             },
                             error: function(xhr) {
-                                console.log('Lỗi khi xóa:', xhr.status, xhr.responseText);
                                 toastr.error('Có lỗi khi xóa liên hệ');
                             }
                         });
@@ -169,6 +164,58 @@
                 });
             });
 
+            // Send reply
+            $('body').on('click', '.btn-send-reply', function(e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                const email = $(this).data('email');
+                const replyMessage = $('#replySummernote').summernote('code');
+                
+                if ($('#replySummernote').summernote('isEmpty')) {
+                    toastr.error('Vui lòng nhập nội dung phản hồi');
+                    return;
+                }
+
+                Swal.fire({
+                    title: "Xác nhận gửi phản hồi?",
+                    text: "Phản hồi sẽ được gửi đến " + email,
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Gửi",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('admin.contact.reply', ':id') }}".replace(':id', id),
+                            type: "POST",
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                reply_message: replyMessage
+                            },
+                            beforeSend: function() {
+                                $('.btn-send-reply').prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi...');
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    toastr.success(response.message);
+                                    window.location.reload();
+                                } else {
+                                    toastr.error(response.message || 'Không thể gửi phản hồi');
+                                }
+                            },
+                            error: function(xhr) {
+                                toastr.error('Có lỗi xảy ra khi gửi phản hồi: ' + (xhr.responseJSON?.message || 'Lỗi không xác định'));
+                            },
+                            complete: function() {
+                                $('.btn-send-reply').prop('disabled', false).html('Gửi phản hồi');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Auto-hide alert
             setTimeout(function() {
                 $("#myAlert").fadeOut(500);
             }, 3500);

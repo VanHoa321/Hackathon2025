@@ -114,9 +114,6 @@
                     },
                     'tags[]': {
                         required: true
-                    },
-                    abstract: {
-                        maxlength: 255
                     }
                 },
                 messages: {
@@ -133,9 +130,6 @@
                     },
                     'tags[]': {
                         required: "Vui lòng chọn ít nhất một phân loại"
-                    },
-                    abstract: {
-                        maxlength: "Mô tả ngắn tối đa {0} ký tự!"
                     }
                 },
                 errorElement: 'span',

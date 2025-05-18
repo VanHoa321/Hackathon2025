@@ -24,7 +24,7 @@
                             <div class="col-md-6">
                                 <div class="blog-item wow fadeInUp" data-wow-delay=".25s">
                                     <div class="blog-item-img">
-                                        <img src="{{ asset($post->image) }}" alt="{{ $post->title }}">
+                                        <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" style="height: 400px;">
                                     </div>
                                     <div class="blog-item-info">
                                         <div class="blog-item-meta">

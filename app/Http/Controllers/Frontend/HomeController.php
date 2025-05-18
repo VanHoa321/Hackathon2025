@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Document;
 use App\Models\Favourite;
+use App\Models\Post;
 use App\Models\Rating;
 use App\Models\Setting;
 use App\Models\Slide;
@@ -47,7 +48,9 @@ class HomeController extends Controller
             return $latestDocuments;
         });
 
-        return view('frontend.home.index', compact('slides', 'mostViewedDocuments', 'mostDownloadedDocuments', 'latestDocuments'));
+        $posts = Post::where("is_active", 1)->orderBy("created_at", "desc")->take(3)->get();
+
+        return view('frontend.home.index', compact('slides', 'mostViewedDocuments', 'mostDownloadedDocuments', 'latestDocuments', 'posts'));
     }
 
     public function about()

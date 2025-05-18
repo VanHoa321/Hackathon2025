@@ -30,7 +30,6 @@ class PostController extends Controller
             'content' => 'required',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
-            'abstract' => 'nullable|max:255',
         ]);
 
         $post = new Post();

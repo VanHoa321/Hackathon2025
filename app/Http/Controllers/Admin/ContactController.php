@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -50,5 +51,37 @@ class ContactController extends Controller
         $contact->is_read = 0;
         $contact->save();
         return response()->json(['success' => true, 'message' => 'Đánh dấu chưa đọc thành công']);
+    }
+
+    public function reply(Request $request, $id)
+    {
+        $contact = Contact::with('user')->findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'reply_message' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => 'Vui lòng nhập nội dung phản hồi'], 422);
+        }
+
+        if (!$contact->user || !$contact->user->email) {
+            return response()->json(['success' => false, 'message' => 'Không thể gửi phản hồi vì không có email'], 400);
+        }
+
+        try {
+            Mail::html($request->reply_message, function ($message) use ($contact) {
+                $message->to($contact->user->email)
+                        ->subject('Phản hồi từ hệ thống liên hệ');
+            });
+
+            $contact->reply_message = $request->reply_message;
+            $contact->replied_at = now();
+            $contact->save();
+
+            return response()->json(['success' => true, 'message' => 'Phản hồi đã được gửi thành công']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Lỗi khi gửi email: ' . $e->getMessage()], 500);
+        }
     }
 }

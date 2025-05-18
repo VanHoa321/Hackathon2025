@@ -8,6 +8,8 @@ use App\Models\DocumentCategory;
 use App\Models\DocumentComment;
 use App\Models\Favourite;
 use App\Models\Rating;
+use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -240,5 +242,87 @@ class StatisticController extends Controller
         }
 
         return view('admin.statistic.comment-statistic', compact('documents', 'topCommentDocumentsData', 'weeklyCommentStats'));
+    }
+
+    public function userTransactionStatistic()
+    {
+        // Prepare data for registration charts (last 6 months)
+        $registrationStats = [];
+        $transactionStats = [];
+        $currentDate = Carbon::now();
+
+        for ($i = 0; $i < 6; $i++) {
+            $month = $currentDate->copy()->subMonths($i);
+            $monthName = 'Tháng ' . $month->format('n') . '-' . $month->format('Y');
+            $monthStart = $month->copy()->startOfMonth()->setTime(0, 0, 0);
+            $monthEnd = $month->copy()->endOfMonth()->setTime(23, 59, 59);
+
+            // For the current month, limit to today (May 17, 2025, 10:06 PM +07)
+            if ($i === 0) {
+                $monthEnd = Carbon::today()->setTime(23, 59, 59); // Today at 23:59:59
+            }
+
+            // Calculate days in the month for the chart
+            $daysInMonth = $monthStart->diffInDays($monthEnd) + 1;
+            $dailyRegistrations = [];
+            $dailyTransactions = [
+                1 => [], // Type 1: Nạp tiền (Deposit)
+                2 => [], // Type 2: Mua tài liệu (Buy Document)
+                3 => [], // Type 3: Tải lên tài liệu (Upload Document)
+                4 => [], // Type 4: Tải xuống tài liệu (Download Document)
+            ];
+
+            // Initialize arrays for each day
+            for ($day = 0; $day < $daysInMonth; $day++) {
+                $dayDate = $monthStart->copy()->addDays($day);
+                $dayLabel = $dayDate->format('d/m'); // e.g., "01/05"
+                $dailyRegistrations[$dayLabel] = 0; // Initialize registration count
+                foreach ($dailyTransactions as $type => $data) {
+                    $dailyTransactions[$type][$dayLabel] = 0; // Initialize transaction counts
+                }
+            }
+
+            // Fetch registration data from users table
+            $registrations = User::selectRaw('DATE(created_at) as registration_date, COUNT(*) as registration_count')
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->groupBy('registration_date')
+                ->get();
+
+            foreach ($registrations as $registration) {
+                $dayLabel = Carbon::parse($registration->registration_date)->format('d/m');
+                $dailyRegistrations[$dayLabel] = $registration->registration_count;
+            }
+
+            $registrationStats[$monthName] = [
+                'labels' => array_keys($dailyRegistrations),
+                'data' => array_values($dailyRegistrations),
+            ];
+
+            // Fetch transaction data for each type (unchanged)
+            for ($type = 1; $type <= 4; $type++) {
+                $transactions = Transaction::selectRaw('DATE(created_at) as transaction_date, COUNT(*) as transaction_count')
+                    ->where('type', $type)
+                    ->whereBetween('created_at', [$monthStart, $monthEnd])
+                    ->groupBy('transaction_date')
+                    ->get();
+
+                foreach ($transactions as $transaction) {
+                    $dayLabel = Carbon::parse($transaction->transaction_date)->format('d/m');
+                    $dailyTransactions[$type][$dayLabel] = $transaction->transaction_count;
+                }
+            }
+
+            $transactionStats[$monthName] = [
+                'labels' => array_keys($dailyRegistrations), // Same labels as registrations (days of the month)
+                'data' => [
+                    array_values($dailyTransactions[1]), // Type 1
+                    array_values($dailyTransactions[2]), // Type 2
+                    array_values($dailyTransactions[3]), // Type 3
+                    array_values($dailyTransactions[4]), // Type 4
+                ],
+            ];
+        }
+
+        return view('admin.statistic.user-statistic', compact('registrationStats', 'transactionStats'));
     }
 }

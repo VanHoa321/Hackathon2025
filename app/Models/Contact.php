@@ -12,6 +12,8 @@ class Contact extends Model
         'user_id',
         'message',
         'is_read',
+        'reply_message',
+        'replied_at'
     ];
 
     protected $table = 'contacts';
