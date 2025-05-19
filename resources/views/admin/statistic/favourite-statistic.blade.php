@@ -32,6 +32,7 @@
                                         <th>Tên tài liệu</th>
                                         <th>Danh mục</th>
                                         <th>Số lượt yêu thích</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +43,13 @@
                                             <td>{{ $item->title }}</td>
                                             <td>{{ $item->category->name ?? 'N/A' }}</td>
                                             <td>{{ $item->favourite_count }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.favourites.list', $item->id) }}" 
+                                                   class="btn btn-info btn-sm" 
+                                                   title="Xem danh sách người yêu thích">
+                                                    <i class="fa-solid fa-eye"></i> Xem
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

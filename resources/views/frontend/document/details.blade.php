@@ -46,7 +46,23 @@
                         <div class="shop-single-info">
                             <h4 class="shop-single-title">{{ $item->title }}</h4>
                             <div class="shop-single-rating">
-                                {{ number_format( $averageRating, 1) }}/10 điểm đánh giá
+                                @php
+                                    $fullStars = floor($averageRating);
+                                    $hasHalfStar = ($averageRating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                @endphp
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
+                                @if ($hasHalfStar)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
+                            </div>
+                            <div class="shop-single-rating">
+                                {{ number_format( $averageRating, 1) }}/5 điểm đánh giá
                                 <span class="rating-count"> ({{ $ratingCount }} đánh giá)</span>
                             </div>
                             <div class="shop-single-price">
@@ -97,7 +113,9 @@
                                                     @endif
                                                 @endauth
                                             @else
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#purchaseModal" class="theme-btn"><i class="fa-solid fa-cart-shopping me-1"></i>Mua tài liệu ({{ number_format($item->price, 0, ',', '.') }}đ)</a>
+                                                @if ($item->uploaded_by != Auth::id())
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#purchaseModal" class="theme-btn"><i class="fa-solid fa-cart-shopping me-1"></i>Mua tài liệu ({{ number_format($item->price, 0, ',', '.') }}đ)</a>                        
+                                                @endif
                                             @endif
                                             @auth
                                                 <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
@@ -224,8 +242,18 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Điểm đánh giá (từ 0.0 đến 10.0)</label>
-                                                    <input type="number" step="0.1" min="0" max="10" id="ratingInput" name="rating" value="{{ $userRating->rating ?? '' }}" class="form-control" placeholder="0.0" required>
+                                                    <label>Đánh giá tài liệu</label>
+                                                    <div class="star-rating" style="font-size: 24px; cursor: pointer;">
+                                                        <input type="hidden" id="ratingInput" name="rating" value="{{ $userRating ? $userRating->rating : '' }}">
+                                                        <i class="far fa-star" data-value="1"></i>
+                                                        <i class="far fa-star" data-value="2"></i>
+                                                        <i class="far fa-star" data-value="3"></i>
+                                                        <i class="far fa-star" data-value="4"></i>
+                                                        <i class="far fa-star" data-value="5"></i>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        <span id="ratingValue">0/5 điểm</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +370,27 @@
                                             </div>
                                             <div class="product-bottom">
                                                 <div class="product-price">
-                                                    <span><i class="fa-solid fa-star"></i> 9.0/10.0 (10 lượt đánh giá)</span>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    {{ number_format($recommendation->average_rating, 1) }}/5 điểm đánh giá
+                                                    <span class="rating-count"> ({{ $recommendation->rating_count }} đánh giá)</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-bottom">
+                                                <div class="shop-single-rating">
+                                                    @php
+                                                        $recfullStars = floor($recommendation->average_rating);
+                                                        $rechasHalfStar = ($recommendation->average_rating - $recfullStars) >= 0.5;
+                                                        $recemptyStars = 5 - $recfullStars - ($rechasHalfStar ? 1 : 0);
+                                                    @endphp
+                                                    @for ($i = 0; $i < $recfullStars; $i++)
+                                                        <i class="fas fa-star"></i>
+                                                    @endfor
+                                                    @if ($rechasHalfStar)
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    @endif
+                                                    @for ($i = 0; $i < $recemptyStars; $i++)
+                                                        <i class="far fa-star"></i>
+                                                    @endfor
                                                 </div>
                                             </div>
                                             <div class="product-bottom">
@@ -487,10 +535,63 @@
     </script>
     <script>
         $(document).ready(function() {
-            // Lưu đánh giá
+            
+            // Star rating functionality
+            const stars = $('.star-rating i');
+            const ratingInput = $('#ratingInput');
+            const ratingValueDisplay = $('#ratingValue');
+
+            // Initialize stars based on existing rating
+            function updateStarDisplay(rating) {
+                stars.each(function() {
+                    const value = parseInt($(this).data('value'));
+                    if (rating >= value) {
+                        $(this).removeClass('far').addClass('fas');
+                    } else {
+                        $(this).removeClass('fas').addClass('far');
+                    }
+                });
+                ratingValueDisplay.text(`${rating}/5 điểm`);
+                ratingInput.val(rating);
+            }
+
+            // Set initial rating if exists
+            if (ratingInput.val()) {
+                updateStarDisplay(parseInt(ratingInput.val()));
+            }
+
+            // Handle star clicks
+            stars.on('click', function() {
+                const rating = parseInt($(this).data('value'));
+                updateStarDisplay(rating);
+            });
+
+            // Handle hover effects
+            stars.on('mouseenter', function() {
+                const rating = parseInt($(this).data('value'));
+                stars.each(function() {
+                    const value = parseInt($(this).data('value'));
+                    if (rating >= value) {
+                        $(this).removeClass('far').addClass('fas');
+                    } else {
+                        $(this).removeClass('fas').addClass('far');
+                    }
+                });
+            });
+
+            // Reset to selected rating on mouse leave
+            stars.on('mouseleave', function() {
+                updateStarDisplay(parseInt(ratingInput.val()) || 0);
+            });
+
+            // Save rating
             $('#ratingForm').on('submit', function(e) {
                 e.preventDefault();
-                const rating = $('#ratingInput').val();
+                const rating = ratingInput.val();
+                if (!rating || rating == 0) {
+                    toastr.error('Vui lòng chọn số sao để đánh giá.');
+                    return;
+                }
                 $.ajax({
                     url: '{{ route("frontend.document.rate", $item->id) }}',
                     method: 'POST',
@@ -508,7 +609,7 @@
                 });
             });
 
-            // Xóa đánh giá
+            // Delete rating
             $('#deleteRatingBtn').on('click', function() {
                 $.ajax({
                     url: '{{ route("frontend.document.unrate", $item->id) }}',

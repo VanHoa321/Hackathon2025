@@ -105,6 +105,7 @@
                                                         </select>
                                                     </div>
                                                 </div>            
+                                                
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -119,7 +120,8 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Phí tải về</label>
-                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100000" value="{{old('price')}}">
+                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100" value="{{old('price')}}">
+                                                        <em>Quy ước: 1đ = 1.000 VNĐ</em>
                                                     </div>
                                                 </div>
                                             </div>

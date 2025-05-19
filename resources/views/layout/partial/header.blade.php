@@ -84,6 +84,7 @@
                             <li class="nav-item"><a class="nav-link" href="{{ route("frontend.mydocument") }}">Đăng tải tài liệu</a></li>
                         @endauth
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.post.index") }}">Bài viết</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route("frontend.author.index") }}">Tác giả</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.about-us") }}">Giới thiệu</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route("frontend.home.contact-us") }}">Liên hệ</a></li>
                     </ul>

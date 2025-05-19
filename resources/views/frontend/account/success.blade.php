@@ -52,8 +52,8 @@
                                         <div class="user-form">
                                             <div style="text-align: center;">
                                                 <img src="http://127.0.0.1:8000/storage/files/1/Slider/8183434.jpg" alt="Đặt bàn thành công" style="max-width: 350px; margin: 0 auto;">
-                                                <h3 class="mt-3 text-success"><em>Nạp tiền vào tài khoản thành công!</em></h3>
-                                                <h5 class="text-success bold mt-2"><em>Số tiền: {{ number_format(session('amount'), 0, ',', '.') }} VNĐ</em></h5>
+                                                <h3 class="mt-3 text-success"><em>Nạp điểm vào tài khoản thành công!</em></h3>
+                                                <h5 class="text-success bold mt-2"><em>Số điểm: {{ session('amount') }}</em></h5>
                                                 <a href="{{ route('frontend.point') }}" class="theme-btn mt-4">Tạo giao dịch mới</a>
                                             </div>
                                         </div>

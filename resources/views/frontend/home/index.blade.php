@@ -34,88 +34,6 @@
     </div>
     <!-- hero slider end -->
 
-    <!-- category area -->
-    <div class="category-area4 pt-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 mx-auto">
-                    <div class="site-heading text-center wow fadeInDown" data-wow-delay=".25s">
-                        <h2 class="site-title">Danh mục <span>tài liệu</span></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <div class="category-item wow fadeInLeft" data-wow-delay=".25s">
-                        <a href="#">
-                            <div class="category-img-box">
-                                <div class="category-img">
-                                    <img src="/web-assets/img/category/bc6.jpg" alt="">
-                                    <div class="category-img-info">
-                                        <h4>Living Room</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="category-item wow fadeInUp" data-wow-delay=".25s">
-                        <a href="#">
-                            <div class="category-img-box">
-                                <div class="category-img">
-                                    <img src="/web-assets/img/category/bc7.jpg" alt="">
-                                    <div class="category-img-info">
-                                        <h4>Tables & Chairs</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="category-item wow fadeInDown" data-wow-delay=".25s">
-                        <a href="#">
-                            <div class="category-img-box">
-                                <div class="category-img">
-                                    <img src="/web-assets/img/category/bc8.jpg" alt="">
-                                    <div class="category-img-info">
-                                        <h4>Dining Furniture</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="category-item wow fadeInRight" data-wow-delay=".25s">
-                        <a href="#">
-                            <div class="category-img-box">
-                                <div class="category-img">
-                                    <img src="/web-assets/img/category/bc9.jpg" alt="">
-                                    <div class="category-img-info">
-                                        <h4>Office Furniture</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="category-item wow fadeInUp" data-wow-delay=".25s">
-                        <a href="#">
-                            <div class="category-img-box">
-                                <div class="category-img">
-                                    <img src="/web-assets/img/category/bc10.jpg" alt="">
-                                    <div class="category-img-info">
-                                        <h4>Kids Furniture</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- category area end-->
-
     <div class="product-area pt-80">
         <div class="container">
             <div class="row">
@@ -160,8 +78,21 @@
                             </div>
                         </div>
                         <div class="product-bottom">
-                            <div class="product-price">
-                                <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
+                            <div class="shop-single-rating">
+                                @php
+                                    $fullStars = floor($item->average_rating);
+                                    $hasHalfStar = ($item->average_rating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                @endphp
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
+                                @if ($hasHalfStar)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
                             </div>
                         </div>
                         <div class="product-bottom">
@@ -228,8 +159,21 @@
                             </div>
                         </div>
                         <div class="product-bottom">
-                            <div class="product-price">
-                                <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
+                            <div class="shop-single-rating">
+                                @php
+                                    $fullStars = floor($item->average_rating);
+                                    $hasHalfStar = ($item->average_rating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                @endphp
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
+                                @if ($hasHalfStar)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
                             </div>
                         </div>
                         <div class="product-bottom">
@@ -294,10 +238,23 @@
                                 </div>
                             </div>
                             <div class="product-bottom">
-                                <div class="product-price">
-                                    <span><i class="fa-solid fa-star"></i> {{ number_format($item->average_rating, 1) }} /10.0 ({{ $item->rating_count }} đánh giá)</span>
-                                </div>
+                            <div class="shop-single-rating">
+                                @php
+                                    $fullStars = floor($item->average_rating);
+                                    $hasHalfStar = ($item->average_rating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                @endphp
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fas fa-star"></i>
+                                @endfor
+                                @if ($hasHalfStar)
+                                    <i class="fas fa-star-half-alt"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="far fa-star"></i>
+                                @endfor
                             </div>
+                        </div>
                             <div class="product-bottom">
                                 <div class="product-price">
                                     <span><i class="fa-solid fa-eye"></i> {{ $item->view_count }} lượt xem</span>

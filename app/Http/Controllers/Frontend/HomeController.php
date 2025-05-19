@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Contact;
 use App\Models\Document;
 use App\Models\Favourite;

@@ -33,6 +33,7 @@
                                         <th>Danh mục</th>
                                         <th>Điểm trung bình</th>
                                         <th>Số lượt đánh giá</th>
+                                        <th>Chức năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,6 +45,13 @@
                                             <td>{{ $item->category->name ?? 'N/A' }}</td>
                                             <td>{{ number_format($item->average_rating, 2) }}</td>
                                             <td>{{ $item->rating_count }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.ratings.list', $item->id) }}" 
+                                                   class="btn btn-info btn-sm" 
+                                                   title="Xem danh sách người đánh giá">
+                                                    <i class="fa-solid fa-eye"></i> Xem
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

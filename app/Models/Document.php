@@ -67,4 +67,9 @@ class Document extends Model
     {
         return $this->belongsTo(User::class, 'uploaded_by');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'document_id');
+    }
 }

@@ -39,7 +39,7 @@ class StatisticController extends Controller
             $month = $currentDate->copy()->subMonths($i);
             $monthName = 'Tháng ' . $month->format('n') . '-' . $month->format('Y');
             $monthStart = $month->copy()->startOfMonth()->setTime(0, 0, 0);
-            $monthEnd = $month->copy()->endOfMonth()->setTime(23, 59, 59); 
+            $monthEnd = $month->copy()->endOfMonth()->setTime(23, 59, 59);
 
 
             // Average rating stats (top 10 documents by average rating up to month end)
@@ -74,6 +74,23 @@ class StatisticController extends Controller
             ];
         }
         return view('admin.statistic.rating-statistic', compact('documents', 'monthlyStats', 'monthlyRatingCountStats'));
+    }
+
+    public function ratingList($documentId)
+    {
+        try {
+            $document = Document::findOrFail($documentId);
+            $ratings = Rating::where('document_id', $documentId)
+                ->with('user')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('admin.statistic.rating-list', compact('document', 'ratings'));
+        } catch (\Exception $e) {
+            Log::error('Error in ratingList', ['error' => $e->getMessage(), 'document_id' => $documentId]);
+            return redirect()->route('statistic.rating')
+                ->with('error', 'Không thể tải danh sách người đánh giá. Vui lòng thử lại.');
+        }
     }
 
     public function favouriteStatistic()
@@ -244,7 +261,41 @@ class StatisticController extends Controller
         return view('admin.statistic.comment-statistic', compact('documents', 'topCommentDocumentsData', 'weeklyCommentStats'));
     }
 
-    public function userTransactionStatistic()
+    public function commentList($documentId)
+    {
+        try {
+            $document = Document::findOrFail($documentId);
+            $comments = DocumentComment::where('document_id', $documentId)
+                ->with('user')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('admin.statistic.comment-list', compact('document', 'comments'));
+        } catch (\Exception $e) {
+            Log::error('Error in commentList', ['error' => $e->getMessage(), 'document_id' => $documentId]);
+            return redirect()->route('statistic.comment')
+                ->with('error', 'Không thể tải danh sách bình luận. Vui lòng thử lại.');
+        }
+    }
+
+    public function favouriteList($documentId)
+    {
+        try {
+            $document = Document::findOrFail($documentId);
+            $favourites = Favourite::where('document_id', $documentId)
+                ->with('user')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return view('admin.statistic.favourite-list', compact('document', 'favourites'));
+        } catch (\Exception $e) {
+            Log::error('Error in favouriteList', ['error' => $e->getMessage(), 'document_id' => $documentId]);
+            return redirect()->route('statistic.favourite')
+                ->with('error', 'Không thể tải danh sách người yêu thích. Vui lòng thử lại.');
+        }
+    }
+
+    public function userStatistic()
     {
         // Prepare data for registration charts (last 6 months)
         $registrationStats = [];
@@ -270,6 +321,8 @@ class StatisticController extends Controller
                 2 => [], // Type 2: Mua tài liệu (Buy Document)
                 3 => [], // Type 3: Tải lên tài liệu (Upload Document)
                 4 => [], // Type 4: Tải xuống tài liệu (Download Document)
+                5 => [], // Type 5: Tài liệu tải lên được duyệt (Approved Upload)
+                6 => [], // Type 6: Tài liệu tải lên được mua (Purchased Upload)
             ];
 
             // Initialize arrays for each day
@@ -299,7 +352,7 @@ class StatisticController extends Controller
             ];
 
             // Fetch transaction data for each type (unchanged)
-            for ($type = 1; $type <= 4; $type++) {
+            for ($type = 1; $type <= 6; $type++) {
                 $transactions = Transaction::selectRaw('DATE(created_at) as transaction_date, COUNT(*) as transaction_count')
                     ->where('type', $type)
                     ->whereBetween('created_at', [$monthStart, $monthEnd])
@@ -319,10 +372,193 @@ class StatisticController extends Controller
                     array_values($dailyTransactions[2]), // Type 2
                     array_values($dailyTransactions[3]), // Type 3
                     array_values($dailyTransactions[4]), // Type 4
+                    array_values($dailyTransactions[5]), // Type 5
+                    array_values($dailyTransactions[6]), // Type 6
                 ],
             ];
         }
 
         return view('admin.statistic.user-statistic', compact('registrationStats', 'transactionStats'));
     }
+
+    public function userTransactionOverview()
+    {
+        $users = User::orderBy('point', 'desc')->get();
+        return view('admin.statistic.user-transaction-overview', compact('users'));
+    }
+
+        public function userTransactionDetail($userId)
+    {
+        $user = User::findOrFail($userId);
+        $transactionStats = [];
+        $currentDate = Carbon::now();
+
+        for ($i = 0; $i < 6; $i++) {
+            $month = $currentDate->copy()->subMonths($i);
+            $monthName = 'Tháng ' . $month->format('n') . '-' . $month->format('Y');
+            $monthStart = $month->copy()->startOfMonth()->setTime(0, 0, 0);
+            $monthEnd = $month->copy()->endOfMonth()->setTime(23, 59, 59);
+
+            // For the current month, limit to today (May 18, 2025)
+            if ($i === 0) {
+                $monthEnd = Carbon::today()->setTime(23, 59, 59); // Today at 23:59:59
+            }
+
+            // Calculate days in the month for the chart
+            $daysInMonth = $monthStart->diffInDays($monthEnd) + 1;
+            $dailyDeposits = [
+                1 => [], // Type 1: Nạp tiền
+                5 => [], // Type 5: Tài liệu tải lên được duyệt
+                6 => [], // Type 6: Tài liệu tải lên được mua
+                'total' => [], // Total deposits
+            ];
+            $dailySpends = [
+                2 => [], // Type 2: Mua tài liệu
+                'total' => [], // Total spends
+            ];
+
+            // Initialize arrays for each day
+            for ($day = 0; $day < $daysInMonth; $day++) {
+                $dayDate = $monthStart->copy()->addDays($day);
+                $dayLabel = $dayDate->format('d/m'); // e.g., "01/05"
+                $dailyDeposits[1][$dayLabel] = 0; // Initialize Type 1
+                $dailyDeposits[5][$dayLabel] = 0; // Initialize Type 5
+                $dailyDeposits[6][$dayLabel] = 0; // Initialize Type 6
+                $dailyDeposits['total'][$dayLabel] = 0; // Initialize total deposits
+                $dailySpends[2][$dayLabel] = 0; // Initialize Type 2
+                $dailySpends['total'][$dayLabel] = 0; // Initialize total spends
+            }
+
+            // Fetch deposit transactions (type 1 and 5)
+            $deposits = Transaction::selectRaw('DATE(created_at) as transaction_date, type, SUM(amount) as total_amount')
+                ->where('user_id', $userId)
+                ->whereIn('type', [1, 5, 6])
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->groupBy('transaction_date', 'type')
+                ->get();
+
+            foreach ($deposits as $deposit) {
+                $dayLabel = Carbon::parse($deposit->transaction_date)->format('d/m');
+                $dailyDeposits[$deposit->type][$dayLabel] = $deposit->total_amount ?? 0;
+                $dailyDeposits['total'][$dayLabel] += $deposit->total_amount ?? 0;
+            }
+
+            // Fetch spend transactions (type 2)
+            $spends = Transaction::selectRaw('DATE(created_at) as transaction_date, type, SUM(amount) as total_amount')
+                ->where('user_id', $userId)
+                ->where('type', 2)
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->groupBy('transaction_date', 'type')
+                ->get();
+
+            foreach ($spends as $spend) {
+                $dayLabel = Carbon::parse($spend->transaction_date)->format('d/m');
+                $dailySpends[$spend->type][$dayLabel] = $spend->total_amount ?? 0;
+                $dailySpends['total'][$dayLabel] = $spend->total_amount ?? 0; // Since only Type 2, total = Type 2
+            }
+
+            $transactionStats[$monthName] = [
+                'labels' => array_keys($dailyDeposits[1]), // Same labels for all (days of the month)
+                'deposit_data' => [
+                    array_values($dailyDeposits[1]), // Type 1
+                    array_values($dailyDeposits[5]), // Type 5
+                    array_values($dailyDeposits[6]), // Type 6
+                    array_values($dailyDeposits['total']), // Total deposits
+                ],
+                'spend_data' => [
+                    array_values($dailySpends[2]), // Type 2
+                    array_values($dailySpends['total']), // Total spends
+                ],
+            ];
+        }
+
+        return view('admin.statistic.user-transaction-detail', compact('user', 'transactionStats'));
+    }
+
+    public function documentTransactionOverview()
+    {
+        // Get documents sorted by the number of transactions
+        $documents = Document::select('documents.*')
+            ->leftJoin('transactions', 'documents.id', '=', 'transactions.document_id')
+            ->groupBy('documents.id')
+            ->orderByRaw('COUNT(transactions.id) DESC')
+            ->get();
+
+        return view('admin.statistic.document-transaction-overview', compact('documents'));
+    }
+
+    public function documentTransactionDetail($documentId)
+    {
+        $document = Document::findOrFail($documentId);
+
+        // Fetch transactions related to this document with user details
+        $transactions = Transaction::where('document_id', $documentId)
+            ->with('user') // Eager load user relationship
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Prepare data for charts (last 6 months)
+        $transactionStats = [];
+        $currentDate = Carbon::now();
+
+        for ($i = 0; $i < 6; $i++) {
+            $month = $currentDate->copy()->subMonths($i);
+            $monthName = 'Tháng ' . $month->format('n') . '-' . $month->format('Y');
+            $monthStart = $month->copy()->startOfMonth()->setTime(0, 0, 0);
+            $monthEnd = $month->copy()->endOfMonth()->setTime(23, 59, 59);
+
+            // For the current month, limit to today (May 18, 2025, 08:30 AM +07)
+            if ($i === 0) {
+                $monthEnd = Carbon::today()->setTime(23, 59, 59); // Today at 23:59:59
+            }
+
+            // Calculate days in the month for the chart
+            $daysInMonth = $monthStart->diffInDays($monthEnd) + 1;
+            $dailyPurchases = []; // Points from purchases (type 2)
+            $dailyDownloads = []; // Number of downloads (type 4)
+
+            // Initialize arrays for each day
+            for ($day = 0; $day < $daysInMonth; $day++) {
+                $dayDate = $monthStart->copy()->addDays($day);
+                $dayLabel = $dayDate->format('d/m'); // e.g., "01/05"
+                $dailyPurchases[$dayLabel] = 0; // Initialize purchase points
+                $dailyDownloads[$dayLabel] = 0; // Initialize download count
+            }
+
+            // Fetch purchase transactions (type 2) - Sum of points
+            $purchases = Transaction::selectRaw('DATE(created_at) as transaction_date, SUM(amount) as total_amount')
+                ->where('document_id', $documentId)
+                ->where('type', 2) // Type 2: Mua tài liệu
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->groupBy('transaction_date')
+                ->get();
+
+            foreach ($purchases as $purchase) {
+                $dayLabel = Carbon::parse($purchase->transaction_date)->format('d/m');
+                $dailyPurchases[$dayLabel] = $purchase->total_amount ?? 0;
+            }
+
+            // Fetch download transactions (type 4) - Count of downloads
+            $downloads = Transaction::selectRaw('DATE(created_at) as transaction_date, COUNT(*) as download_count')
+                ->where('document_id', $documentId)
+                ->where('type', 4) // Type 4: Tải xuống tài liệu
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->groupBy('transaction_date')
+                ->get();
+
+            foreach ($downloads as $download) {
+                $dayLabel = Carbon::parse($download->transaction_date)->format('d/m');
+                $dailyDownloads[$dayLabel] = $download->download_count ?? 0;
+            }
+
+            $transactionStats[$monthName] = [
+                'labels' => array_keys($dailyPurchases), // Same labels for both (days of the month)
+                'purchase_data' => array_values($dailyPurchases), // Points from purchases
+                'download_data' => array_values($dailyDownloads), // Number of downloads
+            ];
+        }
+
+        return view('admin.statistic.document-transaction-detail', compact('document', 'transactions', 'transactionStats'));
+    }
+
 }

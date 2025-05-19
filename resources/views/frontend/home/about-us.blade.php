@@ -140,9 +140,9 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-6 col-lg-3">
-                    <div class="team-item wow fadeInUp" data-wow-delay=".25s">
-                        <div class="team-img">
-                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
+                    <div class="team-item wow fadeInUp" data-wow-delay=".25s" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="team-img" style="width:250px; height:250px">
+                            <img src="/web-assets/img/team/03.jpg" alt="thumb" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
@@ -159,9 +159,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="team-item wow fadeInUp" data-wow-delay=".50s">
-                        <div class="team-img">
-                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
+                    <div class="team-item wow fadeInUp" data-wow-delay=".50s" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="team-img" style="width:250px; height:250px">
+                            <img src="/web-assets/img/team/03.jpg" alt="thumb" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
@@ -178,9 +178,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="team-item wow fadeInUp" data-wow-delay=".75s">
-                        <div class="team-img">
-                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
+                    <div class="team-item wow fadeInUp" data-wow-delay=".75s" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="team-img" style="width:250px; height:250px">
+                            <img src="/storage/files/1/Avatar/DSC_2061.jpg" alt="thumb" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">
@@ -197,9 +197,9 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="team-item wow fadeInUp" data-wow-delay="1s">
-                        <div class="team-img">
-                            <img src="/web-assets/img/team/03.jpg" alt="thumb">
+                    <div class="team-item wow fadeInUp" data-wow-delay="1s" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="team-img" style="width:250px; height:250px">
+                            <img src="/storage/files/1/Avatar/dinhanh.jpg" alt="thumb" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="team-content">
                             <div class="team-bio">

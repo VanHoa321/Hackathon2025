@@ -52,15 +52,32 @@
                                         <div class="user-form">
                                             <form action="{{ route('frontend.deposit') }}" method="POST">
                                                 @csrf
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label>Số tiền nạp</label>
-                                                            <input type="number" name="point" class="form-control" placeholder="VD: 100000" required min="1000" step="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');">                                                   
-                                                        </div>
-                                                    </div>                                                   
+                                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+                                                    <div style="width: 100%; display: flex; align-items: center; justify-content: center; row-gap: 2;">
+                                                        <input class="input-coin" style="flex: 1; margin-right: 10px" type="text" placeholder="Nhập số tiền ..." id="display-input" />
+                                                        <input name="point" type="hidden" id="real-value" />
+                                                        <button class="button-coin"
+                                                            style="transition: all 0.3s ease-in-out; outline: none; border: none; padding: 10px 30px; border-radius: 8px; color: white; background-color: #11b76b;">
+                                                            <i class="fa fa-wallet"></i>
+                                                            Nạp tiền
+                                                        </button>
+                                                    </div>
+                                                    <div
+                                                        style="display: flex; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 15px;">
+                                                        <div value="20000" class="btn-coin">100.000 đ</div>
+                                                        <div class="btn-coin">200.000 đ</div>
+                                                        <div class="btn-coin">300.000 đ</div>
+                                                        <div class="btn-coin">400.000 đ</div>
+                                                        <div class="btn-coin">500.000 đ</div>
+                                                        <div class="btn-coin">600.000 đ</div>
+                                                        <div class="btn-coin">700.000 đ</div>
+                                                        <div class="btn-coin">800.000 đ</div>
+                                                        <div class="btn-coin">1.000.000đ</div>
+                                                        <div class="btn-coin">2.000.000đ</div>
+                                                        <div class="btn-coin">3.000.000đ</div>
+                                                        <div class="btn-coin">4.000.000đ</div>
+                                                    </div>
                                                 </div>
-                                                <button type="submit" class="theme-btn"><span class="far fa-key"></span> Nạp tiền</button>
                                             </form>
                                             <div class="col-md-12">
                                                 <input type="hidden" id="thumbnail" value="{{ old('avatar', auth()->user()->avatar) }}">
@@ -75,4 +92,64 @@
             </div>
         </div>
     </main>
+@endsection
+@section('styles')
+    <style>
+        .input-coin {
+            padding: 10px 20px;
+            width: 100%;
+            height: 45px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #7e7d7d;
+        }
+
+        .input-coin:focus {
+            border-color: #11b76b;
+        }
+
+        .button-coin:hover {
+            background-color: #2ed98c !important;
+        }
+
+        .btn-coin {
+            padding: 20px 40px;
+            width: 220px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-coin:hover {
+            border-color: #11b76b;
+        }
+    </style>
+@endsection
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const displayInput = document.getElementById("display-input");
+            const realValueInput = document.getElementById("real-value");
+            const btnCoins = document.querySelectorAll(".btn-coin");
+
+            function formatVND(value) {
+                return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            btnCoins.forEach((btn) => {
+                btn.addEventListener("click", function() {
+                    const raw = this.textContent.replace(/[^\d]/g, "");
+                    const formatted = formatVND(raw);
+                    displayInput.value = formatted;
+                    realValueInput.value = raw;
+
+                    console.log("Giá trị thực tế:", realValueInput.value);
+                });
+            });
+        });
+    </script>
 @endsection

@@ -87,6 +87,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            
                                                             <div class="col-md-12 mb-2">
                                                                 <label>Tải lên tài liệu</label>
                                                                 <div class="d-flex align-items-center gap-2">
@@ -96,7 +97,25 @@
                                                                     <input id="thumbnail2" class="form-control d-none" type="text" name="file_path" value="{{ old('file_path') }}">
                                                                     <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da; padding: 10px; display: inline-block; min-height: 44px;"></span>
                                                                 </div>
-                                                            </div>                                                                                                                                                                                
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Hình thức</label>
+                                                                        <select name="is_free" class="select">
+                                                                            <option value="1" {{ old('is_free') == 1 ? 'selected' : '' }}>Miễn phí</option>
+                                                                            <option value="0" {{ old('is_free') == 0 ? 'selected' : '' }}>Mất phí</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Phí tải về</label>
+                                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100" value="{{old('price')}}">
+                                                                        <em>Quy ước: 1đ = 1.000 VNĐ</em>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                                                                                                                                              
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label>Mô tả</label>
@@ -175,6 +194,28 @@
             setTimeout(function() {
                 $("#myAlert").fadeOut(500);
             },3500);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            function togglePriceField() {
+                let isFree = $('select[name="is_free"]').val();
+                if (isFree == 1) {
+                    $('input[name="price"]').val('');
+                    $('input[name="price"]').prop('readonly', true);
+                    $('input[name="price"]').css('background-color', '#e0e0e0');
+                } else {
+                    $('input[name="price"]').prop('readonly', false);
+                    $('input[name="price"]').css('background-color', 'white');
+                }
+            }
+
+            togglePriceField();
+
+            $('select[name="is_free"]').change(function () {
+                togglePriceField();
+            });
         });
     </script>
 @endsection

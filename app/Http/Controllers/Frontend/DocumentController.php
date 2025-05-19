@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\DocumentComment;
@@ -25,7 +26,8 @@ class DocumentController extends Controller
     {
         $categories = DocumentCategory::withCount('documents')->where('is_active', 1)->get();
         $publishers = Publisher::withCount('documents')->where('is_active', 1)->get();
-        return view('frontend.document.index', compact('categories', 'publishers'));
+        $authors = Author::withCount('documents')->where('is_active', 1)->get();
+        return view('frontend.document.index', compact('categories', 'publishers', 'authors'));
     }
 
     public function getData(Request $request)
@@ -158,10 +160,6 @@ class DocumentController extends Controller
             return redirect()->back()->with('error', 'Bạn cần mua tài liệu này để tải xuống!');
         }
 
-        if (!$document->is_free) {
-            return redirect()->back()->with('error', 'Tài liệu này không miễn phí!');
-        }
-
         $relativePath = $document->file_path;
 
         $filePath = public_path('storage/' . $relativePath);
@@ -238,6 +236,13 @@ class DocumentController extends Controller
 
     private function hasPurchasedDocument($userId, $documentId)
     {
+
+        $document = Document::find($documentId);
+
+        if ($document->uploaded_by == $userId) {
+            return true;
+        }
+
         return Transaction::where('user_id', $userId)
             ->where('document_id', $documentId)
             ->where('type', 2)
@@ -270,6 +275,21 @@ class DocumentController extends Controller
 
         $user = User::find(Auth::user()->id);
         $user->point -= $document->price;
+
+        $uploader_id = $document->uploaded_by;
+        $uploaderUser = User::find($uploader_id);
+        if ($uploaderUser->role_id == 2) {
+            $uploaderUser->point += $document->price;
+            $uploaderUser->save();
+
+            Transaction::create([
+                'user_id' => $uploader_id,
+                'type' => 6,
+                'amount' => $document->price,
+                'document_id' => $document->id,
+                'note' => 'Nhận tiền từ mua tài liệu: ' . $document->title . ' từ khách hàng ' . $user->name
+            ]);
+        }
         $user->save();
 
         return redirect()->route('frontend.document.details', $id)->with('success', 'Mua tài liệu thành công! Bạn có thể tải xuống và sử dụng đầy đủ tính năng.');

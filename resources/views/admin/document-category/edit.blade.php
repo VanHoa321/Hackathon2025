@@ -37,6 +37,11 @@
                                     <div class="form-group">
                                         <label>Tên danh mục tài liệu</label>
                                         <input type="text" name="name" value="{{ old('name', $edit->name) }}" class="form-control" placeholder="VD: Tài liệu hướng dẫn">
+                                    </div>  
+                                    <div class="form-group">
+                                        <label>Điểm thưởng đăng tải</label>
+                                        <input type="number" name="reward" min="0" value="{{ old('reward', $edit->reward) }}" class="form-control" placeholder="VD: 20">
+                                        <em>Quy ước: 1 điểm = 1.000 VNĐ</em>
                                     </div>                                                               
                                     <div class="form-group">
                                         <label>Mô tả thêm</label>

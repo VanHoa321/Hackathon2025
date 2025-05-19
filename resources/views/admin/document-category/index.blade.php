@@ -45,6 +45,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Tên danh mục tài liệu</th>
+                                            <th>Điểm thưởng đăng tải</th>
                                             <th>Trạng thái</th>
                                             <th>Chức năng</th>
                                         </tr>
@@ -57,6 +58,7 @@
                                             <tr id="category-{{ $item->id }}">
                                                 <td>{{ $counter++ }}</td>
                                                 <td>{{ $item->name }}</td>
+                                                <td>{{ $item->reward }}</td>
                                                 <td>
                                                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                         <input type="checkbox" class="custom-control-input IsActive" id="customSwitch{{ $item->id }}" {{ $item->is_active ? 'checked' : '' }} value="{{ $item->id }}">

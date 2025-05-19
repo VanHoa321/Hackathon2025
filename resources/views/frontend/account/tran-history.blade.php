@@ -66,7 +66,7 @@
                                                         <tr>
                                                             <th>Loại giao dịch</th>
                                                             <th>Tài liệu</th>
-                                                            <th>Số tiền</th>
+                                                            <th>Số điểm</th>
                                                             <th>Nội dung</th>
                                                             <th>Ngày giao dịch</th>
                                                         </tr>
@@ -77,7 +77,7 @@
                                                                 <td>
                                                                     @switch($transaction->type)
                                                                         @case(1)
-                                                                            <span class="badge bg-success">Nạp tiền tài khoản</span>
+                                                                            <span class="badge bg-success">Nạp điểm tài khoản</span>
                                                                             @break
                                                                         @case(2)
                                                                             <span class="badge bg-primary">Mua tài liệu</span>
@@ -87,6 +87,12 @@
                                                                             @break
                                                                         @case(4)
                                                                             <span class="badge bg-warning">Tải xuống tài liệu</span>
+                                                                            @break
+                                                                        @case(5)
+                                                                            <span class="badge bg-success">Được phê duyệt tài liệu</span>
+                                                                            @break
+                                                                        @case(6)
+                                                                            <span class="badge bg-info">Cộng điểm tài liệu được tải</span>
                                                                             @break
                                                                         @default
                                                                             <span class="badge bg-secondary">Không xác định</span>

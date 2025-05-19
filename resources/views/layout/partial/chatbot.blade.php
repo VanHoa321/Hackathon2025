@@ -202,4 +202,83 @@
         }
     });
 </script>
+
+<script>
+    $('#chatbotDocumentContent2').on('dragover', function(event) {
+            event.preventDefault(); 
+            $(this).css('border', '2px dashed #00ff00'); 
+        });
+
+        $('#chatbotDocumentContent2').on('dragleave', function(event) {
+            event.preventDefault();
+            $(this).css('border', 'none');
+        });
+
+        $('#chatbotDocumentContent2').on('drop', function(event) {
+            event.preventDefault();
+            $(this).css('border', 'none');
+
+            let files = event.originalEvent.dataTransfer.files;
+            if (files.length > 0) {
+                let imageFile = files[0];
+                $("#chatbotIntro2").remove();
+                sendImage(imageFile);
+            }
+        });
+
+    function sendImage(imageFile) {
+            let formData = new FormData();
+            formData.append('image', imageFile);
+            let imageUrl = URL.createObjectURL(imageFile);
+            let userImageBubble = 
+            `<div class="d-flex justify-content-end mb-1">
+                <div class="bg-light p-2 rounded width-auto text-end">
+                    <img src="${imageUrl}" alt="User Image" class="img-fluid rounded" style="max-width: 100px; height: 100px">
+                </div>
+                <div class="ms-2">
+                    <img src="/storage/files/1/Avatar/12225935.png" alt="Avatar" class="img-fluid rounded-circle" style="width: 40px; height: 40px;">
+                </div>
+            </div>`;
+            $("#chatbotDocumentContent2").append(userImageBubble);
+            $("#chatbotDocumentContent2").animate({ scrollTop: $('#chatbotDocumentContent2')[0].scrollHeight }, 500);
+            $.ajax({
+                url: "/api/question",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    let loadingBubble = `
+                            <div id="loadingMessage" class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%"><i class="fas fa-spinner fa-spin"></i></div>
+                            </div>`;
+                    $("#chatbotDocumentContent2").append(loadingBubble);
+                    $("#chatbotDocumentContent2").animate({
+                        scrollTop: $('#chatbotDocumentContent2')[0].scrollHeight
+                    }, 500);
+                },
+                success: function(response) {
+                    $("#loadingMessage").remove();
+                    let botMessage = response.response_text;
+                    botMessage = botMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    botMessage = botMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    let botBubble =
+                        `<div class="d-flex align-items-start mb-3">
+                                <img src="/storage/files/1/Avatar/ai-avatar.jpg" alt="Bot icon" class="rounded-circle me-2" width="32" height="32" />
+                                <div class="bg-white rounded-3 px-3 py-2 shadow-sm" style="max-width: 75%">${botMessage}</div>
+                            </div>`;
+                    $("#chatbotDocumentContent2").append(botBubble);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
+                    toastr.error("Có lỗi xảy ra, đã ghi log trong console");
+                }
+            });
+        }
+</script>
 @endsection

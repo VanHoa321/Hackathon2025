@@ -13,3 +13,4 @@ Route::post('/ask-ai', [CallApiController::class, 'askAI']);
 Route::post('/summary', [CallApiController::class, 'summary']);
 Route::post('/tts', [CallApiController::class, 'tts']);
 Route::post('/generate-post', [CallApiController::class, 'generatePostContent']);
+Route::post('/question', [CallApiController::class, 'question']);

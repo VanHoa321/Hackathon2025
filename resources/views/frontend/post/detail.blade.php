@@ -31,8 +31,7 @@
                                         <div class="blog-meta-left">
                                             <ul>
                                                 <li><i class="far fa-user"></i><a href="#">{{ $post->user->name ?? 'Không hiện thị tác giả' }}</a></li>
-                                                <li><i class="far fa-comments"></i>{{ rand(100, 5000) }} Comments</li>
-                                                <li><i class="far fa-thumbs-up"></i>{{ rand(100, 2000) }} Like</li>
+                                                <li><i class="far fa-calendar"></i> {{ $post->created_at }}</li>
                                             </ul>
                                         </div>
                                         <div class="blog-meta-right">

@@ -155,4 +155,30 @@ class CallApiController extends Controller
         $audioContent = $response->body();
         return response($audioContent, 200)->header('Content-Type', 'audio/mpeg');
     }
+
+    public function question(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+        ]);
+
+        try {
+            $image = $request->file('image');
+            
+            $response = Http::attach(
+                'image', 
+                file_get_contents($image->getRealPath()),
+                $image->getClientOriginalName()
+            )->post('http://localhost:5006/question', [
+                'input_text' => $request->input('text', 'Hãy phân tích hình ảnh để tìm thông tin về tài liệu hoặc sách trong đó.')
+            ]);
+
+            return $response->json();
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Lỗi hệ thống: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

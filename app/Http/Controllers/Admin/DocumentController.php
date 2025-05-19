@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\Publisher;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -204,14 +205,17 @@ class DocumentController extends Controller
     {
         $destroy = Document::find($id);
         if ($destroy) {
-
-            $hasTransaction = Transaction::where('document_id', $id)->whereIn("type", [2, 4])->exists();
+            $transactions = Transaction::where('document_id', $id)->get();
+            $hasTransaction = Transaction::where('document_id', $id)->whereIn("type", [2, 4, 5])->exists();
 
             if ($hasTransaction) {
                 return response()->json(['success' => false, 'message' => 'Không thể xóa tài liệu vì đã có giao dịch liên quan']);
             }
             else{
                 $destroy->delete();
+                $transactions->each(function ($transaction) {
+                    $transaction->delete();
+                });
                 return response()->json(['success' => true, 'message' => 'Xóa tài liệu thành công']);
             }
         } else {
@@ -241,9 +245,25 @@ class DocumentController extends Controller
     public function approve($id)
     {
         $item = Document::findOrFail($id);
+        $category = DocumentCategory::find($item->category_id);
+        $reward = $category->reward;
+        $user = User::find($item->uploaded_by);
+
+        $user->point += $reward;
+        $user->save();
+
         $item->approve = 1;
         $item->status = 1;
         $item->save();
+        
+        Transaction::create([
+            'user_id' => $item->uploaded_by,
+            'type' => 5,
+            'document_id' => $item->id,
+            'amount' => $reward,
+            'note' => 'Cộng điểm đăng tải tài liệu: ' . $item->title,
+        ]);
+
         return response()->json(['success' => true, 'message' => 'Duyệt tài liệu thành công']);
     }
 

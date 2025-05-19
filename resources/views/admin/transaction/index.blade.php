@@ -66,6 +66,12 @@
                                                         @case(4)
                                                             <span class="badge bg-warning">Tải xuống tài liệu</span>
                                                             @break
+                                                        @case(5)
+                                                            <span class="badge bg-success">Được phê duyệt tài liệu</span>
+                                                            @break
+                                                        @case(6)
+                                                            <span class="badge bg-info">Cộng điểm tài liệu được tải</span>
+                                                            @break
                                                         @default
                                                             <span class="badge bg-secondary">Không xác định</span>
                                                         @endswitch

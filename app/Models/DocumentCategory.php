@@ -11,6 +11,7 @@ class DocumentCategory extends Model
 
     protected $fillable = [
         "name",
+        "reward",
         "description",
         "is_active"
     ];

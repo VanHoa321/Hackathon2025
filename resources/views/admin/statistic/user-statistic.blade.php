@@ -186,7 +186,23 @@
                             backgroundColor: 'rgba(153, 102, 255, 0.2)',
                             fill: true,
                             tension: 0.4
-                        }
+                        },
+                        {
+                            label: 'Phê duyệt tài liệu',
+                            data: transactionStats[month].data[4],
+                            borderColor: 'rgb(29, 255, 29)', 
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Tải liệu được tải',
+                            data: transactionStats[month].data[5],
+                            borderColor: 'rgb(255, 0, 221)', 
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            fill: true,
+                            tension: 0.4
+                        },
                     ]
                 },
                 options: {

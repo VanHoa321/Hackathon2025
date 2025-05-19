@@ -37,6 +37,11 @@
                                     <div class="form-group">
                                         <label>Tên danh mục tài liệu</label>
                                         <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="VD: Tài liệu hướng dẫn">
+                                    </div>  
+                                    <div class="form-group">
+                                        <label>Điểm thưởng đăng tải</label>
+                                        <input type="number" name="reward" min="0" value="{{ old('reward') }}" class="form-control" placeholder="VD: 20">
+                                        <em>Quy ước: 1 điểm = 1.000 VNĐ</em>
                                     </div>                                                               
                                     <div class="form-group">
                                         <label>Mô tả thêm</label>
@@ -69,6 +74,9 @@
                         required: true,
                         minlength: 2,
                         maxlength: 50
+                    },
+                    reward: {
+                        min: 0
                     }
                 },
                 messages: {
@@ -76,7 +84,10 @@
                         required: "Tên danh mục tài liệu không được để trống",
                         minlength: "Tên danh mục tài liệu phải có ít nhất {0} ký tự!",
                         maxlength: "Tên danh mục tài liệu tối đa {0} ký tự!"
-                    }             
+                    },
+                    reward: {
+                        min: "Số điểm không âm!",
+                    }                         
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {

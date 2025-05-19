@@ -153,7 +153,7 @@
                     <div class="col-md-12">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Thống kê hóa đơn</h3>
+                                <h3 class="card-title">Thống kê giao dịch</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -352,6 +352,14 @@
                             break;
                         case 4:
                             transactionType = 'Tải về tài liệu';
+                            badgeClass = 'badge bg-info';
+                            break;
+                        case 5:
+                            transactionType = 'Được phê duyệt tài liệu';
+                            badgeClass = 'badge bg-success';
+                            break;
+                        case 6:
+                            transactionType = 'Cộng điểm tài liệu được tải';
                             badgeClass = 'badge bg-info';
                             break;
                         default:

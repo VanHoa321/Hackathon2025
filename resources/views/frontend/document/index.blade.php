@@ -71,7 +71,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>                           
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -168,7 +168,7 @@
                                             </div>
                                             <div class="product-bottom">
                                                 <div class="product-price">
-                                                    <span><i class="fa-solid fa-star"></i> ${Number(item.average_rating).toFixed(1)} /10.0 (${item.rating_count} đánh giá)</span>
+                                                    <span><i class="fa-solid fa-star"></i> ${Number(item.average_rating).toFixed(1)} /5 (${item.rating_count} đánh giá)</span>
                                                 </div>
                                             </div>
                                             <div class="product-bottom">

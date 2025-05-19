@@ -20,6 +20,7 @@ use App\Http\Controllers\admin\TagController;
 use App\Http\Controllers\admin\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontEnd\AccountController as FrontEndAccountController;
+use App\Http\Controllers\frontend\AuthorController as FrontendAuthorController;
 use App\Http\Controllers\FrontEnd\DocumentController as FrontEndDocumentController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\PostController as FrontendPostController;
@@ -163,10 +164,18 @@ Route::prefix('admin')->middleware("admin")->group(function () {
     //Admin Statistic
     Route::prefix('statistic')->group(function () {
         Route::get('/rating', [StatisticController::class, 'ratingStatistic'])->name('statistic.rating');
+        Route::get('/ratings/list/{documentId}', [StatisticController::class, 'ratingList'])->name('admin.ratings.list');
         Route::get('/favourite', [StatisticController::class, 'favouriteStatistic'])->name('statistic.favourite');
         Route::get('/download', [StatisticController::class, 'downloadStatistic'])->name('statistic.download');
         Route::get('/comment', [StatisticController::class, 'commentStatistic'])->name('statistic.comment');
-        Route::get('/user-transaction', [StatisticController::class, 'userTransactionStatistic'])->name('statistic.user-transaction');
+        Route::get('/comments/list/{documentId}', [StatisticController::class, 'commentList'])->name('admin.comments.list');
+        Route::get('/user', [StatisticController::class, 'userStatistic'])->name('statistic.user');
+        Route::get('/favourites/list/{documentId}', [StatisticController::class, 'favouriteList'])->name('admin.favourites.list');
+        Route::get('/user-transaction-overview', [StatisticController::class, 'userTransactionOverview'])->name('statistic.user-transaction.overview');
+        Route::get('/user-transaction-statistic/{userId}', [StatisticController::class, 'userTransactionDetail'])->name('statistic.user-transaction.detail');
+        Route::get('/document-transaction-overview', [StatisticController::class, 'documentTransactionOverview'])->name('statistic.document-transaction-overview');
+        Route::get('/document-transaction-detail/{documentId}', [StatisticController::class, 'documentTransactionDetail'])->name('statistic.document-transaction-detail');
+        
     });
 
     //Admin Contact
@@ -223,6 +232,11 @@ Route::delete('/document/{id}/unrate', [FrontEndDocumentController::class, 'unra
 //Frontend Post
 Route::get('/post', [FrontendPostController::class, 'index'])->name('frontend.post.index');
 Route::get('/posts/{id}', [FrontendPostController::class, 'show'])->name('frontend.posts.show');
+
+//Frontend Author
+Route::get('/author', [FrontendAuthorController::class, 'index'])->name('frontend.author.index');
+Route::get('/author/{id}', [FrontEndAuthorController::class, 'show'])->name('frontend.author.details');
+
 
 Route::prefix('account')->middleware("auth")->group(function () {
     Route::get('/profile', [FrontEndAccountController::class, 'profile'])->name('frontend.profile');

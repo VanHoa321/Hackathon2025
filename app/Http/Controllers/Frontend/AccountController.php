@@ -240,7 +240,8 @@ class AccountController extends Controller
             'file_path' => $relative_path,
             'file_path_pdf' => $file_path_pdf,
             'file_format' => $file_extension,
-            'is_free' => 1,
+            'is_free' => $request->is_free,
+            'price' =>$request->price,
             'description' => $request->description,
             'uploaded_by' => Auth::user()->id,
             'status' => 0,
@@ -267,8 +268,17 @@ class AccountController extends Controller
     {
         $destroy = Document::find($id);
         if ($destroy) {
-            $destroy->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa tài liệu thành công']);
+            $transactions = $destroy->transactions;
+            if ($transactions->where('type', '!=', 3)->count() > 0) {
+                return response()->json(['danger' => false, 'message' => 'Không thể xóa tài liệu vì đã có giao dịch liên quan khác loại 3'], 403);
+            }
+            else {
+                $destroy->delete();
+                $transactions->each(function ($transaction) {
+                    $transaction->delete();
+                });
+                return response()->json(['danger' => true, 'message' => 'Xóa tài liệu thành công'], 200);
+            }
         } else {
             return response()->json(['danger' => false, 'message' => 'Tài liệu không tồn tại'], 404);
         }
@@ -332,7 +342,7 @@ class AccountController extends Controller
     public function vnpayReturn(Request $request)
     {
         $vnp_ResponseCode = $request->get('vnp_ResponseCode');
-        $vnp_Amount = $request->get('vnp_Amount') / 100;
+        $vnp_Amount = $request->get('vnp_Amount') / 100000;
 
         $user = User::find(Auth::user()->id);
 
@@ -347,7 +357,7 @@ class AccountController extends Controller
                 'type'        => 1,
                 'amount'      => $vnp_Amount,
                 'document_id' => null,
-                'note'        => 'Nạp tiền vào tài khoản qua VNPAY',
+                'note'        => 'Nạp điểm vào tài khoản qua VNPAY',
             ]);
 
             $user->point += $vnp_Amount;
