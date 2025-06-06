@@ -27,7 +27,6 @@
     <link href="{{asset("assets/plugins/toastr/toastr.min.css")}}" rel="stylesheet" />
     <link href="{{asset("assets/plugins/toastr/toastr.css")}}" rel="stylesheet" />
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -88,7 +87,11 @@
                 <x-menu-component />
             </div>
         </aside>
+        @yield('styles')
         @yield('content')
+
+        @include('layout.partial.chatbot-admin')
+
         <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
     <script src="{{asset("assets/plugins/jquery/jquery.min.js")}}"></script>
@@ -116,6 +119,7 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{asset("assets/plugins/toastr/toastr.min.js")}}"></script>
+    @yield('scriptss')
     <script type="text/javascript">
         $(function() {
             $('#example-table').DataTable({

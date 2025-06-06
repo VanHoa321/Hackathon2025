@@ -15,9 +15,10 @@
         </div>
         <div class="user-area bg py-100">
             <div class="container">
-                @if (session('messenge2'))
-                    <div class="alert alert-{{ session('messenge.style') }}">
+                @if (session('messenge'))
+                    <div class="alert alert-{{ session('messenge.style') }} alert-dismissible fade show" role="alert">
                         {{ session('messenge.msg') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <div class="row">
@@ -71,7 +72,8 @@
                                                     </div>      
                                                     <div class="col-md-9">
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Tiêu đề tài liệu</label>
                                                                     <input type="text" name="title" class="form-control" placeholder="VD: Ngày mà trời sáng" value="{{old('title')}}">
@@ -87,7 +89,9 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                             
+                                                        <div class="row">
                                                             <div class="col-md-12 mb-2">
                                                                 <label>Tải lên tài liệu</label>
                                                                 <div class="d-flex align-items-center gap-2">
@@ -98,6 +102,7 @@
                                                                     <span id="file_name_display" class="form-control bg-light" style="border: 1px solid #ced4da; padding: 10px; display: inline-block; min-height: 44px;"></span>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
@@ -111,15 +116,17 @@
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label>Phí tải về</label>
-                                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100" value="{{old('price')}}">
+                                                                        <input type="number" name="price" class="form-control" placeholder="VD: 100" value="{{old('price')}}" style="width: 100%;">
                                                                         <em>Quy ước: 1đ = 1.000 VNĐ</em>
                                                                     </div>
                                                                 </div>
                                                             </div>                                                                                                                                                                              
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label>Mô tả</label>
-                                                                    <textarea class="form-control mb-3" name="description" placeholder="Nhập mô tả tài liệu" style="height: 100px">{{ old('description') }}</textarea>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label>Mô tả</label>
+                                                                        <textarea class="form-control mb-3" name="description" placeholder="Nhập mô tả tài liệu" style="height: 100px">{{ old('description') }}</textarea>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">

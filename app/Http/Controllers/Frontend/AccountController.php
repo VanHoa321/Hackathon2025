@@ -13,6 +13,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -232,6 +234,35 @@ class AccountController extends Controller
             }
         }
 
+        $pdf_for_flask = $file_path_pdf ?? $relative_path;
+        $pdf_full_path = storage_path('app/public/' . $pdf_for_flask);
+
+        $response = Http::post('http://127.0.0.1:5007/upload-document', [
+            'pdf_path' => $pdf_full_path,
+        ]);
+
+        Log::info('Flask API Response: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE));
+        
+        if (!$response->ok()) {
+            return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Gửi file đến Flask thất bại']);
+        }
+
+        $resData = $response->json();
+
+        if (isset($resData['message']) && $resData['message'] === 'Tài liệu này đã tồn tại trong hệ thống') {
+            $similarDocs = $resData['similar_docs'] ?? [];
+
+            $maxScore = collect($similarDocs)->max('similarity_score') ?? 0;
+            $score = round($maxScore * 100, 2);
+
+            return redirect()->back()->with('messenge', [
+                'style' => 'danger',
+                'msg' => "Tài liệu đã tồn tại. Độ tương đồng cao nhất: {$score}%"
+            ]);
+        }
+
+        $vector_path = $resData['vector_path'] ?? null;
+
         $data = [
             'title' => $request->title,
             'category_id' => $request->category_id,
@@ -239,6 +270,7 @@ class AccountController extends Controller
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
             'file_path_pdf' => $file_path_pdf,
+            'vector_path' => $vector_path,
             'file_format' => $file_extension,
             'is_free' => $request->is_free,
             'price' =>$request->price,
@@ -270,7 +302,7 @@ class AccountController extends Controller
         if ($destroy) {
             $transactions = $destroy->transactions;
             if ($transactions->where('type', '!=', 3)->count() > 0) {
-                return response()->json(['danger' => false, 'message' => 'Không thể xóa tài liệu vì đã có giao dịch liên quan khác loại 3'], 403);
+                return response()->json(['danger' => false, 'message' => 'Không thể xóa tài liệu vì đã có giao dịch liên quan']);
             }
             else {
                 $destroy->delete();

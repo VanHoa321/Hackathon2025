@@ -31,6 +31,30 @@ class CallApiController extends Controller
 
         return response()->json(['question' => $question, 'answer' => $formattedAnswer]);
     }
+
+    public function askAdmin(Request $request)
+    {
+        $question = $request->input('question');
+
+        $response = Http::post('http://127.0.0.1:5008/ask-ai-admin', [
+            'question' => $question
+        ]);
+
+        if ($response->failed()) {
+            Log::error('Flask API Error: ' . $response->body());
+            return response()->json(['answer' => 'Không có phản hồi từ AI']);
+        }
+
+        $answer = $response->json()['answer'] ?? 'Không có phản hồi';
+        $chart = $response->json()['chart'] ?? null;
+
+        Log::info('Flask API Response: ' . $answer);
+        Log::info('Flask API Response: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE));
+
+        $formattedAnswer = nl2br(htmlentities($answer));
+
+        return response()->json(['question' => $question, 'answer' => $formattedAnswer, 'chart' => $chart]);
+    }
     
     public function generatePostContent(Request $request)
     {
@@ -58,20 +82,13 @@ class CallApiController extends Controller
         $id = $request->input('id');
         $question = $request->input('question');
         $document = Document::findOrFail($id);
-        $file_path = $document->file_path;
 
-        if ($document->file_path_pdf) 
-        {
-            $full_path = storage_path('app/public/' . $document->file_path_pdf);
-        }
-        else 
-        {
-            $full_path = storage_path('app/public/' . $file_path);
-        }
+        $vector_path  = storage_path('app/public/' . $document->vector_path);
+        Log::info('Vector path: ' . $vector_path);
 
         $response = Http::timeout(30)->post('http://127.0.0.1:5002/ask', [
             'question' => $question,
-            'file_path' => $full_path,
+            'vector_path' => $vector_path,
         ]);
 
         if ($response->failed()) {

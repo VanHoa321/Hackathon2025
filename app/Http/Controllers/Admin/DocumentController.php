@@ -11,7 +11,10 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class DocumentController extends Controller
 {
@@ -127,6 +130,38 @@ class DocumentController extends Controller
             }
         }
 
+        $pdf_for_flask = $file_path_pdf ?? $relative_path;
+        $pdf_full_path = storage_path('app/public/' . $pdf_for_flask);
+
+        $response = Http::post('http://127.0.0.1:5007/upload-document', [
+            'pdf_path' => $pdf_full_path,
+        ]);
+
+        Log::info('Flask API Response: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE));
+
+        if (!$response->ok()) {
+            $request->session()->put("messenge", ["style" => "danger", "msg" => "Kết nối đến Flask thất bại"]);
+        }
+
+        $resData = $response->json();
+
+        if (isset($resData['message']) && $resData['message'] === 'Tài liệu này đã tồn tại trong hệ thống') {
+            $similarDocs = $resData['similar_docs'] ?? [];
+
+            $maxScore = collect($similarDocs)->max('similarity_score') ?? 0;
+            $score = round($maxScore * 100, 2);
+
+            return redirect()->back()->with('messenge', [
+                'style' => 'danger',
+                'msg' => "Tài liệu đã tồn tại. Độ tương đồng cao nhất: {$score}%"
+            ]);
+        }
+
+        $vector_path = $resData['vector_path'];
+        if (!$vector_path) {
+            return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Không thể tạo vector cho tài liệu']);
+        }
+
         $data = [
             'title' => $request->title,
             'category_id' => $request->category_id,
@@ -134,6 +169,7 @@ class DocumentController extends Controller
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
             'file_path' => $relative_path,
             'file_path_pdf' => $file_path_pdf,
+            'vector_path' => $vector_path,
             'file_format' => $file_extension,
             'is_free' => $request->is_free,
             "price" => $request->price,
@@ -176,23 +212,112 @@ class DocumentController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $data = [
+        $document = Document::findOrFail($id);
+
+        $old_file_path = $document->file_path;
+        $old_file_pdf = $document->file_path_pdf;
+        $old_vector_path = $document->vector_path;
+
+        $new_file_path = $request->file_path;
+        $file_path_pdf = $old_file_pdf;
+        $vector_path = $old_vector_path;
+
+        if ($new_file_path !== $old_file_path) {
+            // Xóa file cũ
+            if ($old_file_pdf && file_exists(storage_path('app/public/' . $old_file_pdf))) {
+                unlink(storage_path('app/public/' . $old_file_pdf));
+            }
+            $full_vector_path = storage_path('app/public/' . $old_vector_path);
+
+            if (File::isDirectory($full_vector_path)) {
+                File::deleteDirectory($full_vector_path);
+            }
+
+            $uid = Auth::user()->id;
+            $relative_path = preg_replace('#^https?://[^/]+/storage/#', '', $new_file_path);
+            $file_extension = strtolower(pathinfo($relative_path, PATHINFO_EXTENSION));
+
+            if ($file_extension !== 'pdf') {
+                $input_path = storage_path('app/public/' . $relative_path);
+                $output_dir = storage_path('app/public/files/pdf/' . $uid . '/');
+                $output_filename = pathinfo($relative_path, PATHINFO_FILENAME) . '.pdf';
+                $output_path = $output_dir . DIRECTORY_SEPARATOR . $output_filename;
+
+                if (!file_exists($output_dir)) {
+                    mkdir($output_dir, 0775, true);
+                }
+
+                if (!file_exists($input_path)) {
+                    return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Tệp đầu vào không tồn tại: ' . $input_path]);
+                }
+
+                $soffice_path = 'C:\\Program Files\\LibreOffice\\program\\soffice.exe';
+                $command = [
+                    escapeshellarg($soffice_path),
+                    '--headless',
+                    '--convert-to',
+                    'pdf',
+                    escapeshellarg($input_path),
+                    '--outdir',
+                    escapeshellarg($output_dir)
+                ];
+                $command_str = implode(' ', $command);
+                $output = shell_exec($command_str . ' 2>&1');
+
+                if (file_exists($output_path)) {
+                    $file_path_pdf = 'files/pdf/' . $uid . '/' . $output_filename;
+                } else {
+                    return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Không thể tạo tệp PDF. Kiểm tra log để biết chi tiết.']);
+                }
+            }
+
+            $pdf_for_flask = $file_path_pdf ?? $relative_path;
+            $pdf_full_path = storage_path('app/public/' . $pdf_for_flask);
+
+            $response = Http::post('http://127.0.0.1:5007/upload-document', [
+                'pdf_path' => $pdf_full_path,
+            ]);
+
+            Log::info('Flask API Response: ' . json_encode($response->json(), JSON_UNESCAPED_UNICODE));
+
+            if (!$response->ok()) {
+                return redirect()->back()->with('messenge', ['style' => 'danger', 'msg' => 'Gửi file đến Flask thất bại']);
+            }
+
+            $resData = $response->json();
+
+            if (isset($resData['message']) && $resData['message'] === 'Tài liệu này đã tồn tại trong hệ thống') {
+                $similarDocs = $resData['similar_docs'] ?? [];
+
+                $maxScore = collect($similarDocs)->max('similarity_score') ?? 0;
+                $score = round($maxScore * 100, 2);
+
+                return redirect()->back()->with('messenge', [
+                    'style' => 'danger',
+                    'msg' => "Tài liệu đã tồn tại. Độ tương đồng cao nhất: {$score}%"
+                ]);
+            }
+
+            $vector_path = $resData['vector_path'] ?? null;
+        }
+
+        $document->update([
             'title' => $request->title,
             'category_id' => $request->category_id,
             'publisher_id' => $request->publisher_id,
             'cover_image' => $request->cover_image ? $request->cover_image : "/storage/files/1/Avatar/no-image.jpg",
-            'file_path' => $request->file_path,
-            'file_format' => pathinfo($request->file_path, PATHINFO_EXTENSION),
+            'file_path' => $new_file_path,
+            'file_path_pdf' => $file_path_pdf,
+            'vector_path' => $vector_path,
+            'file_format' => pathinfo($new_file_path, PATHINFO_EXTENSION),
             'is_free' => $request->is_free,
             'price' => $request->price,
             'description' => $request->description,
             'publication_year' => $request->publication_year,
             'uploaded_by' => Auth::user()->id,
             'status' => 1
-        ];
+        ]);
 
-        $document = Document::findOrFail($id);
-        $document->update($data);
         if ($request->has('authors')) {
             $document->authors()->sync($request->authors);
         }
@@ -200,6 +325,7 @@ class DocumentController extends Controller
         $request->session()->put("messenge", ["style" => "success", "msg" => "Cập nhật thông tin tài liệu thành công"]);
         return redirect()->route("document.index");
     }
+
 
     public function destroy(string $id)
     {
@@ -270,9 +396,34 @@ class DocumentController extends Controller
     public function refuse($id)
     {
         $item = Document::findOrFail($id);
+
+        $old_file_pdf = $item->file_path_pdf;
+        $old_vector_path = $item->vector_path;
+
+        if (!empty($old_file_pdf)) {
+            $pdfPath = storage_path('app/public/' . $old_file_pdf);
+            Log::info('Kiểm tra file PDF', ['pdfPath' => $pdfPath]);
+            if (file_exists($pdfPath)) {
+                Log::info('Đã xóa file PDF', ['pdfPath' => $pdfPath]);
+                unlink($pdfPath);
+            }
+            $item->file_path_pdf = null;
+        }
+
+        if (!empty($old_vector_path)) {
+            $vectorPath = storage_path('app/public/' . $old_vector_path);
+            Log::info('Kiểm tra thư mục vector', ['vectorPath' => $vectorPath]);
+            if (File::isDirectory($vectorPath)) {
+                File::deleteDirectory($vectorPath);
+                Log::info('Đã xóa thư mục vector', ['vectorPath' => $vectorPath]);
+            }
+            $item->vector_path = null;
+        }
+
         $item->approve = 2;
         $item->status = 0;
         $item->save();
+        Log::info('Đã cập nhật trạng thái document', ['id' => $id, 'approve' => 2, 'status' => 0]);
         return response()->json(['success' => true, 'message' => 'Đã từ chối phê duyệt']);
     }
 

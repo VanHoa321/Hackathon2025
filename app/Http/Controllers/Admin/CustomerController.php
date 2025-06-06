@@ -109,13 +109,16 @@ class CustomerController extends Controller
 
     public function destroy(string $id)
     {
-        $destroy = User::find($id);
-        if ($destroy) {
-            $destroy->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa khách hàng thành công']);
-        } else {
-            return response()->json(['danger' => false, 'message' => 'Khách hàng không tồn tại'], 404);
+        $user = User::find($id);
+        
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Khách hàng không tồn tại'], 404);
         }
+        if ($user->transactions()->count() > 0) {
+            return response()->json(['success' => false, 'message' => 'Không thể xóa khách hàng vì đã có giao dịch'], 422);
+        }
+        $user->delete();
+        return response()->json(['success' => true, 'message' => 'Xóa khách hàng thành công']);
     }
     
     public function changeStatus($id)

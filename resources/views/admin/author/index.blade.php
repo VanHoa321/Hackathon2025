@@ -134,11 +134,15 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                toastr.success(response.message);
-                                $('#author-' + id).remove();
+                                if (response.success) {
+                                    toastr.success(response.message);
+                                    $('#author-' + id).remove();
+                                } else {
+                                    toastr.error(response.message);
+                                }
                             },
                             error: function(xhr) {
-                                toastr.error('Có lỗi khi xóa tác giả');
+                                toastr.error(xhr.responseJSON.message || 'Đã có lỗi xảy ra');
                             }
                         });
                     }

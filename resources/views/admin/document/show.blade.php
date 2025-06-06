@@ -67,6 +67,22 @@
                                 </div>
                                 <hr>
                                 <div class="row">
+                                    <div class="col-lg-3 col-md-4 label"><strong>Hình thức</strong></div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $item->is_free ? 'Miễn phí' : 'Mất phí' }}
+                                    </div>
+                                </div>
+                                <hr>
+                                @if (!$item->is_free)
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label"><strong>Phí tải</strong></div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {{ $item->price }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @endif
+                                <div class="row">
                                     <div class="col-lg-3 col-md-4 label"><strong>Mô tả</strong></div>
                                     <div class="col-lg-9 col-md-8">{{ $item->description ? $item->description : "Chưa cập nhật" }}</div>
                                 </div>

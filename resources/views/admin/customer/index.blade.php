@@ -151,11 +151,15 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function(response) {
-                                toastr.success(response.message);
-                                $('#customer-' + id).remove();
+                                if (response.success) {
+                                    toastr.success(response.message);
+                                     $('#customer-' + id).remove();
+                                } else {
+                                    toastr.error(response.message);
+                                }
                             },
                             error: function(xhr) {
-                                toastr.error('Có lỗi khi xóa khách hàng');
+                                toastr.error(xhr.responseJSON.message || 'Đã có lỗi xảy ra');
                             }
                         });
                     }

@@ -16,6 +16,7 @@ class Document extends Model
         'cover_image',
         'file_path',
         'file_path_pdf',
+        'vector_path',
         'file_format',
         'is_free',
         'price',

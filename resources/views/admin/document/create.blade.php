@@ -12,15 +12,17 @@
                     </div>
                 </div>
             </div>
-            @if ($errors->any())
-                <div style="position: fixed; top: 70px; right: 16px; width: auto; z-index: 999" id="myAlert">
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger" role="alert">
-                            <i class="bi bi-check2 text-danger"></i> {{ $error }}
-                        </div>
-                    @endforeach
+            @if (session('messenge'))
+            <div style="position: fixed; top: 70px; right: 16px; width: auto; z-index: 999" id="myAlert">
+                <div class="alert alert-{{ session('messenge')['style'] ?? 'info' }} mb-0" role="alert" style="padding: 10px 16px;">
+                    <i class="bi bi-info-circle-fill text-{{ session('messenge')['style'] ?? 'info' }}"></i>
+                    <span class="ms-2">
+                        {{ session('messenge')['msg'] }}
+                    </span>
                 </div>
-            @endif
+            </div>
+        @endif
+
         </section>
 
         <section class="content">

@@ -111,20 +111,18 @@
                                                     @if ($item->file_path_pdf)
                                                         <a href="{{ route('frontend.document.downloadPDF', $item->id) }}" class="theme-btn"><i class="fa-solid fa-cloud-arrow-down me-1"></i>(pdf)</a>
                                                     @endif
+                                                        <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
+                                                        data-requires-login="{{ Auth::check() ? 'false' : 'true' }}"
+                                                        data-has-rated="{{ $userRating ? 'true' : 'false' }}"
+                                                        data-rating="{{ $userRating ? $userRating->rating : '' }}">
+                                                        <i class="fa-solid fa-star me-1"></i>{{ $userRating ? 'Sửa đánh giá' : 'Đánh giá' }}
+                                                    </a>
                                                 @endauth
                                             @else
                                                 @if ($item->uploaded_by != Auth::id())
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#purchaseModal" class="theme-btn"><i class="fa-solid fa-cart-shopping me-1"></i>Mua tài liệu ({{ number_format($item->price, 0, ',', '.') }}đ)</a>                        
                                                 @endif
                                             @endif
-                                            @auth
-                                                <a href="#" class="theme-btn rate-btn" data-bs-toggle="{{ Auth::check() ? 'modal' : '' }}" data-bs-target="{{ Auth::check() ? '#ratingModal' : '' }}"
-                                                    data-requires-login="{{ Auth::check() ? 'false' : 'true' }}"
-                                                    data-has-rated="{{ $userRating ? 'true' : 'false' }}"
-                                                    data-rating="{{ $userRating ? $userRating->rating : '' }}">
-                                                    <i class="fa-solid fa-star me-1"></i>{{ $userRating ? 'Sửa đánh giá' : 'Đánh giá' }}
-                                                </a>
-                                            @endauth
                                             <a href="#" data-tooltip="tooltip" title="{{ Auth::check() && $item->favourited_by_user ? 'Bỏ yêu thích' : 'Yêu thích' }}"
                                                 class="favourite-btn theme-btn theme-btn2 {{ Auth::check() && $item->favourited_by_user ? 'favourited' : '' }}"
                                                 data-document-id="{{ $item->id }}"

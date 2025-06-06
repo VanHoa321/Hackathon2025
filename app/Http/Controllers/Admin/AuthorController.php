@@ -97,13 +97,18 @@ class AuthorController extends Controller
 
     public function destroy(string $id)
     {
-        $destroy = Author::find($id);
-        if ($destroy) {
-            $destroy->delete();
-            return response()->json(['success' => true, 'message' => 'Xóa tác giả thành công']);
-        } else {
-            return response()->json(['danger' => false, 'message' => 'Tác giả không tồn tại'], 404);
+        $author = Author::find($id);
+
+        if (!$author) {
+            return response()->json(['success' => false, 'message' => 'Tác giả không tồn tại'], 404);
         }
+
+        if ($author->documents()->count() > 0) {
+            return response()->json(['success' => false, 'message' => 'Không thể xóa tác giả vì đã có sách'], 422);
+        }
+        
+        $author->delete();
+        return response()->json(['success' => true, 'message' => 'Xóa tác giả thành công']);
     }
     
     public function changeActive($id){
